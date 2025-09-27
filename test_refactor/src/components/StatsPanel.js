@@ -59,45 +59,6 @@ const StatsPanel = ({ statistics, fieldDimensions, lineOfScrimmage }) => {
                 </div>
             ) : null}
 
-            {/* Field Dimensions */}
-            {fieldDimensions ? (
-                <div className="border-t pt-4">
-                    <h3 className="text-lg font-semibold text-gray-800 mb-3">📏 Field Dimensions</h3>
-                    <div className="grid grid-cols-1 md:grid-cols-4 gap-4 text-sm">
-                        <div className="bg-gray-50 p-3 rounded-lg">
-                            <div className="font-semibold text-gray-800">
-                                {fieldDimensions.widthYards?.toFixed(1)} yards
-                            </div>
-                            <div className="text-gray-600">Field Width (NFL Standard)</div>
-                        </div>
-                        <div className="bg-gray-50 p-3 rounded-lg">
-                            <div className="font-semibold text-gray-800">
-                                {fieldDimensions.lengthYards?.toFixed(1)} yards
-                            </div>
-                            <div className="text-gray-600">Detected Length</div>
-                        </div>
-                        <div className="bg-gray-50 p-3 rounded-lg">
-                            <div className="font-semibold text-gray-800">
-                                {fieldDimensions.pixelsPerYard?.toFixed(1)} px/yd
-                            </div>
-                            <div className="text-gray-600">Scale</div>
-                        </div>
-                        {lineOfScrimmage ? (
-                            <div className="bg-yellow-50 p-3 rounded-lg">
-                                <div className="font-semibold text-yellow-800">
-                                    x = {lineOfScrimmage.toFixed(1)}
-                                </div>
-                                <div className="text-gray-600">Line of Scrimmage</div>
-                            </div>
-                        ) : (
-                            <div className="bg-gray-50 p-3 rounded-lg">
-                                <div className="font-semibold text-gray-800">--</div>
-                                <div className="text-gray-600">Line of Scrimmage</div>
-                            </div>
-                        )}
-                    </div>
-                </div>
-            ) : null}
         </div>
     );
 };

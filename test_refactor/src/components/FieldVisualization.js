@@ -239,51 +239,6 @@ const FieldVisualization = ({
         return marks;
     }, [fieldScale, detections, pixelToSVG]);
 
-    // Generate field numbers based on actual yardage
-    const generateFieldNumbers = useCallback(() => {
-        if (!fieldScale.lineOfScrimmage || !fieldScale.pixelsPerYard) return [];
-        
-        const numbers = [];
-        const players = detections?.filter(d => d.class === 'player') || [];
-        if (players.length === 0) return [];
-        
-        // Calculate yard positions relative to line of scrimmage
-        const xPositions = players.map(p => p.x);
-        const minX = Math.min(...xPositions);
-        const maxX = Math.max(...xPositions);
-        
-        // Convert to yards from line of scrimmage
-        const minYards = Math.floor((minX - fieldScale.lineOfScrimmage) / fieldScale.pixelsPerYard / 5) * 5; // Round to nearest 5
-        const maxYards = Math.ceil((maxX - fieldScale.lineOfScrimmage) / fieldScale.pixelsPerYard / 5) * 5;
-        
-        // Generate yard markers every 5 yards within the visible area
-        for (let yards = minYards; yards <= maxYards; yards += 5) {
-            if (yards === 0) continue; // Skip line of scrimmage (it's already marked)
-            
-            const pixelX = fieldScale.lineOfScrimmage + (yards * fieldScale.pixelsPerYard);
-            const svgPos = pixelToSVG(pixelX, fieldScale.fieldCenterY);
-            
-            // Only show if within visible area
-            if (svgPos.x >= 0 && svgPos.x <= fieldScale.width) {
-                numbers.push(
-                    <text
-                        key={`yard-${yards}`}
-                        x={svgPos.x}
-                        y={fieldScale.height / 2 + 15}
-                        textAnchor="middle"
-                        fontSize="12"
-                        fill="white"
-                        opacity="0.8"
-                        fontWeight="bold"
-                    >
-                        {Math.abs(yards)}
-                    </text>
-                );
-            }
-        }
-        
-        return numbers;
-    }, [fieldScale, detections, pixelToSVG]);
 
     // Generate sidelines at the very edges of the visualization
     const generateSidelines = useCallback(() => {
@@ -546,9 +501,6 @@ const FieldVisualization = ({
                         {/* Hash marks */}
                         <g>{generateHashMarks()}</g>
                         
-                        {/* Field numbers */}
-                        <g>{generateFieldNumbers()}</g>
-                        
                         {/* Line of scrimmage */}
                         {generateLineOfScrimmage()}
                         
@@ -595,34 +547,6 @@ const FieldVisualization = ({
                         </div>
                     </div>
                     
-                    {/* Scale Information */}
-                    <div className="text-xs text-gray-600 border-t pt-2">
-                        <div className="grid grid-cols-3 gap-4">
-                            <div>
-                                <strong>Field Dimensions:</strong>
-                                <br />• Width: {fieldScale.visualizationWidthYards?.toFixed(1)} yards
-                                <br />• Height: {fieldScale.visualizationHeightYards?.toFixed(1)} yards
-                                <br />• Display: {fieldScale.width?.toFixed(0)}×{fieldScale.height?.toFixed(0)} px
-                            </div>
-                            <div>
-                                <strong>Scale Accuracy:</strong>
-                                <br />• {fieldScale.pixelsPerYard?.toFixed(1)} pixels per yard (original)
-                                <br />• {fieldScale.displayScale?.toFixed(1)} pixels per yard (display)
-                                {fieldScale.estimatedBackfieldYards && (
-                                    <>
-                                        <br />• Backfield depth: {fieldScale.estimatedBackfieldYards?.toFixed(1)} yards
-                                    </>
-                                )}
-                            </div>
-                            <div>
-                                <strong>Export Data:</strong>
-                                <br />• Player coordinates in yards
-                                <br />• Distances from line of scrimmage
-                                <br />• Team classifications & metadata
-                                <br />• Uses "Export JSON" button above
-                            </div>
-                        </div>
-                    </div>
                 </div>
             </div>
         </div>

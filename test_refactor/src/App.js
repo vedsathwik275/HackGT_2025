@@ -6,7 +6,6 @@ import ImageUpload from './components/ImageUpload';
 import ProcessingStatus from './components/ProcessingStatus';
 import StatsPanel from './components/StatsPanel';
 import FieldVisualization from './components/FieldVisualization';
-import DetectionTable from './components/DetectionTable';
 import NotificationManager from './components/NotificationManager';
 
 function App() {
@@ -46,6 +45,14 @@ function App() {
                         handleClearAll();
                     }
                     break;
+                case 'e':
+                    if (e.ctrlKey || e.metaKey) {
+                        e.preventDefault();
+                        if (detectionData.mappedData) {
+                            detectionData.exportMappedData();
+                        }
+                    }
+                    break;
                 case 'escape':
                     detectionData.clearHighlights();
                     break;
@@ -72,6 +79,7 @@ function App() {
             console.log('  Ctrl+D / Cmd+D: Detect players');
             console.log('  Ctrl+S / Cmd+S: Load sample data');
             console.log('  Ctrl+C / Cmd+C: Clear all');
+            console.log('  Ctrl+E / Cmd+E: Export coordinates');
             console.log('  Escape: Clear highlights');
         }, 1000);
 
@@ -107,14 +115,6 @@ function App() {
                     fieldDimensions={detectionData.fieldDimensions}
                     highlightedIndex={detectionData.highlightedIndex}
                     onMarkerClick={detectionData.highlightDetection}
-                />
-                
-                <DetectionTable
-                    detections={detectionData.detections}
-                    mappedData={detectionData.mappedData}
-                    highlightedIndex={detectionData.highlightedIndex}
-                    onRowClick={detectionData.highlightDetection}
-                    onExportData={detectionData.exportMappedData}
                 />
             </div>
             
