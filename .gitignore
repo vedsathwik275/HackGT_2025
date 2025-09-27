@@ -9,3 +9,17 @@ node_modules
 
 // ignore .env.development.local
 .env.development.local
+
+// pycache
+__pycache__
+
+//hackgt
+hackgt
+
+//hackgt/bin
+hackgt/bin
+
+//hackgt/lib/python3.12/site-packages
+hackgt/lib/python3.12/site-packages
+
+//hackgt/lib/python3.12/site-packages/col_full_test.py
