@@ -1,0 +1,366 @@
+{
+  "metadata": {
+    "coordinate_system": {
+      "x_axis": "Line of scrimmage at x=0, offensive direction is positive",
+      "y_axis": "Field center at y=0, sidelines at \u00b126.65 yards",
+      "units": "yards"
+    },
+    "field_dimensions": {
+      "width_yards": 53.3,
+      "length_yards": 6.179577464788733,
+      "pixels_per_yard": 56.8
+    },
+    "line_of_scrimmage_pixel": 500.75,
+    "field_center_y_pixel": 298.0
+  },
+  "players": [
+    {
+      "detection_id": "0b7f9539-f4f1-4872-ad08-42d21355bba9",
+      "team": "offense",
+      "coordinates": {
+        "x_yards": -2.63,
+        "y_yards": -1.0,
+        "original_pixel_x": 351.5,
+        "original_pixel_y": 241
+      },
+      "confidence": 0.927,
+      "bounding_box": {
+        "width_pixels": 61,
+        "height_pixels": 68,
+        "width_yards": 1.07,
+        "height_yards": 1.2
+      }
+    },
+    {
+      "detection_id": "7c5e5c3a-f56e-4e6f-9ebc-1d3a448e4a83",
+      "team": "offense",
+      "coordinates": {
+        "x_yards": -2.13,
+        "y_yards": 3.01,
+        "original_pixel_x": 380,
+        "original_pixel_y": 469
+      },
+      "confidence": 0.917,
+      "bounding_box": {
+        "width_pixels": 80,
+        "height_pixels": 102,
+        "width_yards": 1.41,
+        "height_yards": 1.8
+      }
+    },
+    {
+      "detection_id": "be6372b0-b7bb-42f9-ac20-6a042db321cb",
+      "team": "offense",
+      "coordinates": {
+        "x_yards": -0.49,
+        "y_yards": -1.99,
+        "original_pixel_x": 473,
+        "original_pixel_y": 185
+      },
+      "confidence": 0.915,
+      "bounding_box": {
+        "width_pixels": 48,
+        "height_pixels": 74,
+        "width_yards": 0.85,
+        "height_yards": 1.3
+      }
+    },
+    {
+      "detection_id": "5ef24bef-3fb5-46e6-a91a-9deea896f10a",
+      "team": "defense",
+      "coordinates": {
+        "x_yards": 0.49,
+        "y_yards": -0.3,
+        "original_pixel_x": 528.5,
+        "original_pixel_y": 281
+      },
+      "confidence": 0.907,
+      "bounding_box": {
+        "width_pixels": 61,
+        "height_pixels": 52,
+        "width_yards": 1.07,
+        "height_yards": 0.92
+      }
+    },
+    {
+      "detection_id": "340e07c6-5787-42f6-832a-51836d5e24e4",
+      "team": "defense",
+      "coordinates": {
+        "x_yards": 0.55,
+        "y_yards": 3.09,
+        "original_pixel_x": 532,
+        "original_pixel_y": 473.5
+      },
+      "confidence": 0.904,
+      "bounding_box": {
+        "width_pixels": 54,
+        "height_pixels": 95,
+        "width_yards": 0.95,
+        "height_yards": 1.67
+      }
+    },
+    {
+      "detection_id": "84ce3940-4735-4a63-ad0c-3f36815a72d6",
+      "team": "defense",
+      "coordinates": {
+        "x_yards": 2.32,
+        "y_yards": -1.05,
+        "original_pixel_x": 632.5,
+        "original_pixel_y": 238.5
+      },
+      "confidence": 0.904,
+      "bounding_box": {
+        "width_pixels": 35,
+        "height_pixels": 81,
+        "width_yards": 0.62,
+        "height_yards": 1.43
+      }
+    },
+    {
+      "detection_id": "5956021f-ec46-4f3b-a56b-f61ff078dbb1",
+      "team": "offense",
+      "coordinates": {
+        "x_yards": -1.52,
+        "y_yards": -3.09,
+        "original_pixel_x": 414.5,
+        "original_pixel_y": 122.5
+      },
+      "confidence": 0.903,
+      "bounding_box": {
+        "width_pixels": 47,
+        "height_pixels": 73,
+        "width_yards": 0.83,
+        "height_yards": 1.29
+      }
+    },
+    {
+      "detection_id": "886d4c53-7abd-4111-8068-ee6b865142ee",
+      "team": "defense",
+      "coordinates": {
+        "x_yards": 3.19,
+        "y_yards": 1.14,
+        "original_pixel_x": 682,
+        "original_pixel_y": 362.5
+      },
+      "confidence": 0.902,
+      "bounding_box": {
+        "width_pixels": 42,
+        "height_pixels": 83,
+        "width_yards": 0.74,
+        "height_yards": 1.46
+      }
+    },
+    {
+      "detection_id": "17485a06-717f-4592-83d0-42894cc7b401",
+      "team": "defense",
+      "coordinates": {
+        "x_yards": 1.2,
+        "y_yards": -2.93,
+        "original_pixel_x": 569,
+        "original_pixel_y": 131.5
+      },
+      "confidence": 0.897,
+      "bounding_box": {
+        "width_pixels": 34,
+        "height_pixels": 63,
+        "width_yards": 0.6,
+        "height_yards": 1.11
+      }
+    },
+    {
+      "detection_id": "147f4d40-978d-439f-a6a6-f7a7f9b5184d",
+      "team": "defense",
+      "coordinates": {
+        "x_yards": 9.12,
+        "y_yards": 1.8,
+        "original_pixel_x": 1018.5,
+        "original_pixel_y": 400.5
+      },
+      "confidence": 0.896,
+      "bounding_box": {
+        "width_pixels": 39,
+        "height_pixels": 85,
+        "width_yards": 0.69,
+        "height_yards": 1.5
+      }
+    },
+    {
+      "detection_id": "d4f42b03-594b-4c2f-b384-54a71b04bc5b",
+      "team": "offense",
+      "coordinates": {
+        "x_yards": -5.49,
+        "y_yards": 0.99,
+        "original_pixel_x": 189,
+        "original_pixel_y": 354
+      },
+      "confidence": 0.893,
+      "bounding_box": {
+        "width_pixels": 44,
+        "height_pixels": 94,
+        "width_yards": 0.77,
+        "height_yards": 1.65
+      }
+    },
+    {
+      "detection_id": "35f847bc-3ecd-422d-90f3-b74dacfdbd33",
+      "team": "defense",
+      "coordinates": {
+        "x_yards": 3.4,
+        "y_yards": -1.84,
+        "original_pixel_x": 694,
+        "original_pixel_y": 193.5
+      },
+      "confidence": 0.891,
+      "bounding_box": {
+        "width_pixels": 34,
+        "height_pixels": 69,
+        "width_yards": 0.6,
+        "height_yards": 1.21
+      }
+    },
+    {
+      "detection_id": "49596639-697c-4a08-bcf4-849f24fce78c",
+      "team": "offense",
+      "coordinates": {
+        "x_yards": -4.66,
+        "y_yards": 0.53,
+        "original_pixel_x": 236,
+        "original_pixel_y": 328
+      },
+      "confidence": 0.889,
+      "bounding_box": {
+        "width_pixels": 38,
+        "height_pixels": 96,
+        "width_yards": 0.67,
+        "height_yards": 1.69
+      }
+    },
+    {
+      "detection_id": "8133a6df-fa97-46bf-b38d-4c3400666c53",
+      "team": "defense",
+      "coordinates": {
+        "x_yards": 0.5,
+        "y_yards": 1.74,
+        "original_pixel_x": 529,
+        "original_pixel_y": 397
+      },
+      "confidence": 0.889,
+      "bounding_box": {
+        "width_pixels": 64,
+        "height_pixels": 90,
+        "width_yards": 1.13,
+        "height_yards": 1.58
+      }
+    },
+    {
+      "detection_id": "3216b71d-0344-4c84-92f3-b01e7ab81652",
+      "team": "defense",
+      "coordinates": {
+        "x_yards": 6.66,
+        "y_yards": -1.47,
+        "original_pixel_x": 879,
+        "original_pixel_y": 214.5
+      },
+      "confidence": 0.886,
+      "bounding_box": {
+        "width_pixels": 34,
+        "height_pixels": 69,
+        "width_yards": 0.6,
+        "height_yards": 1.21
+      }
+    },
+    {
+      "detection_id": "771ae14a-da18-45c9-bf96-8df6e7a248bc",
+      "team": "defense",
+      "coordinates": {
+        "x_yards": 0.59,
+        "y_yards": 0.55,
+        "original_pixel_x": 534.5,
+        "original_pixel_y": 329
+      },
+      "confidence": 0.88,
+      "bounding_box": {
+        "width_pixels": 67,
+        "height_pixels": 54,
+        "width_yards": 1.18,
+        "height_yards": 0.95
+      }
+    },
+    {
+      "detection_id": "2351aeb8-5e32-4b01-8490-b710102e1847",
+      "team": "offense",
+      "coordinates": {
+        "x_yards": -0.74,
+        "y_yards": 0.8,
+        "original_pixel_x": 459,
+        "original_pixel_y": 343.5
+      },
+      "confidence": 0.872,
+      "bounding_box": {
+        "width_pixels": 56,
+        "height_pixels": 61,
+        "width_yards": 0.99,
+        "height_yards": 1.07
+      }
+    },
+    {
+      "detection_id": "41f46066-c483-46db-9e50-116baac2fce6",
+      "team": "offense",
+      "coordinates": {
+        "x_yards": -1.52,
+        "y_yards": 1.34,
+        "original_pixel_x": 414.5,
+        "original_pixel_y": 374
+      },
+      "confidence": 0.861,
+      "bounding_box": {
+        "width_pixels": 53,
+        "height_pixels": 74,
+        "width_yards": 0.93,
+        "height_yards": 1.3
+      }
+    },
+    {
+      "detection_id": "702b6259-728d-46a5-8e39-29e010ce8f1a",
+      "team": "offense",
+      "coordinates": {
+        "x_yards": -1.4,
+        "y_yards": 0.22,
+        "original_pixel_x": 421.5,
+        "original_pixel_y": 310.5
+      },
+      "confidence": 0.793,
+      "bounding_box": {
+        "width_pixels": 57,
+        "height_pixels": 49,
+        "width_yards": 1.0,
+        "height_yards": 0.86
+      }
+    }
+  ],
+  "referees": [
+    {
+      "detection_id": "ab02f8de-902e-495c-9988-b1829c9b89dc",
+      "coordinates": {
+        "x_yards": 5.73,
+        "y_yards": 0.42,
+        "original_pixel_x": 826,
+        "original_pixel_y": 322
+      },
+      "confidence": 0.89,
+      "bounding_box": {
+        "width_pixels": 34,
+        "height_pixels": 88,
+        "width_yards": 0.6,
+        "height_yards": 1.55
+      }
+    }
+  ],
+  "team_stats": {
+    "total_players": 19,
+    "offense_count": 9,
+    "defense_count": 10,
+    "referee_count": 1,
+    "team_balance": "balanced"
+  }
+}
