@@ -1,0 +1,11 @@
+// ignore node modules
+node_modules
+
+// ignore .env
+.env
+
+// ignore .env.local
+.env.local
+
+// ignore .env.development.local
+.env.development.local
