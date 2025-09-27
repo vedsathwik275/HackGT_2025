@@ -1,9 +1,13 @@
+import { MapCoordinates } from './MapCoordinates.js';
+
 export class ImageProcessor {
     constructor() {
         this.API_KEY = "Imm66rNLdtpVKJSwH4Cl"; // Replace with your Roboflow API key
         this.API_URL = "https://serverless.roboflow.com/all-football/1";
         this.currentImage = null;
         this.originalImageDimensions = { width: 1280, height: 600 };
+        this.mapCoordinates = new MapCoordinates();
+        this.lastMappedData = null;
         
         this.setupEventListeners();
     }
@@ -17,6 +21,16 @@ export class ImageProcessor {
         // JSON file upload
         document.getElementById('jsonFileInput').addEventListener('change', (e) => {
             this.loadJsonFile(e.target.files[0]);
+        });
+
+        // Export mapped coordinates
+        document.addEventListener('DOMContentLoaded', () => {
+            const exportButton = document.getElementById('exportMappedData');
+            if (exportButton) {
+                exportButton.addEventListener('click', () => {
+                    this.exportMappedCoordinates();
+                });
+            }
         });
     }
 
@@ -83,15 +97,25 @@ export class ImageProcessor {
             
             const data = await response.json();
             
+            // Process coordinate mapping
+            this.showProcessingStatus(true, 'Mapping coordinates to field positions...');
+            const coordinateResults = this.processCoordinateMapping(data);
+            
             this.showProcessingStatus(false);
             
-            // Dispatch event with detection results
+            // Dispatch event with detection results and mapped coordinates
             window.dispatchEvent(new CustomEvent('detectionsReceived', {
-                detail: { data, imageDimensions: this.originalImageDimensions }
+                detail: { 
+                    data, 
+                    imageDimensions: this.originalImageDimensions,
+                    mappedData: coordinateResults.mappedData,
+                    lineOfScrimmage: coordinateResults.lineOfScrimmageX,
+                    fieldDimensions: coordinateResults.fieldDims
+                }
             }));
             
             // Show success message
-            this.showSuccessMessage(`Successfully detected ${data.predictions.length} objects!`);
+            this.showSuccessMessage(`Successfully detected ${data.predictions.length} objects and mapped coordinates!`);
 
         } catch (error) {
             this.showProcessingStatus(false);
@@ -121,12 +145,21 @@ export class ImageProcessor {
             try {
                 const data = JSON.parse(e.target.result);
                 
-                // Dispatch event with JSON data
+                // Process coordinate mapping
+                const coordinateResults = this.processCoordinateMapping(data);
+                
+                // Dispatch event with JSON data and mapped coordinates
                 window.dispatchEvent(new CustomEvent('detectionsReceived', {
-                    detail: { data, imageDimensions: this.originalImageDimensions }
+                    detail: { 
+                        data, 
+                        imageDimensions: this.originalImageDimensions,
+                        mappedData: coordinateResults.mappedData,
+                        lineOfScrimmage: coordinateResults.lineOfScrimmageX,
+                        fieldDimensions: coordinateResults.fieldDims
+                    }
                 }));
                 
-                this.showSuccessMessage('JSON file loaded successfully!');
+                this.showSuccessMessage('JSON file loaded and coordinates mapped successfully!');
             } catch (error) {
                 this.showErrorMessage('Error parsing JSON file: ' + error.message);
             }
@@ -152,12 +185,21 @@ export class ImageProcessor {
         
         this.originalImageDimensions = { width: 1280, height: 600 };
         
-        // Dispatch event with sample data
+        // Process coordinate mapping for sample data
+        const coordinateResults = this.processCoordinateMapping(sampleData);
+        
+        // Dispatch event with sample data and mapped coordinates
         window.dispatchEvent(new CustomEvent('detectionsReceived', {
-            detail: { data: sampleData, imageDimensions: this.originalImageDimensions }
+            detail: { 
+                data: sampleData, 
+                imageDimensions: this.originalImageDimensions,
+                mappedData: coordinateResults.mappedData,
+                lineOfScrimmage: coordinateResults.lineOfScrimmageX,
+                fieldDimensions: coordinateResults.fieldDims
+            }
         }));
         
-        this.showSuccessMessage('Sample data loaded successfully!');
+        this.showSuccessMessage('Sample data loaded and coordinates mapped successfully!');
     }
 
     showProcessingStatus(show, message = '') {
@@ -228,5 +270,38 @@ export class ImageProcessor {
 
     getImageDimensions() {
         return this.originalImageDimensions;
+    }
+
+    processCoordinateMapping(data) {
+        try {
+            const coordinateResults = this.mapCoordinates.processDetections(data);
+            this.lastMappedData = coordinateResults;
+            return coordinateResults;
+        } catch (error) {
+            console.error('Error mapping coordinates:', error);
+            this.showErrorMessage('Error mapping coordinates: ' + error.message);
+            return { mappedData: null, lineOfScrimmageX: null, fieldDims: null };
+        }
+    }
+
+    exportMappedCoordinates() {
+        if (!this.lastMappedData || !this.lastMappedData.mappedData) {
+            this.showErrorMessage('No mapped coordinate data available. Please process detections first.');
+            return;
+        }
+
+        const timestamp = new Date().toISOString().replace(/[:.]/g, '-');
+        const filename = `football_coordinates_${timestamp}.json`;
+        
+        try {
+            this.mapCoordinates.downloadJSON(this.lastMappedData.mappedData, filename);
+            this.showSuccessMessage(`Exported mapped coordinates to ${filename}`);
+        } catch (error) {
+            this.showErrorMessage('Error exporting coordinates: ' + error.message);
+        }
+    }
+
+    getLastMappedData() {
+        return this.lastMappedData;
     }
 }
