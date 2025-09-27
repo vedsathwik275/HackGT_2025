@@ -8,6 +8,7 @@ class NextGenFootballApp {
         this.apiBaseUrl = 'http://localhost:5001/api';
         this.isLoading = false;
         this.messageHistory = [];
+        this.selectedSport = null; // null = both, 'college', 'nfl'
         
         this.init();
     }
@@ -40,16 +41,33 @@ class NextGenFootballApp {
         });
         
         document.getElementById('topGamesBtn').addEventListener('click', () => {
-            this.sendQuickMessage('What are the most exciting games happening right now?');
+            const sportContext = this.selectedSport === 'nfl' ? 'NFL' : 
+                                this.selectedSport === 'college' ? 'college football' : '';
+            this.sendQuickMessage(`What are the most exciting ${sportContext} games happening right now?`);
         });
         
         document.getElementById('liveScoresBtn').addEventListener('click', () => {
-            this.sendQuickMessage('Show me all the current live scores');
+            const sportContext = this.selectedSport === 'nfl' ? 'NFL' : 
+                                this.selectedSport === 'college' ? 'college football' : '';
+            this.sendQuickMessage(`Show me all the current ${sportContext} live scores`);
         });
         
         // Clear chat button
         document.getElementById('clearChatBtn').addEventListener('click', () => {
             this.clearChat();
+        });
+        
+        // Sport selector buttons
+        document.getElementById('sportBoth').addEventListener('click', () => {
+            this.selectSport(null);
+        });
+        
+        document.getElementById('sportCollege').addEventListener('click', () => {
+            this.selectSport('college');
+        });
+        
+        document.getElementById('sportNFL').addEventListener('click', () => {
+            this.selectSport('nfl');
         });
     }
 
@@ -130,6 +148,42 @@ class NextGenFootballApp {
         this.animateCounter(elements.gamesCount, stats.individual_games_cached || 0);
     }
 
+    selectSport(sport) {
+        this.selectedSport = sport;
+        
+        // Update button states
+        document.querySelectorAll('.sport-selector').forEach(btn => {
+            btn.classList.remove('active');
+            btn.classList.add('bg-white/10', 'hover:bg-white/20', 'text-gray-300', 'hover:text-white', 'border', 'border-white/20');
+            btn.classList.remove('bg-gradient-to-r', 'from-nextgen-blue', 'to-nextgen-green', 'text-white');
+        });
+        
+        // Set active button
+        let activeBtn;
+        if (sport === null) {
+            activeBtn = document.getElementById('sportBoth');
+        } else if (sport === 'college') {
+            activeBtn = document.getElementById('sportCollege');
+        } else if (sport === 'nfl') {
+            activeBtn = document.getElementById('sportNFL');
+        }
+        
+        if (activeBtn) {
+            activeBtn.classList.add('active', 'bg-gradient-to-r', 'from-nextgen-blue', 'to-nextgen-green', 'text-white');
+            activeBtn.classList.remove('bg-white/10', 'hover:bg-white/20', 'text-gray-300', 'hover:text-white', 'border', 'border-white/20');
+        }
+        
+        // Update placeholder text based on selection
+        const messageInput = document.getElementById('messageInput');
+        if (sport === 'nfl') {
+            messageInput.placeholder = 'Ask about NFL teams, players, or games...';
+        } else if (sport === 'college') {
+            messageInput.placeholder = 'Ask about college football teams, players, or games...';
+        } else {
+            messageInput.placeholder = 'Ask about any team, player, or game...';
+        }
+    }
+
     animateCounter(element, targetValue) {
         if (!element) return;
         
@@ -173,12 +227,17 @@ class NextGenFootballApp {
         this.setLoading(true);
         
         try {
+            const requestBody = { message };
+            if (this.selectedSport) {
+                requestBody.sport = this.selectedSport;
+            }
+            
             const response = await fetch(`${this.apiBaseUrl}/chat`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
                 },
-                body: JSON.stringify({ message })
+                body: JSON.stringify(requestBody)
             });
             
             const data = await response.json();

@@ -182,6 +182,23 @@ button:focus {
     outline-offset: 2px;
 }
 
+/* Sport selector styles */
+.sport-selector {
+    position: relative;
+    overflow: hidden;
+}
+
+.sport-selector.active {
+    background: linear-gradient(135deg, #1e40af, #059669);
+    color: white;
+    border: 1px solid rgba(59, 130, 246, 0.3);
+}
+
+.sport-selector:not(.active):hover {
+    background: rgba(255, 255, 255, 0.1);
+    color: white;
+}
+
 /* High contrast mode support */
 @media (prefers-contrast: high) {
     .glass {

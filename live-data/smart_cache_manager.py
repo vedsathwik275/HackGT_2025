@@ -1,13 +1,14 @@
 #!/usr/bin/env python3
 """
-Smart Cache Manager for ESPN College Football Data
-Implements intelligent caching with game-specific updates
+Smart Cache Manager for ESPN Football Data (NFL and College Football)
+Implements intelligent caching with game-specific updates for both sports
 """
 import json
 import time
 from datetime import datetime, timedelta
 from typing import Dict, List, Optional, Any, Set
 from col_full_test import scrape_comprehensive_boxscore, scrape_game_ids_from_scoreboard
+from nfl_scraper import scrape_comprehensive_nfl_boxscore, scrape_nfl_game_ids_from_scoreboard
 import re
 
 class SmartESPNCacheManager:
@@ -16,72 +17,88 @@ class SmartESPNCacheManager:
     1. Caches individual games with 2-minute expiry
     2. Full dataset refresh every 10 minutes
     3. Player-to-game mapping for targeted updates
+    4. Supports both NFL and College Football
     """
     
     def __init__(self):
-        # Individual game cache: {game_id: {'data': game_data, 'timestamp': datetime, 'metadata': metadata}}
-        self.game_cache: Dict[str, Dict] = {}
+        # Individual game cache: {sport: {game_id: {'data': game_data, 'timestamp': datetime, 'metadata': metadata}}}
+        self.game_cache: Dict[str, Dict[str, Dict]] = {
+            'college': {},
+            'nfl': {}
+        }
         
-        # Full dataset metadata
-        self.full_dataset_timestamp: Optional[datetime] = None
-        self.all_game_ids: Set[str] = set()
+        # Full dataset metadata per sport
+        self.full_dataset_timestamp: Dict[str, Optional[datetime]] = {
+            'college': None,
+            'nfl': None
+        }
+        self.all_game_ids: Dict[str, Set[str]] = {
+            'college': set(),
+            'nfl': set()
+        }
         
         # Cache duration settings
         self.individual_game_cache_minutes = 2
         self.full_dataset_cache_minutes = 10
         
-        print("🧠 Smart ESPN Cache Manager initialized")
+        print("🧠 Smart ESPN Cache Manager initialized (NFL + College Football)")
     
-    def is_individual_game_fresh(self, game_id: str) -> bool:
+    def is_individual_game_fresh(self, game_id: str, sport: str = 'college') -> bool:
         """Check if individual game cache is fresh (< 2 minutes)"""
-        if game_id not in self.game_cache:
+        if sport not in self.game_cache or game_id not in self.game_cache[sport]:
             return False
         
-        game_entry = self.game_cache[game_id]
+        game_entry = self.game_cache[sport][game_id]
         if 'timestamp' not in game_entry:
             return False
         
         time_elapsed = datetime.now() - game_entry['timestamp']
         return time_elapsed < timedelta(minutes=self.individual_game_cache_minutes)
     
-    def is_full_dataset_fresh(self) -> bool:
+    def is_full_dataset_fresh(self, sport: str = 'college') -> bool:
         """Check if full dataset cache is fresh (< 10 minutes)"""
-        if self.full_dataset_timestamp is None:
+        if self.full_dataset_timestamp[sport] is None:
             return False
         
-        time_elapsed = datetime.now() - self.full_dataset_timestamp
+        time_elapsed = datetime.now() - self.full_dataset_timestamp[sport]
         return time_elapsed < timedelta(minutes=self.full_dataset_cache_minutes)
     
-    def get_current_game_ids(self) -> List[str]:
+    def get_current_game_ids(self, sport: str = 'college') -> List[str]:
         """Get current game IDs from ESPN scoreboard"""
         try:
-            game_ids = scrape_game_ids_from_scoreboard()
+            if sport == 'nfl':
+                game_ids = scrape_nfl_game_ids_from_scoreboard()
+            else:
+                game_ids = scrape_game_ids_from_scoreboard()
             return game_ids or []
         except Exception as e:
-            print(f"⚠️  Error getting game IDs: {e}")
+            print(f"⚠️  Error getting {sport} game IDs: {e}")
             return []
     
-    def update_individual_game(self, game_id: str) -> Optional[Dict]:
+    def update_individual_game(self, game_id: str, sport: str = 'college') -> Optional[Dict]:
         """Update cache for a specific game by re-scraping that game's boxscore"""
         try:
-            print(f"🎯 Re-scraping individual game: {game_id}")
-            print(f"   📡 Fetching fresh data from ESPN for game {game_id}...")
+            print(f"🎯 Re-scraping individual {sport} game: {game_id}")
+            print(f"   📡 Fetching fresh data from ESPN for {sport} game {game_id}...")
             
             # Scrape only this specific game's boxscore
-            game_data = scrape_comprehensive_boxscore(game_id)
+            if sport == 'nfl':
+                game_data = scrape_comprehensive_nfl_boxscore(game_id)
+            else:
+                game_data = scrape_comprehensive_boxscore(game_id)
             
             if game_data:
                 # Extract metadata (players and teams)
                 metadata = self._extract_game_metadata(game_data)
                 
                 # Update cache with fresh data
-                self.game_cache[game_id] = {
+                self.game_cache[sport][game_id] = {
                     'data': game_data,
                     'timestamp': datetime.now(),
                     'metadata': metadata
                 }
                 
-                print(f"✅ Game {game_id} re-scraped and cached successfully")
+                print(f"✅ {sport.title()} game {game_id} re-scraped and cached successfully")
                 print(f"   📊 Teams: {', '.join(metadata.get('teams', []))}")
                 print(f"   👥 Players: {len(metadata.get('players', []))} tracked")
                 
@@ -92,37 +109,37 @@ class SmartESPNCacheManager:
                 
                 return game_data
             else:
-                print(f"❌ Failed to re-scrape game {game_id} - ESPN returned no data")
+                print(f"❌ Failed to re-scrape {sport} game {game_id} - ESPN returned no data")
                 return None
                 
         except Exception as e:
-            print(f"❌ Error re-scraping game {game_id}: {e}")
+            print(f"❌ Error re-scraping {sport} game {game_id}: {e}")
             return None
     
-    def full_refresh(self) -> Dict[str, Any]:
-        """Perform full dataset refresh"""
-        print("🔄 Performing full dataset refresh...")
+    def full_refresh(self, sport: str = 'college') -> Dict[str, Any]:
+        """Perform full dataset refresh for specified sport"""
+        print(f"🔄 Performing full {sport} dataset refresh...")
         
-        # Get current game IDs
-        current_game_ids = self.get_current_game_ids()
+        # Get current game IDs for the sport
+        current_game_ids = self.get_current_game_ids(sport)
         if not current_game_ids:
-            print("❌ No game IDs found")
+            print(f"❌ No {sport} game IDs found")
             return {}
         
-        print(f"📋 Found {len(current_game_ids)} games to refresh")
+        print(f"📋 Found {len(current_game_ids)} {sport} games to refresh")
         
         # Update all games
         updated_games = {}
         for game_id in current_game_ids:
-            game_data = self.update_individual_game(game_id)
+            game_data = self.update_individual_game(game_id, sport)
             if game_data:
                 updated_games[game_id] = game_data
         
         # Update metadata
-        self.all_game_ids = set(current_game_ids)
-        self.full_dataset_timestamp = datetime.now()
+        self.all_game_ids[sport] = set(current_game_ids)
+        self.full_dataset_timestamp[sport] = datetime.now()
         
-        print(f"✅ Full refresh complete: {len(updated_games)} games updated")
+        print(f"✅ Full {sport} refresh complete: {len(updated_games)} games updated")
         return updated_games
     
     def _extract_game_metadata(self, game_data: Dict) -> Dict[str, Any]:
@@ -171,123 +188,165 @@ class SmartESPNCacheManager:
         
         return metadata
     
-    def find_games_by_query(self, query: str) -> List[str]:
-        """Find games that match the query (teams or players)"""
+    def find_games_by_query(self, query: str, sport: str = None) -> Dict[str, List[str]]:
+        """Find games that match the query (teams or players) across sports"""
         query_lower = query.lower().strip()
-        matching_games = []
+        matching_games = {'college': [], 'nfl': []}
         
-        for game_id, game_entry in self.game_cache.items():
-            metadata = game_entry.get('metadata', {})
-            
-            # Check teams
-            teams = metadata.get('teams', [])
-            for team in teams:
-                if team.lower() in query_lower or query_lower in team.lower():
-                    if game_id not in matching_games:
-                        matching_games.append(game_id)
-            
-            # Check players
-            players = metadata.get('players', [])
-            for player in players:
-                if player.lower() in query_lower or query_lower in player.lower():
-                    if game_id not in matching_games:
-                        matching_games.append(game_id)
+        # Search specified sport or all sports
+        sports_to_search = [sport] if sport else ['college', 'nfl']
+        
+        for sport_key in sports_to_search:
+            if sport_key not in self.game_cache:
+                continue
+                
+            for game_id, game_entry in self.game_cache[sport_key].items():
+                metadata = game_entry.get('metadata', {})
+                
+                # Check teams
+                teams = metadata.get('teams', [])
+                for team in teams:
+                    if team.lower() in query_lower or query_lower in team.lower():
+                        if game_id not in matching_games[sport_key]:
+                            matching_games[sport_key].append(game_id)
+                
+                # Check players
+                players = metadata.get('players', [])
+                for player in players:
+                    if player.lower() in query_lower or query_lower in player.lower():
+                        if game_id not in matching_games[sport_key]:
+                            matching_games[sport_key].append(game_id)
         
         return matching_games
     
-    def get_smart_data(self, query_hint: str = "") -> Dict[str, Any]:
+    def get_smart_data(self, query_hint: str = "", sport: str = None) -> Dict[str, Any]:
         """
         Smart data retrieval based on query context
         
         Args:
             query_hint: User's query to help identify which games to prioritize
+            sport: Specific sport to focus on ('college', 'nfl', or None for both)
         
         Returns:
             Complete dataset with smart caching
         """
-        # Check if full dataset needs refresh
-        if not self.is_full_dataset_fresh():
-            print("🔄 Full dataset expired - performing full refresh")
-            updated_games = self.full_refresh()
-        else:
-            print("📋 Full dataset is fresh")
-            updated_games = {}
+        # Determine which sports to process
+        sports_to_process = [sport] if sport else ['college', 'nfl']
+        all_updated_games = {}
         
-        # Find games that match the query (teams or players)
-        matching_games = self.find_games_by_query(query_hint) if query_hint else []
-        print(f"🔍 Query '{query_hint}' matches games: {matching_games}")
-        
-        # Update matching games if they're stale
-        if matching_games:
-            print(f"🎯 Found {len(matching_games)} games matching query - checking freshness...")
-            for game_id in matching_games:
-                if not self.is_individual_game_fresh(game_id):
-                    print(f"🔄 Game {game_id} is stale (>2 min) - re-scraping individual game...")
-                    updated_data = self.update_individual_game(game_id)
-                    if updated_data:
-                        updated_games[game_id] = updated_data
-                else:
-                    print(f"✅ Game {game_id} is fresh (<2 min) - using cached data")
-        else:
-            # No specific matches found, update a few stale games to keep data fresh
-            print("🔍 No specific team/player matches - checking for any stale games to refresh...")
-            stale_games = [game_id for game_id in self.game_cache.keys() 
-                          if not self.is_individual_game_fresh(game_id)]
-            if stale_games:
-                print(f"🔄 Found {len(stale_games)} stale games, re-scraping first 3 to keep data fresh...")
-                # Update a few stale games to keep data fresh
-                for game_id in stale_games[:3]:  # Limit to 3 to avoid too much scraping
-                    updated_data = self.update_individual_game(game_id)
-                    if updated_data:
-                        updated_games[game_id] = updated_data
+        for sport_key in sports_to_process:
+            print(f"\n🏈 Processing {sport_key.upper()} data...")
+            
+            # Check if full dataset needs refresh for this sport
+            if not self.is_full_dataset_fresh(sport_key):
+                print(f"🔄 {sport_key.title()} dataset expired - performing full refresh")
+                updated_games = self.full_refresh(sport_key)
+                for game_id, game_data in updated_games.items():
+                    all_updated_games[f"{sport_key}_{game_id}"] = game_data
             else:
-                print("✅ All games are fresh - no re-scraping needed")
+                print(f"📋 {sport_key.title()} dataset is fresh")
+            
+            # Find games that match the query (teams or players)
+            if query_hint:
+                matching_games = self.find_games_by_query(query_hint, sport_key)
+                sport_matches = matching_games.get(sport_key, [])
+                print(f"🔍 Query '{query_hint}' matches {len(sport_matches)} {sport_key} games: {sport_matches}")
+                
+                # Update matching games if they're stale
+                if sport_matches:
+                    print(f"🎯 Found {len(sport_matches)} {sport_key} games matching query - checking freshness...")
+                    for game_id in sport_matches:
+                        if not self.is_individual_game_fresh(game_id, sport_key):
+                            print(f"🔄 {sport_key.title()} game {game_id} is stale (>2 min) - re-scraping...")
+                            updated_data = self.update_individual_game(game_id, sport_key)
+                            if updated_data:
+                                all_updated_games[f"{sport_key}_{game_id}"] = updated_data
+                        else:
+                            print(f"✅ {sport_key.title()} game {game_id} is fresh (<2 min) - using cached data")
+            
+            # If no specific matches, update a few stale games to keep data fresh
+            if not query_hint or not matching_games.get(sport_key, []):
+                print(f"🔍 Checking for any stale {sport_key} games to refresh...")
+                stale_games = [game_id for game_id in self.game_cache[sport_key].keys() 
+                              if not self.is_individual_game_fresh(game_id, sport_key)]
+                if stale_games:
+                    print(f"🔄 Found {len(stale_games)} stale {sport_key} games, re-scraping first 2...")
+                    # Update a few stale games to keep data fresh
+                    for game_id in stale_games[:2]:  # Limit to 2 per sport
+                        updated_data = self.update_individual_game(game_id, sport_key)
+                        if updated_data:
+                            all_updated_games[f"{sport_key}_{game_id}"] = updated_data
+                else:
+                    print(f"✅ All {sport_key} games are fresh - no re-scraping needed")
         
         # Compile final dataset
+        total_games = sum(len(self.game_cache[sport_key]) for sport_key in sports_to_process)
         final_dataset = {
             'scrape_timestamp': datetime.now().isoformat(),
-            'total_games': len(self.game_cache),
+            'total_games': total_games,
+            'sports': sports_to_process,
             'games': {}
         }
         
-        # Add all cached games
-        for game_id, game_entry in self.game_cache.items():
-            if 'data' in game_entry:
-                final_dataset['games'][game_id] = game_entry['data']
+        # Add all cached games from specified sports
+        for sport_key in sports_to_process:
+            for game_id, game_entry in self.game_cache[sport_key].items():
+                if 'data' in game_entry:
+                    final_dataset['games'][f"{sport_key}_{game_id}"] = game_entry['data']
         
         return final_dataset
     
     
     def get_cache_status(self) -> Dict[str, Any]:
         """Get current cache status for debugging"""
-        # Count total players and teams across all games
+        # Count total players and teams across all games and sports
         total_players = set()
         total_teams = set()
+        status = {
+            'college': {
+                'individual_games_cached': len(self.game_cache['college']),
+                'full_dataset_fresh': self.is_full_dataset_fresh('college'),
+                'full_dataset_age_minutes': (
+                    (datetime.now() - self.full_dataset_timestamp['college']).total_seconds() / 60
+                    if self.full_dataset_timestamp['college'] else None
+                ),
+                'fresh_games': sum(1 for game_id in self.game_cache['college'].keys() 
+                                 if self.is_individual_game_fresh(game_id, 'college'))
+            },
+            'nfl': {
+                'individual_games_cached': len(self.game_cache['nfl']),
+                'full_dataset_fresh': self.is_full_dataset_fresh('nfl'),
+                'full_dataset_age_minutes': (
+                    (datetime.now() - self.full_dataset_timestamp['nfl']).total_seconds() / 60
+                    if self.full_dataset_timestamp['nfl'] else None
+                ),
+                'fresh_games': sum(1 for game_id in self.game_cache['nfl'].keys() 
+                                 if self.is_individual_game_fresh(game_id, 'nfl'))
+            }
+        }
         
-        for game_entry in self.game_cache.values():
-            metadata = game_entry.get('metadata', {})
-            total_players.update(metadata.get('players', []))
-            total_teams.update(metadata.get('teams', []))
+        # Count players and teams across both sports
+        for sport in ['college', 'nfl']:
+            for game_entry in self.game_cache[sport].values():
+                metadata = game_entry.get('metadata', {})
+                total_players.update(metadata.get('players', []))
+                total_teams.update(metadata.get('teams', []))
         
-        return {
-            'individual_games_cached': len(self.game_cache),
-            'full_dataset_fresh': self.is_full_dataset_fresh(),
-            'full_dataset_age_minutes': (
-                (datetime.now() - self.full_dataset_timestamp).total_seconds() / 60
-                if self.full_dataset_timestamp else None
-            ),
+        status['combined'] = {
+            'total_games_cached': len(self.game_cache['college']) + len(self.game_cache['nfl']),
             'total_players_tracked': len(total_players),
             'total_teams_tracked': len(total_teams),
-            'fresh_games': sum(1 for game_id in self.game_cache.keys() 
-                             if self.is_individual_game_fresh(game_id))
+            'fresh_games': status['college']['fresh_games'] + status['nfl']['fresh_games']
         }
+        
+        return status
 
 # Global instance
 smart_cache = SmartESPNCacheManager()
 
-def get_smart_espn_data(query_hint: str = "") -> Dict[str, Any]:
+def get_smart_espn_data(query_hint: str = "", sport: str = None) -> Dict[str, Any]:
     """Main function to get ESPN data with smart caching"""
-    return smart_cache.get_smart_data(query_hint)
+    return smart_cache.get_smart_data(query_hint, sport)
 
 if __name__ == "__main__":
     # Test the smart cache
