@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NextGen Live Football Stats</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'nextgen-blue': '#1e40af',
+                        'nextgen-green': '#059669',
+                        'nextgen-orange': '#ea580c',
+                        'nextgen-dark': '#0f172a',
+                        'nextgen-gray': '#334155'
+                    },
+                    fontFamily: {
+                        'sans': ['Inter', 'system-ui', 'sans-serif']
+                    }
+                }
+            }
+        }
+    </script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="assets/css/styles.css" rel="stylesheet">
+</head>
+<body class="bg-gradient-to-br from-nextgen-dark via-slate-900 to-nextgen-dark min-h-screen text-white">
+    <!-- Header -->
+    <header class="bg-black/20 backdrop-blur-sm border-b border-white/10">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-16">
+                <div class="flex items-center space-x-4">
+                    <div class="bg-gradient-to-r from-nextgen-blue to-nextgen-green p-2 rounded-lg">
+                        <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path>
+                        </svg>
+                    </div>
+                    <div>
+                        <h1 class="text-xl font-bold bg-gradient-to-r from-white to-gray-300 bg-clip-text text-transparent">
+                            NextGen Live Football Stats
+                        </h1>
+                        <p class="text-sm text-gray-400">Real-time football intelligence</p>
+                    </div>
+                </div>
+                
+                <!-- Status Indicator -->
+                <div class="flex items-center space-x-4">
+                    <div id="connectionStatus" class="flex items-center space-x-2">
+                        <div class="w-2 h-2 bg-green-500 rounded-full animate-pulse"></div>
+                        <span class="text-sm text-gray-300">Connected</span>
+                    </div>
+                    
+                    <!-- Stats Badge -->
+                    <div id="statsBadge" class="bg-nextgen-blue/20 text-nextgen-blue px-3 py-1 rounded-full text-sm font-medium">
+                        <span id="gamesCount">0</span> games tracked
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+        <!-- Welcome Section -->
+        <div class="text-center mb-12">
+            <h2 class="text-4xl font-bold mb-4 bg-gradient-to-r from-nextgen-blue via-nextgen-green to-nextgen-orange bg-clip-text text-transparent">
+                Live Football Intelligence
+            </h2>
+            <p class="text-xl text-gray-300 max-w-3xl mx-auto">
+                Get real-time stats, scores, and AI-powered insights for football games. 
+                Ask about any team, player, or game situation.
+            </p>
+        </div>
+
+        <!-- Chat Interface -->
+        <div class="grid grid-cols-1 lg:grid-cols-4 gap-8">
+            <!-- Chat Section -->
+            <div class="lg:col-span-3">
+                <div class="bg-white/5 backdrop-blur-sm rounded-2xl border border-white/10 shadow-2xl">
+                    <!-- Chat Header -->
+                    <div class="p-6 border-b border-white/10">
+                        <div class="flex items-center justify-between">
+                            <h3 class="text-lg font-semibold text-white">AI Football Assistant</h3>
+                            <button id="clearChatBtn" class="text-gray-400 hover:text-white transition-colors">
+                                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"></path>
+                                </svg>
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Messages Container -->
+                    <div id="messagesContainer" class="h-96 overflow-y-auto p-6 space-y-4">
+                        <!-- Welcome Message -->
+                        <div class="flex items-start space-x-3">
+                            <div class="bg-gradient-to-r from-nextgen-blue to-nextgen-green p-2 rounded-lg">
+                                <svg class="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z"></path>
+                                </svg>
+                            </div>
+                            <div class="flex-1 bg-white/5 rounded-lg p-4">
+                                <p class="text-gray-200">
+                                    👋 Welcome to NextGen Live Football Stats! Ask me anything about football:
+                                </p>
+                                <div class="mt-3 space-y-1 text-sm text-gray-400">
+                                    <p>• "What's the Auburn score?"</p>
+                                    <p>• "Haynes King passing stats"</p>
+                                    <p>• "Top performing quarterbacks today"</p>
+                                    <p>• "Which games are closest right now?"</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Input Section -->
+                    <div class="p-6 border-t border-white/10">
+                        <div class="flex space-x-4">
+                            <input 
+                                type="text" 
+                                id="messageInput" 
+                                placeholder="Ask about any team, player, or game..."
+                                class="flex-1 bg-white/10 border border-white/20 rounded-lg px-4 py-3 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-nextgen-blue focus:border-transparent"
+                                autocomplete="off"
+                            >
+                            <button 
+                                id="sendBtn" 
+                                class="bg-gradient-to-r from-nextgen-blue to-nextgen-green hover:from-nextgen-blue/80 hover:to-nextgen-green/80 text-white px-6 py-3 rounded-lg font-medium transition-all duration-200 flex items-center space-x-2"
+                            >
+                                <span>Send</span>
+                                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8"></path>
+                                </svg>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Sidebar -->
+            <div class="lg:col-span-1 space-y-6">
+                <!-- Live Stats Panel -->
+                <div class="bg-white/5 backdrop-blur-sm rounded-xl border border-white/10 p-6">
+                    <h4 class="text-lg font-semibold text-white mb-4">Live Stats</h4>
+                    <div class="space-y-4">
+                        <div class="flex justify-between items-center">
+                            <span class="text-gray-400">Games Tracked</span>
+                            <span id="totalGames" class="text-white font-semibold">0</span>
+                        </div>
+                        <div class="flex justify-between items-center">
+                            <span class="text-gray-400">Fresh Data</span>
+                            <span id="freshGames" class="text-nextgen-green font-semibold">0</span>
+                        </div>
+                        <div class="flex justify-between items-center">
+                            <span class="text-gray-400">Players</span>
+                            <span id="totalPlayers" class="text-white font-semibold">0</span>
+                        </div>
+                        <div class="flex justify-between items-center">
+                            <span class="text-gray-400">Teams</span>
+                            <span id="totalTeams" class="text-white font-semibold">0</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Quick Actions -->
+                <div class="bg-white/5 backdrop-blur-sm rounded-xl border border-white/10 p-6">
+                    <h4 class="text-lg font-semibold text-white mb-4">Quick Actions</h4>
+                    <div class="space-y-3">
+                        <button id="refreshDataBtn" class="w-full bg-nextgen-orange/20 hover:bg-nextgen-orange/30 text-nextgen-orange border border-nextgen-orange/30 rounded-lg px-4 py-2 text-sm font-medium transition-colors">
+                            🔄 Refresh Data
+                        </button>
+                        <button id="topGamesBtn" class="w-full bg-nextgen-blue/20 hover:bg-nextgen-blue/30 text-nextgen-blue border border-nextgen-blue/30 rounded-lg px-4 py-2 text-sm font-medium transition-colors">
+                            🏆 Top Games
+                        </button>
+                        <button id="liveScoresBtn" class="w-full bg-nextgen-green/20 hover:bg-nextgen-green/30 text-nextgen-green border border-nextgen-green/30 rounded-lg px-4 py-2 text-sm font-medium transition-colors">
+                            ⚡ Live Scores
+                        </button>
+                    </div>
+                </div>
+
+                <!-- System Status -->
+                <div class="bg-white/5 backdrop-blur-sm rounded-xl border border-white/10 p-6">
+                    <h4 class="text-lg font-semibold text-white mb-4">System Status</h4>
+                    <div class="space-y-3">
+                        <div class="flex items-center space-x-2">
+                            <div class="w-2 h-2 bg-green-500 rounded-full"></div>
+                            <span class="text-sm text-gray-300">API Connected</span>
+                        </div>
+                        <div class="flex items-center space-x-2">
+                            <div class="w-2 h-2 bg-green-500 rounded-full"></div>
+                            <span class="text-sm text-gray-300">Smart Cache Active</span>
+                        </div>
+                        <div class="flex items-center space-x-2">
+                            <div class="w-2 h-2 bg-green-500 rounded-full"></div>
+                            <span class="text-sm text-gray-300">AI Assistant Ready</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Loading Overlay -->
+    <div id="loadingOverlay" class="fixed inset-0 bg-black/50 backdrop-blur-sm hidden items-center justify-center z-50">
+        <div class="bg-white/10 backdrop-blur-sm rounded-xl p-8 text-center">
+            <div class="animate-spin rounded-full h-12 w-12 border-b-2 border-nextgen-blue mx-auto mb-4"></div>
+            <p class="text-white font-medium">Processing your request...</p>
+        </div>
+    </div>
+
+    <script src="assets/js/app.js"></script>
+</body>
+</html>
