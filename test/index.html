@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NFL Field Detection Mapper</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        .field-marker {
+            transition: all 0.3s ease;
+        }
+        .field-marker:hover {
+            transform: scale(1.2);
+            z-index: 10;
+        }
+        .yard-line {
+            stroke: white;
+            stroke-width: 2;
+            opacity: 0.8;
+        }
+        .hash-mark {
+            stroke: white;
+            stroke-width: 1;
+            opacity: 0.6;
+        }
+        .end-zone {
+            fill: #1e40af;
+            opacity: 0.3;
+        }
+        .field-numbers {
+            fill: white;
+            font-family: Arial, sans-serif;
+            font-weight: bold;
+            font-size: 16px;
+            text-anchor: middle;
+        }
+    </style>
+</head>
+<body class="bg-gray-100 min-h-screen">
+    <div class="container mx-auto p-6">
+        <!-- Header -->
+        <div class="bg-white rounded-lg shadow-lg p-6 mb-6">
+            <h1 class="text-3xl font-bold text-gray-800 mb-4">🏈 NFL Field Detection Mapper</h1>
+            <div class="flex flex-wrap gap-4 items-center">
+                <input type="file" id="jsonFile" accept=".json" 
+                       class="block w-full text-sm text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-blue-50 file:text-blue-700 hover:file:bg-blue-100">
+                <button id="loadSample" class="bg-green-500 hover:bg-green-600 text-white px-4 py-2 rounded-lg transition-colors">
+                    Load Sample Data
+                </button>
+                <button id="clearField" class="bg-red-500 hover:bg-red-600 text-white px-4 py-2 rounded-lg transition-colors">
+                    Clear Field
+                </button>
+            </div>
+        </div>
+
+        <!-- Stats Panel -->
+        <div class="bg-white rounded-lg shadow-lg p-6 mb-6">
+            <h2 class="text-xl font-semibold text-gray-800 mb-4">Detection Statistics</h2>
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+                <div class="bg-blue-50 p-4 rounded-lg">
+                    <div class="text-2xl font-bold text-blue-600" id="playerCount">0</div>
+                    <div class="text-sm text-gray-600">Players</div>
+                </div>
+                <div class="bg-yellow-50 p-4 rounded-lg">
+                    <div class="text-2xl font-bold text-yellow-600" id="refCount">0</div>
+                    <div class="text-sm text-gray-600">Referees</div>
+                </div>
+                <div class="bg-green-50 p-4 rounded-lg">
+                    <div class="text-2xl font-bold text-green-600" id="totalCount">0</div>
+                    <div class="text-sm text-gray-600">Total</div>
+                </div>
+                <div class="bg-purple-50 p-4 rounded-lg">
+                    <div class="text-2xl font-bold text-purple-600" id="avgConfidence">0%</div>
+                    <div class="text-sm text-gray-600">Avg Confidence</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Field Visualization -->
+        <div class="bg-white rounded-lg shadow-lg p-6">
+            <h2 class="text-xl font-semibold text-gray-800 mb-4">Field Visualization</h2>
+            <div class="flex justify-center">
+                <div class="relative bg-green-600 rounded-lg p-4" style="width: 1000px; height: 533px;">
+                    <svg id="nflField" width="100%" height="100%" class="border-2 border-white">
+                        <!-- Field background -->
+                        <rect width="100%" height="100%" fill="#2d5a27"/>
+                        
+                        <!-- End zones -->
+                        <rect x="0" y="0" width="83.33" height="100%" class="end-zone"/>
+                        <rect x="916.67" y="0" width="83.33" height="100%" class="end-zone"/>
+                        
+                        <!-- Yard lines -->
+                        <g id="yardLines"></g>
+                        
+                        <!-- Hash marks -->
+                        <g id="hashMarks"></g>
+                        
+                        <!-- Field numbers -->
+                        <g id="fieldNumbers"></g>
+                        
+                        <!-- Detection markers will be added here -->
+                        <g id="detectionMarkers"></g>
+                    </svg>
+                </div>
+            </div>
+            
+            <!-- Legend -->
+            <div class="mt-4 flex justify-center">
+                <div class="bg-gray-50 p-4 rounded-lg">
+                    <h3 class="font-semibold text-gray-800 mb-2">Legend</h3>
+                    <div class="flex flex-wrap gap-4">
+                        <div class="flex items-center gap-2">
+                            <div class="w-4 h-4 bg-blue-500 rounded-full"></div>
+                            <span class="text-sm">Players</span>
+                        </div>
+                        <div class="flex items-center gap-2">
+                            <div class="w-4 h-4 bg-yellow-500 rounded-full"></div>
+                            <span class="text-sm">Referees</span>
+                        </div>
+                        <div class="flex items-center gap-2">
+                            <div class="w-4 h-4 bg-red-500 rounded-full"></div>
+                            <span class="text-sm">Low Confidence (&lt;70%)</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Detection Details -->
+        <div class="bg-white rounded-lg shadow-lg p-6 mt-6">
+            <h2 class="text-xl font-semibold text-gray-800 mb-4">Detection Details</h2>
+            <div class="overflow-x-auto">
+                <table class="min-w-full table-auto">
+                    <thead class="bg-gray-50">
+                        <tr>
+                            <th class="px-4 py-2 text-left">ID</th>
+                            <th class="px-4 py-2 text-left">Type</th>
+                            <th class="px-4 py-2 text-left">Position (x,y)</th>
+                            <th class="px-4 py-2 text-left">Size</th>
+                            <th class="px-4 py-2 text-left">Confidence</th>
+                            <th class="px-4 py-2 text-left">Field Position</th>
+                        </tr>
+                    </thead>
+                    <tbody id="detectionTable" class="divide-y divide-gray-200">
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <script src="nfl-field-mapper.js"></script>
+</body>
+</html>
