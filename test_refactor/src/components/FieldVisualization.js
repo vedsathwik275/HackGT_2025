@@ -14,7 +14,16 @@ const FieldVisualization = ({
             return { width: 800, height: 500, pixelsPerYard: 20, lineOfScrimmage: null };
         }
 
-        const players = detections.filter(d => d.class === 'player');
+        // Define position arrays to match the service
+        const offensivePositions = ['QB', 'RB', 'FB', 'WR', 'TE', 'C', 'OG', 'OT'];
+        const defensivePositions = ['DE', 'DT', 'NT', 'LB', 'MLB', 'OLB', 'CB', 'DB', 'S', 'FS', 'SS'];
+        const specialPositions = ['K', 'P', 'LS', 'KR', 'PR'];
+        
+        const isPlayer = (d) => offensivePositions.includes(d.class) || 
+                               defensivePositions.includes(d.class) || 
+                               specialPositions.includes(d.class);
+        
+        const players = detections.filter(d => isPlayer(d));
         if (players.length < 4) {
             return { width: 800, height: 500, pixelsPerYard: 20, lineOfScrimmage: null };
         }
@@ -43,24 +52,34 @@ const FieldVisualization = ({
             return bestLine;
         };
 
-        // Classify offense and defense based on line of scrimmage
+        // Classify offense and defense based on position type
         const classifyOffenseDefense = (players, lineOfScrimmageX) => {
             const offense = [];
             const defense = [];
+            const special = [];
             
             players.forEach(player => {
-                if (player.x < lineOfScrimmageX) {
+                if (offensivePositions.includes(player.class)) {
                     offense.push(player);
-                } else {
+                } else if (defensivePositions.includes(player.class)) {
                     defense.push(player);
+                } else if (specialPositions.includes(player.class)) {
+                    special.push(player);
+                } else {
+                    // Fall back to line of scrimmage classification for unknown positions
+                    if (player.x < lineOfScrimmageX) {
+                        offense.push(player);
+                    } else {
+                        defense.push(player);
+                    }
                 }
             });
             
-            return { offense, defense };
+            return { offense, defense, special };
         };
 
         const lineOfScrimmageX = estimateLineOfScrimmage(players);
-        const { offense, defense } = classifyOffenseDefense(players, lineOfScrimmageX);
+        const { offense, defense, special } = classifyOffenseDefense(players, lineOfScrimmageX);
         
         // Calculate pixels per yard using offensive backfield depth (like Python script)
         let pixelsPerYard = 20; // fallback value
@@ -129,6 +148,7 @@ const FieldVisualization = ({
             lineOfScrimmage: lineOfScrimmageX,
             offense,
             defense,
+            special,
             fieldCenterX,
             fieldCenterY,
             sidelineTop,
@@ -274,11 +294,27 @@ const FieldVisualization = ({
     const getMarkerColor = useCallback((detection, mappedPlayer) => {
         if (detection.class === 'ref') return '#fbbf24'; // Yellow for refs
         
-        if (mappedPlayer) {
-            return mappedPlayer.team === 'offense' ? '#10b981' : '#ef4444'; // Green for offense, red for defense
+        // Define position arrays for color coding
+        const offensivePositions = ['QB', 'RB', 'FB', 'WR', 'TE', 'C', 'OG', 'OT'];
+        const defensivePositions = ['DE', 'DT', 'NT', 'LB', 'MLB', 'OLB', 'CB', 'DB', 'S', 'FS', 'SS'];
+        const specialPositions = ['K', 'P', 'LS', 'KR', 'PR'];
+        
+        if (offensivePositions.includes(detection.class)) {
+            return '#10b981'; // Green for offense
+        } else if (defensivePositions.includes(detection.class)) {
+            return '#ef4444'; // Red for defense
+        } else if (specialPositions.includes(detection.class)) {
+            return '#f59e0b'; // Orange for special teams
         }
         
-        return '#3b82f6'; // Default blue for players
+        // Fallback to mapped player data
+        if (mappedPlayer) {
+            if (mappedPlayer.team === 'offense') return '#10b981';
+            if (mappedPlayer.team === 'defense') return '#ef4444';
+            if (mappedPlayer.team === 'special') return '#f59e0b';
+        }
+        
+        return '#3b82f6'; // Default blue for unknown
     }, []);
 
     // Generate player markers
@@ -311,10 +347,9 @@ const FieldVisualization = ({
                         y={svgPos.y + 4}
                         textAnchor="middle"
                         className="text-xs font-bold fill-white pointer-events-none"
+                        style={{ fontSize: '10px' }}
                     >
-                        {detection.class === 'ref' ? 'R' : 
-                         mappedPlayer?.team === 'offense' ? 'O' : 
-                         mappedPlayer?.team === 'defense' ? 'D' : 'P'}
+                        {detection.class === 'ref' ? 'R' : detection.class}
                     </text>
                 </g>
             );
@@ -381,14 +416,35 @@ const FieldVisualization = ({
             // Distance from line of scrimmage
             const xFromLOS = (detection.x - fieldScale.lineOfScrimmage) / fieldScale.pixelsPerYard;
 
-            if (detection.class === 'player') {
-                // Determine team based on field calculation
-                const isOffense = fieldScale.offense?.some(p => p.detection_id === detection.detection_id);
-                const isDefense = fieldScale.defense?.some(p => p.detection_id === detection.detection_id);
-                const team = isOffense ? "offense" : isDefense ? "defense" : "unclassified";
+            // Define position arrays for classification
+            const offensivePositions = ['QB', 'RB', 'FB', 'WR', 'TE', 'C', 'OG', 'OT'];
+            const defensivePositions = ['DE', 'DT', 'NT', 'LB', 'MLB', 'OLB', 'CB', 'DB', 'S', 'FS', 'SS'];
+            const specialPositions = ['K', 'P', 'LS', 'KR', 'PR'];
+            
+            const isPlayer = offensivePositions.includes(detection.class) || 
+                           defensivePositions.includes(detection.class) || 
+                           specialPositions.includes(detection.class);
+
+            if (isPlayer) {
+                // Determine team based on position type first, then field calculation
+                let team = "unknown";
+                if (offensivePositions.includes(detection.class)) {
+                    team = "offense";
+                } else if (defensivePositions.includes(detection.class)) {
+                    team = "defense";
+                } else if (specialPositions.includes(detection.class)) {
+                    team = "special";
+                } else {
+                    // Fall back to field calculation
+                    const isOffense = fieldScale.offense?.some(p => p.detection_id === detection.detection_id);
+                    const isDefense = fieldScale.defense?.some(p => p.detection_id === detection.detection_id);
+                    const isSpecial = fieldScale.special?.some(p => p.detection_id === detection.detection_id);
+                    team = isOffense ? "offense" : isDefense ? "defense" : isSpecial ? "special" : "unknown";
+                }
                 
                 const playerData = {
                     detection_id: detection.detection_id,
+                    position: detection.class, // Add the specific position
                     team: team,
                     coordinates: {
                         x_yards: Math.round(xYards * 100) / 100,  // Distance from field center X
@@ -430,12 +486,17 @@ const FieldVisualization = ({
         });
 
         // Add team statistics
+        const offenseCount = mappedData.players.filter(p => p.team === 'offense').length;
+        const defenseCount = mappedData.players.filter(p => p.team === 'defense').length;
+        const specialCount = mappedData.players.filter(p => p.team === 'special').length;
+        
         mappedData.team_stats = {
             total_players: mappedData.players.length,
-            offense_count: fieldScale.offense?.length || 0,
-            defense_count: fieldScale.defense?.length || 0,
+            offense_count: offenseCount,
+            defense_count: defenseCount,
+            special_count: specialCount,
             referee_count: mappedData.referees.length,
-            team_balance: Math.abs((fieldScale.offense?.length || 0) - (fieldScale.defense?.length || 0)) <= 3 ? "balanced" : "unbalanced"
+            team_balance: Math.abs(offenseCount - defenseCount) <= 3 ? "balanced" : "unbalanced"
         };
 
         return mappedData;
@@ -522,6 +583,10 @@ const FieldVisualization = ({
                         <div className="flex items-center gap-2">
                             <div className="w-4 h-4 bg-red-500 rounded-full"></div>
                             <span>Defense ({fieldScale.defense?.length || 0})</span>
+                        </div>
+                        <div className="flex items-center gap-2">
+                            <div className="w-4 h-4 bg-orange-500 rounded-full"></div>
+                            <span>Special Teams ({fieldScale.special?.length || 0})</span>
                         </div>
                         <div className="flex items-center gap-2">
                             <div className="w-4 h-4 bg-blue-500 rounded-full"></div>

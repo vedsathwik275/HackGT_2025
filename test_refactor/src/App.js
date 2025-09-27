@@ -7,6 +7,7 @@ import ProcessingStatus from './components/ProcessingStatus';
 import StatsPanel from './components/StatsPanel';
 import FieldVisualization from './components/FieldVisualization';
 import NotificationManager from './components/NotificationManager';
+import PlayerInfoPanel from './components/PlayerInfoPanel';
 
 function App() {
     const detectionData = useDetectionData();
@@ -117,6 +118,15 @@ function App() {
                     onMarkerClick={detectionData.highlightDetection}
                 />
             </div>
+            
+            {/* Player Info Panel */}
+            {detectionData.highlightedIndex !== null && detectionData.detections[detectionData.highlightedIndex] && (
+                <PlayerInfoPanel
+                    detection={detectionData.detections[detectionData.highlightedIndex]}
+                    mappedPlayer={detectionData.getMappedPlayerById(detectionData.detections[detectionData.highlightedIndex]?.detection_id)}
+                    onClose={detectionData.clearHighlights}
+                />
+            )}
             
             <NotificationManager />
         </div>
