@@ -11,6 +11,7 @@ const errorHandler = require('./middleware/errorHandler');
 
 // Import routes
 const coordinateRoutes = require('./routes/coordinate-routes');
+const playsRoutes = require('./routes/plays-routes');
 
 const app = express();
 const PORT = process.env.PORT || 3000;
@@ -73,6 +74,7 @@ app.get('/health', (req, res) => {
 
 // API routes
 app.use('/api/coordinates', coordinateRoutes);
+app.use('/api/plays', playsRoutes);
 
 // Root endpoint
 app.get('/', (req, res) => {
@@ -81,7 +83,8 @@ app.get('/', (req, res) => {
     version: '1.0.0',
     endpoints: {
       health: '/health',
-      coordinates: '/api/coordinates'
+      coordinates: '/api/coordinates',
+      plays: '/api/plays'
     }
   });
 });
@@ -103,6 +106,7 @@ app.listen(PORT, () => {
   console.log(`🚀 NFL Field Mapper Backend running on port ${PORT}`);
   console.log(`📊 Health check: http://localhost:${PORT}/health`);
   console.log(`🏈 API endpoints: http://localhost:${PORT}/api/coordinates`);
+  console.log(`🎬 Plays endpoints: http://localhost:${PORT}/api/plays`);
 });
 
 module.exports = app; 

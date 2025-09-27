@@ -7,3 +7,8 @@
 Common next commands:
 - `vercel inspect football-next-gen-backend-bm46obu6w.vercel.app --logs`
 - `vercel redeploy football-next-gen-backend-bm46obu6w.vercel.app`
+
+
+supabase
+football-next-gen-stats
+DonNoPole67
