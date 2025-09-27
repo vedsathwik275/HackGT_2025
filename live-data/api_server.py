@@ -250,7 +250,9 @@ def main():
     print("     GET  /api/stats       - System statistics")
     print("     POST /api/cache/clear - Clear cache")
     
-    app.run(host='0.0.0.0', port=5001, debug=False)
+    # Use PORT environment variable for deployment platforms
+    port = int(os.getenv('PORT', 5001))
+    app.run(host='0.0.0.0', port=port, debug=False)
 
 if __name__ == "__main__":
     main()
