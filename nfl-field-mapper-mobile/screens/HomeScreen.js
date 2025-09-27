@@ -1,43 +1,101 @@
-import React from 'react';
-import { View, Text, TouchableOpacity, StyleSheet, FlatList, Image } from 'react-native';
+import React, { useState, useEffect } from 'react';
+import { View, Text, TouchableOpacity, StyleSheet, FlatList, ActivityIndicator, Alert } from 'react-native';
+import PlaysApiClient from '../services/PlaysApiClient';
 
-const HomeScreen = ({ onNavigate }) => {
-  // Dummy data for previous play captures
-  const previousPlays = [
-    {
-      id: '1',
-      title: 'Offensive Formation - 3rd Down',
-      date: '2024-01-15',
-      thumbnail: null, // We'll add image support later
-      playerCount: 22,
-    },
-    {
-      id: '2',
-      title: 'Red Zone Defense',
-      date: '2024-01-14',
-      thumbnail: null,
-      playerCount: 18,
-    },
-    {
-      id: '3',
-      title: 'Special Teams Formation',
-      date: '2024-01-13',
-      thumbnail: null,
-      playerCount: 20,
-    },
-  ];
+const HomeScreen = ({ onNavigate, onViewSavedPlay }) => {
+  const [savedPlays, setSavedPlays] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [playsClient] = useState(new PlaysApiClient());
+
+  useEffect(() => {
+    loadSavedPlays();
+  }, []);
+
+  const loadSavedPlays = async () => {
+    try {
+      setLoading(true);
+      console.log('🔄 Loading saved plays...');
+      
+      // Get all play IDs
+      const playIds = await playsClient.getPlays();
+      console.log('📋 Found play IDs:', playIds);
+      
+      // Fetch data for each play
+      const playsData = [];
+      for (const playId of playIds) {
+        try {
+          const playData = await playsClient.getPlayData(playId);
+          if (playData) {
+            playsData.push({
+              id: playId,
+              ...playData,
+              // Ensure we have required fields
+              playName: playData.playName || playId,
+              timestamp: playData.timestamp || new Date().toISOString(),
+              playerCount: playData.playerCount || (playData.detections ? playData.detections.length : 0),
+            });
+          }
+        } catch (error) {
+          console.warn(`Failed to load data for play ${playId}:`, error);
+        }
+      }
+      
+      // Sort by timestamp (newest first)
+      playsData.sort((a, b) => new Date(b.timestamp) - new Date(a.timestamp));
+      
+      setSavedPlays(playsData);
+      console.log('✅ Loaded plays:', playsData.length);
+    } catch (error) {
+      console.error('❌ Failed to load saved plays:', error);
+      Alert.alert('Error', 'Failed to load saved plays. Please check your connection.');
+      // Fallback to empty array
+      setSavedPlays([]);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const handleViewPlay = (play) => {
+    console.log('👀 Viewing saved play:', play.playName);
+    if (onViewSavedPlay) {
+      onViewSavedPlay(play);
+    }
+  };
+
+  const formatDate = (timestamp) => {
+    try {
+      return new Date(timestamp).toLocaleDateString();
+    } catch {
+      return 'Unknown date';
+    }
+  };
 
   const renderPlayItem = ({ item }) => (
-    <TouchableOpacity style={styles.playItem} onPress={() => console.log('View play:', item.id)}>
+    <TouchableOpacity 
+      style={styles.playItem} 
+      onPress={() => handleViewPlay(item)}
+    >
       <View style={styles.thumbnail}>
-        <Text style={styles.thumbnailText}>📸</Text>
+        <Text style={styles.thumbnailText}>🏈</Text>
       </View>
       <View style={styles.playInfo}>
-        <Text style={styles.playTitle}>{item.title}</Text>
-        <Text style={styles.playDate}>{item.date}</Text>
+        <Text style={styles.playTitle}>{item.playName}</Text>
+        <Text style={styles.playDate}>{formatDate(item.timestamp)}</Text>
         <Text style={styles.playerCount}>{item.playerCount} players detected</Text>
       </View>
+      <View style={styles.chevron}>
+        <Text style={styles.chevronText}>›</Text>
+      </View>
     </TouchableOpacity>
+  );
+
+  const renderEmptyState = () => (
+    <View style={styles.emptyState}>
+      <Text style={styles.emptyStateText}>No saved plays yet</Text>
+      <Text style={styles.emptyStateSubtext}>
+        Capture and analyze a play to see it here
+      </Text>
+    </View>
   );
 
   return (
@@ -53,16 +111,32 @@ const HomeScreen = ({ onNavigate }) => {
         <Text style={styles.captureButtonText}>📷 Capture New Play</Text>
       </TouchableOpacity>
 
-      {/* Previous Plays Section */}
+      {/* Saved Plays Section */}
       <View style={styles.previousPlaysSection}>
-        <Text style={styles.sectionTitle}>Previous Captures</Text>
-        <FlatList
-          data={previousPlays}
-          renderItem={renderPlayItem}
-          keyExtractor={(item) => item.id}
-          style={styles.playsList}
-          showsVerticalScrollIndicator={false}
-        />
+        <View style={styles.sectionHeader}>
+          <Text style={styles.sectionTitle}>Saved Plays</Text>
+          {!loading && (
+            <TouchableOpacity onPress={loadSavedPlays} style={styles.refreshButton}>
+              <Text style={styles.refreshButtonText}>🔄</Text>
+            </TouchableOpacity>
+          )}
+        </View>
+        
+        {loading ? (
+          <View style={styles.loadingContainer}>
+            <ActivityIndicator size="large" color="#059669" />
+            <Text style={styles.loadingText}>Loading saved plays...</Text>
+          </View>
+        ) : (
+          <FlatList
+            data={savedPlays}
+            renderItem={renderPlayItem}
+            keyExtractor={(item) => item.id}
+            style={styles.playsList}
+            showsVerticalScrollIndicator={false}
+            ListEmptyComponent={renderEmptyState}
+          />
+        )}
       </View>
     </View>
   );
@@ -108,11 +182,22 @@ const styles = StyleSheet.create({
   previousPlaysSection: {
     flex: 1,
   },
+  sectionHeader: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    marginBottom: 16,
+  },
   sectionTitle: {
     fontSize: 22,
     fontWeight: 'bold',
     color: '#1f2937',
-    marginBottom: 16,
+  },
+  refreshButton: {
+    padding: 8,
+  },
+  refreshButtonText: {
+    fontSize: 18,
   },
   playsList: {
     flex: 1,
@@ -128,6 +213,7 @@ const styles = StyleSheet.create({
     shadowOffset: { width: 0, height: 1 },
     shadowOpacity: 0.05,
     shadowRadius: 2,
+    alignItems: 'center',
   },
   thumbnail: {
     width: 60,
@@ -160,6 +246,42 @@ const styles = StyleSheet.create({
     fontSize: 12,
     color: '#059669',
     fontWeight: '500',
+  },
+  chevron: {
+    marginLeft: 8,
+  },
+  chevronText: {
+    fontSize: 20,
+    color: '#9ca3af',
+    fontWeight: 'bold',
+  },
+  loadingContainer: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    paddingVertical: 40,
+  },
+  loadingText: {
+    marginTop: 12,
+    fontSize: 16,
+    color: '#6b7280',
+  },
+  emptyState: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    paddingVertical: 40,
+  },
+  emptyStateText: {
+    fontSize: 18,
+    fontWeight: 'bold',
+    color: '#6b7280',
+    marginBottom: 8,
+  },
+  emptyStateSubtext: {
+    fontSize: 14,
+    color: '#9ca3af',
+    textAlign: 'center',
   },
 });
 

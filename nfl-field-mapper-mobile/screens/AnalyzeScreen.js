@@ -1,8 +1,10 @@
 import React, { useState, useEffect } from 'react';
-import { View, Text, TouchableOpacity, StyleSheet, ScrollView, ActivityIndicator, Alert, Image } from 'react-native';
+import { View, Text, TouchableOpacity, StyleSheet, ScrollView, ActivityIndicator, Alert, Image, TextInput } from 'react-native';
 import * as ImageManipulator from 'expo-image-manipulator';
+import FontAwesome from '@expo/vector-icons/FontAwesome';
 import FieldVisualization from '../components/FieldVisualization';
 import ProcessingStatus from '../components/ProcessingStatus';
+import PlaysApiClient from '../services/PlaysApiClient';
 
 const AnalyzeScreen = ({ 
   mappedData, 
@@ -12,15 +14,33 @@ const AnalyzeScreen = ({
   lineOfScrimmage, 
   onNavigate, 
   onSavePlay,
-  capturedPhoto // Add capturedPhoto prop
+  capturedPhoto, // Add capturedPhoto prop
+  savedPlayData, // New prop for viewing saved plays
+  isViewingMode = false, // New prop to indicate if we're viewing a saved play
 }) => {
   const [highlightedPlayerIndex, setHighlightedPlayerIndex] = useState(null);
   const [roboflowOrientedImage, setRoboflowOrientedImage] = useState(null);
+  const [playName, setPlayName] = useState('');
+  const [saving, setSaving] = useState(false);
+  const [playsClient] = useState(new PlaysApiClient());
   
-  // Create the same orientation that was sent to Roboflow
+  // Use saved play data if in viewing mode
+  const currentMappedData = savedPlayData?.mappedData || mappedData;
+  const currentDetections = savedPlayData?.detections || detections;
+  const currentFieldDimensions = savedPlayData?.fieldDimensions || fieldDimensions;
+  const currentLineOfScrimmage = savedPlayData?.lineOfScrimmage || lineOfScrimmage;
+  
+  // Set play name from saved data if viewing
+  useEffect(() => {
+    if (isViewingMode && savedPlayData?.playName) {
+      setPlayName(savedPlayData.playName);
+    }
+  }, [isViewingMode, savedPlayData]);
+  
+  // Create the same orientation that was sent to Roboflow (only for new captures)
   useEffect(() => {
     const createRoboflowOrientedImage = async () => {
-      if (!capturedPhoto) return;
+      if (!capturedPhoto || isViewingMode) return;
       
       try {
         const isPortrait = capturedPhoto.height > capturedPhoto.width;
@@ -52,73 +72,134 @@ const AnalyzeScreen = ({
     };
     
     createRoboflowOrientedImage();
-  }, [capturedPhoto]);
+  }, [capturedPhoto, isViewingMode]);
 
   const handlePlayerClick = (index) => {
     setHighlightedPlayerIndex(index);
-    console.log('Player clicked:', detections[index]);
+    console.log('Player clicked:', currentDetections[index]);
   };
 
-  const handleSavePlay = () => {
-    if (!mappedData || !detections) {
-      Alert.alert('Error', 'No data to save');
+  const handleSavePlay = async () => {
+    if (!playName.trim()) {
+      Alert.alert('Error', 'Play name is required');
+      return;
+    }
+
+    if (!currentMappedData || !currentDetections) {
+      console.log('No data to save');
+      return;
+    }
+
+    if (isViewingMode) {
+      Alert.alert('Info', 'This play is already saved');
       return;
     }
 
     const playData = {
+      playName: playName.trim(),
       timestamp: new Date().toISOString(),
-      detections,
-      mappedData,
-      fieldDimensions,
-      lineOfScrimmage,
-      playerCount: detections.length,
+      detections: currentDetections,
+      mappedData: currentMappedData,
+      fieldDimensions: currentFieldDimensions,
+      lineOfScrimmage: currentLineOfScrimmage,
+      playerCount: currentDetections.length,
     };
 
-    // Log the data for now (as requested)
-    console.log('Saving play data:', JSON.stringify(playData, null, 2));
+    try {
+      setSaving(true);
+      console.log('💾 Saving play to Supabase:', playName.trim());
+      
+      // Generate a unique play ID
+      const playId = `play_${Date.now()}_${Math.random().toString(36).substr(2, 9)}`;
+      
+      // Save to Supabase
+      const success = await playsClient.savePlay(playId, playData);
+      
+      if (success) {
+        console.log('✅ Play saved successfully:', playId);
+        
+        // Log the data and play name to terminal
+        console.log('Saving play:', playName.trim());
+        console.log('Play data:', JSON.stringify(playData, null, 2));
+        
+        if (onSavePlay) {
+          onSavePlay(playData);
+        }
 
-    console.log('playData', playData);
-    
-    if (onSavePlay) {
-      onSavePlay(playData);
+        Alert.alert(
+          'Play Saved!',
+          `Successfully saved "${playName.trim()}" with ${currentDetections.length} players detected.`,
+          [
+            { 
+              text: 'View Saved Plays', 
+              onPress: () => onNavigate('home') 
+            },
+            { 
+              text: 'OK' 
+            }
+          ]
+        );
+      } else {
+        throw new Error('Save operation returned false');
+      }
+    } catch (error) {
+      console.error('❌ Failed to save play:', error);
+      Alert.alert(
+        'Save Failed',
+        `Failed to save play: ${error.message}`,
+        [{ text: 'OK' }]
+      );
+    } finally {
+      setSaving(false);
     }
-
-    Alert.alert(
-      'Play Saved!',
-      `Successfully saved play with ${detections.length} players detected.`,
-      [{ text: 'OK' }]
-    );
   };
 
   const renderPlayerStats = () => {
-    if (!mappedData || !detections) return null;
+    if (!currentDetections) return null;
 
-    const offensivePlayers = mappedData.players?.filter(p => p.team === 'offense') || [];
-    const defensivePlayers = mappedData.players?.filter(p => p.team === 'defense') || [];
+    // Define position arrays for color coding
+    const offensivePositions = ['QB', 'RB', 'FB', 'WR', 'TE', 'C', 'OG', 'OT'];
+    const defensivePositions = ['DE', 'DT', 'NT', 'LB', 'MLB', 'OLB', 'CB', 'DB', 'S', 'FS', 'SS'];
+    const specialPositions = ['K', 'P', 'LS', 'KR', 'PR'];
+
+    // Count positions for offensive and defensive players
+    const offensiveCount = {};
+    const defensiveCount = {};
+
+    currentDetections.forEach(detection => {
+      if (detection.class === 'ref') return; // Skip referees
+      
+      if (offensivePositions.includes(detection.class)) {
+        offensiveCount[detection.class] = (offensiveCount[detection.class] || 0) + 1;
+      } else if (defensivePositions.includes(detection.class)) {
+        defensiveCount[detection.class] = (defensiveCount[detection.class] || 0) + 1;
+      }
+    });
 
     return (
       <View style={styles.statsContainer}>
-        <Text style={styles.statsTitle}>Play Analysis</Text>
-        <View style={styles.statsRow}>
-          <View style={styles.statItem}>
-            <Text style={styles.statNumber}>{detections.length}</Text>
-            <Text style={styles.statLabel}>Total Players</Text>
+        <Text style={styles.statsTitle}>Personnel</Text>
+        <View style={styles.personnelRow}>
+          {/* Offensive Personnel */}
+          <View style={styles.personnelColumn}>
+            {Object.entries(offensiveCount).map(([position, count]) => (
+              <View key={position} style={styles.personnelItem}>
+                <View style={[styles.personnelDot, { backgroundColor: '#10b981' }]} />
+                <Text style={styles.personnelText}>{count} {position}</Text>
+              </View>
+            ))}
           </View>
-          <View style={styles.statItem}>
-            <Text style={styles.statNumber}>{offensivePlayers.length}</Text>
-            <Text style={styles.statLabel}>Offense</Text>
-          </View>
-          <View style={styles.statItem}>
-            <Text style={styles.statNumber}>{defensivePlayers.length}</Text>
-            <Text style={styles.statLabel}>Defense</Text>
+          
+          {/* Defensive Personnel */}
+          <View style={styles.personnelColumn}>
+            {Object.entries(defensiveCount).map(([position, count]) => (
+              <View key={position} style={styles.personnelItem}>
+                <View style={[styles.personnelDot, { backgroundColor: '#ef4444' }]} />
+                <Text style={styles.personnelText}>{count} {position}</Text>
+              </View>
+            ))}
           </View>
         </View>
-        
-        {lineOfScrimmage && (
-          <Text style={styles.scrimmageText}>
-            Line of Scrimmage: {lineOfScrimmage.toFixed(1)} yards
-          </Text>
-        )}
       </View>
     );
   };
@@ -136,7 +217,7 @@ const AnalyzeScreen = ({
     );
   }
 
-  if (!mappedData || !detections) {
+  if (!currentMappedData || !currentDetections) {
     return (
       <View style={styles.container}>
         <View style={styles.errorContainer}>
@@ -166,30 +247,23 @@ const AnalyzeScreen = ({
           >
             <Text style={styles.backButtonText}>← Home</Text>
           </TouchableOpacity>
-          <Text style={styles.headerTitle}>Play Analysis</Text>
+          <Text style={styles.headerTitle}>
+            {isViewingMode ? 'Saved Play' : 'Play Analysis'}
+          </Text>
           <View style={styles.placeholder} />
         </View>
 
-        {/* Image Preview */}
-        {roboflowOrientedImage && (
-          <View style={styles.imagePreviewContainer}>
-            <Text style={styles.imageLabel}>Image as analyzed by AI (Roboflow orientation)</Text>
-            <Image source={{ uri: roboflowOrientedImage.uri }} style={styles.imagePreview} />
+        {/* Viewing Mode Indicator */}
+        {isViewingMode && (
+          <View style={styles.viewingModeIndicator}>
+            <Text style={styles.viewingModeText}>📋 Viewing saved play</Text>
           </View>
         )}
 
-        {/* Raw Roboflow Predictions */}
-        {detections && detections.length > 0 && (
-          <View style={styles.rawPredictionsContainer}>
-            <Text style={styles.rawPredictionsTitle}>Raw Roboflow Predictions</Text>
-            <ScrollView 
-              style={styles.jsonScrollView} 
-              nestedScrollEnabled={true}
-            >
-              <Text style={styles.jsonText}>
-                {JSON.stringify(detections, null, 2)}
-              </Text>
-            </ScrollView>
+        {/* Image Preview (only for new captures) */}
+        {roboflowOrientedImage && !isViewingMode && (
+          <View style={styles.imagePreviewContainer}>
+            <Image source={{ uri: roboflowOrientedImage.uri }} style={styles.imagePreview} />
           </View>
         )}
 
@@ -199,29 +273,71 @@ const AnalyzeScreen = ({
         {/* Field Visualization */}
         <View style={styles.fieldContainer}>
           <FieldVisualization
-            detections={detections}
-            mappedData={mappedData}
-            lineOfScrimmage={lineOfScrimmage}
-            fieldDimensions={fieldDimensions}
+            detections={currentDetections}
+            mappedData={currentMappedData}
+            lineOfScrimmage={currentLineOfScrimmage}
+            fieldDimensions={currentFieldDimensions}
             highlightedIndex={highlightedPlayerIndex}
             onMarkerClick={handlePlayerClick}
           />
         </View>
 
-        {/* Save Button */}
-        <TouchableOpacity style={styles.saveButton} onPress={handleSavePlay}>
-          <Text style={styles.saveButtonText}>💾 Save Play</Text>
-        </TouchableOpacity>
+        {/* Save Play Section (only for new captures) */}
+        {!isViewingMode && (
+          <View style={styles.saveSection}>
+            <TextInput
+              style={styles.playNameInput}
+              placeholder="Enter play name..."
+              value={playName}
+              onChangeText={setPlayName}
+              editable={!saving}
+            />
+            <TouchableOpacity 
+              style={[
+                styles.saveButton, 
+                (!playName.trim() || saving) && styles.saveButtonDisabled
+              ]} 
+              onPress={handleSavePlay}
+              disabled={!playName.trim() || saving}
+            >
+              {saving ? (
+                <ActivityIndicator size="small" color="#fff" />
+              ) : (
+                <FontAwesome 
+                  name="save" 
+                  size={24} 
+                  color={!playName.trim() ? "#9ca3af" : "#fff"} 
+                />
+              )}
+            </TouchableOpacity>
+          </View>
+        )}
+
+        {/* Play Info for Saved Plays */}
+        {isViewingMode && savedPlayData && (
+          <View style={styles.playInfoContainer}>
+            <Text style={styles.playInfoTitle}>Play Information</Text>
+            <Text style={styles.playInfoText}>
+              Name: {savedPlayData.playName}
+            </Text>
+            <Text style={styles.playInfoText}>
+              Saved: {new Date(savedPlayData.timestamp).toLocaleString()}
+            </Text>
+            <Text style={styles.playInfoText}>
+              Players: {savedPlayData.playerCount}
+            </Text>
+          </View>
+        )}
 
         {/* Player Details */}
-        {highlightedPlayerIndex !== null && detections[highlightedPlayerIndex] && (
+        {highlightedPlayerIndex !== null && currentDetections[highlightedPlayerIndex] && (
           <View style={styles.playerDetails}>
             <Text style={styles.playerDetailsTitle}>Selected Player</Text>
             <Text style={styles.playerDetailsText}>
-              Position: {detections[highlightedPlayerIndex].class}
+              Position: {currentDetections[highlightedPlayerIndex].class}
             </Text>
             <Text style={styles.playerDetailsText}>
-              Confidence: {(detections[highlightedPlayerIndex].confidence * 100).toFixed(1)}%
+              Confidence: {(currentDetections[highlightedPlayerIndex].confidence * 100).toFixed(1)}%
             </Text>
             <TouchableOpacity 
               style={styles.clearSelectionButton}
@@ -297,7 +413,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'space-between',
     marginBottom: 20,
-    paddingTop: 20,
+    paddingTop: 60, // Increased padding to move the header further down
   },
   backButton: {
     backgroundColor: '#e5e7eb',
@@ -318,6 +434,18 @@ const styles = StyleSheet.create({
   placeholder: {
     width: 80, // Same width as back button for centering
   },
+  viewingModeIndicator: {
+    backgroundColor: '#dbeafe',
+    borderRadius: 12,
+    padding: 12,
+    marginBottom: 20,
+    alignItems: 'center',
+  },
+  viewingModeText: {
+    fontSize: 16,
+    color: '#1e40af',
+    fontWeight: '500',
+  },
   statsContainer: {
     backgroundColor: '#fff',
     borderRadius: 16,
@@ -336,29 +464,28 @@ const styles = StyleSheet.create({
     marginBottom: 16,
     textAlign: 'center',
   },
-  statsRow: {
+  personnelRow: {
     flexDirection: 'row',
-    justifyContent: 'space-around',
-    marginBottom: 12,
+    justifyContent: 'space-between',
   },
-  statItem: {
+  personnelColumn: {
+    flex: 1,
+    paddingHorizontal: 10,
+  },
+  personnelItem: {
+    flexDirection: 'row',
     alignItems: 'center',
+    marginBottom: 8,
   },
-  statNumber: {
-    fontSize: 32,
-    fontWeight: 'bold',
-    color: '#059669',
-    marginBottom: 4,
+  personnelDot: {
+    width: 12,
+    height: 12,
+    borderRadius: 6,
+    marginRight: 8,
   },
-  statLabel: {
-    fontSize: 14,
-    color: '#6b7280',
-    fontWeight: '500',
-  },
-  scrimmageText: {
+  personnelText: {
     fontSize: 16,
     color: '#1f2937',
-    textAlign: 'center',
     fontWeight: '500',
   },
   fieldContainer: {
@@ -374,20 +501,58 @@ const styles = StyleSheet.create({
   },
   saveButton: {
     backgroundColor: '#1d4ed8',
+    borderRadius: 8,
+    padding: 12,
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  saveButtonDisabled: {
+    backgroundColor: '#f3f4f6',
+  },
+  saveSection: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    backgroundColor: '#fff',
+    borderRadius: 16,
+    padding: 16,
+    marginBottom: 20,
+    elevation: 2,
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 1 },
+    shadowOpacity: 0.05,
+    shadowRadius: 2,
+  },
+  playNameInput: {
+    flex: 1,
+    borderWidth: 1,
+    borderColor: '#d1d5db',
+    borderRadius: 8,
+    paddingHorizontal: 12,
+    paddingVertical: 8,
+    fontSize: 16,
+    marginRight: 12,
+  },
+  playInfoContainer: {
+    backgroundColor: '#fff',
     borderRadius: 16,
     padding: 20,
-    alignItems: 'center',
     marginBottom: 20,
-    elevation: 4,
+    elevation: 2,
     shadowColor: '#000',
-    shadowOffset: { width: 0, height: 2 },
-    shadowOpacity: 0.1,
-    shadowRadius: 4,
+    shadowOffset: { width: 0, height: 1 },
+    shadowOpacity: 0.05,
+    shadowRadius: 2,
   },
-  saveButtonText: {
-    color: '#fff',
+  playInfoTitle: {
     fontSize: 18,
     fontWeight: 'bold',
+    color: '#1f2937',
+    marginBottom: 12,
+  },
+  playInfoText: {
+    fontSize: 16,
+    color: '#4b5563',
+    marginBottom: 8,
   },
   playerDetails: {
     backgroundColor: '#fff',
@@ -438,32 +603,6 @@ const styles = StyleSheet.create({
     color: '#6b7280',
     marginBottom: 8,
     textAlign: 'center',
-  },
-  rawPredictionsContainer: {
-    backgroundColor: '#fff',
-    borderRadius: 16,
-    padding: 20,
-    marginBottom: 20,
-    elevation: 2,
-    shadowColor: '#000',
-    shadowOffset: { width: 0, height: 1 },
-    shadowOpacity: 0.05,
-    shadowRadius: 2,
-  },
-  rawPredictionsTitle: {
-    fontSize: 18,
-    fontWeight: 'bold',
-    color: '#1f2937',
-    marginBottom: 12,
-    textAlign: 'center',
-  },
-  jsonScrollView: {
-    maxHeight: 200, // Limit height for scrollable JSON
-  },
-  jsonText: {
-    fontSize: 14,
-    color: '#374151',
-    lineHeight: 20,
   },
 });
 

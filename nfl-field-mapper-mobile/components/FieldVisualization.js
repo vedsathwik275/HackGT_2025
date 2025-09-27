@@ -202,49 +202,6 @@ const FieldVisualization = ({
           <G>{generateMarkers()}</G>
         </Svg>
       </View>
-      
-      {/* Legend */}
-      <View style={styles.legendContainer}>
-        <Text style={styles.legendTitle}>Legend</Text>
-        <View style={styles.legendGrid}>
-          <View style={styles.legendItem}>
-            <View style={[styles.legendDot, { backgroundColor: '#10b981' }]} />
-            <Text style={styles.legendText}>Offense</Text>
-          </View>
-          
-          <View style={styles.legendItem}>
-            <View style={[styles.legendDot, { backgroundColor: '#ef4444' }]} />
-            <Text style={styles.legendText}>Defense</Text>
-          </View>
-          
-          <View style={styles.legendItem}>
-            <View style={[styles.legendDot, { backgroundColor: '#f59e0b' }]} />
-            <Text style={styles.legendText}>Special Teams</Text>
-          </View>
-          
-          <View style={styles.legendItem}>
-            <View style={[styles.legendDot, { backgroundColor: '#3b82f6' }]} />
-            <Text style={styles.legendText}>Unclassified</Text>
-          </View>
-          
-          <View style={styles.legendItem}>
-            <View style={[styles.legendDot, { backgroundColor: '#fbbf24' }]} />
-            <Text style={styles.legendText}>Referees</Text>
-          </View>
-          
-          {lineOfScrimmage && (
-            <View style={styles.legendItem}>
-              <View style={styles.legendLine} />
-              <Text style={styles.legendText}>Line of Scrimmage</Text>
-            </View>
-          )}
-          
-          <View style={styles.legendItem}>
-            <View style={[styles.legendDot, { backgroundColor: '#9ca3af', opacity: 0.6 }]} />
-            <Text style={styles.legendText}>Low Confidence</Text>
-          </View>
-        </View>
-      </View>
     </View>
   );
 };
@@ -278,45 +235,6 @@ const styles = StyleSheet.create({
     borderRadius: 8,
     borderWidth: 2,
     borderColor: '#ffffff',
-  },
-  legendContainer: {
-    backgroundColor: '#f9fafb',
-    padding: 16,
-    borderRadius: 8,
-  },
-  legendTitle: {
-    fontSize: 16,
-    fontWeight: '600',
-    color: '#1f2937',
-    marginBottom: 12,
-  },
-  legendGrid: {
-    flexDirection: 'row',
-    flexWrap: 'wrap',
-    gap: 12,
-  },
-  legendItem: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    marginRight: 16,
-    marginBottom: 8,
-  },
-  legendDot: {
-    width: 16,
-    height: 16,
-    borderRadius: 8,
-    marginRight: 8,
-  },
-  legendLine: {
-    width: 20,
-    height: 3,
-    backgroundColor: '#fbbf24',
-    marginRight: 8,
-    borderStyle: 'dashed',
-  },
-  legendText: {
-    fontSize: 12,
-    color: '#6b7280',
   },
 });
 

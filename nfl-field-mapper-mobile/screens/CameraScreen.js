@@ -31,9 +31,9 @@ const CameraScreen = ({ onNavigate, onPhotoTaken }) => {
         uri: photo.uri
       });
 
-      // Crop the image to the guide frame area (80% width, 60% height, centered)
-      const cropWidth = photo.width * 0.8;
-      const cropHeight = photo.height * 0.6;
+      // Crop the image to the guide frame area (90% width, 70% height, centered)
+      const cropWidth = photo.width * 1.0;
+      const cropHeight = photo.height * 0.9;
       const cropX = (photo.width - cropWidth) / 2;
       const cropY = (photo.height - cropHeight) / 2;
 
@@ -131,9 +131,10 @@ const CameraScreen = ({ onNavigate, onPhotoTaken }) => {
 
           {/* Center guide */}
           <View style={styles.centerGuide}>
-            <Text style={styles.guideText}>Position the field in the frame</Text>
-            <Text style={styles.topIndicator}>TOP: One sideline should be at the top of your screen</Text>
-            <View style={styles.guideBorder} />
+            <View style={styles.guideContainer}>
+              <View style={styles.guideBorder} />
+              <Text style={styles.guideLabel}>Top of TV</Text>
+            </View>
           </View>
 
           {/* Bottom controls */}
@@ -215,29 +216,24 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     paddingHorizontal: 20,
   },
-  guideText: {
+  guideContainer: {
+    width: '100%',
+    height: '90%',
+    position: 'relative',
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  guideLabel: {
+    position: 'absolute',
+    right: -25, // Adjust this value to move it further right
+    top: '50%',
+    transform: [{ translateY: -10 }, { rotate: '90deg' }], // Add this line
     color: '#fff',
     fontSize: 16,
-    textAlign: 'center',
-    marginBottom: 20,
-    backgroundColor: 'rgba(0,0,0,0.6)',
-    paddingHorizontal: 16,
-    paddingVertical: 8,
-    borderRadius: 12,
-  },
-  topIndicator: {
-    color: '#fff',
-    fontSize: 14,
-    textAlign: 'center',
-    marginTop: 10,
-    backgroundColor: 'rgba(0,0,0,0.6)',
-    paddingHorizontal: 16,
-    paddingVertical: 8,
-    borderRadius: 12,
   },
   guideBorder: {
-    width: '80%',
-    height: '60%',
+    width: '100%',
+    height: '100%',
     borderWidth: 2,
     borderColor: 'rgba(255,255,255,0.7)',
     borderRadius: 12,
@@ -265,6 +261,17 @@ const styles = StyleSheet.create({
     height: 60,
     borderRadius: 30,
     backgroundColor: '#fff',
+  },
+  actionsContainer: {
+    position: 'absolute',
+    bottom: '5%', // Move the buttons 10% higher
+    left: 0,
+    right: 0,
+    backgroundColor: 'transparent', // Ensure no background color
+    paddingTop: 0,
+    paddingHorizontal: 0,
+    justifyContent: 'center',
+    alignItems: 'center',
   },
 });
 

@@ -1,5 +1,8 @@
 import React from 'react';
 import { View, Text, TouchableOpacity, StyleSheet, Image, Dimensions } from 'react-native';
+import FontAwesome5 from '@expo/vector-icons/FontAwesome5';
+import Ionicons from '@expo/vector-icons/Ionicons';
+import Entypo from '@expo/vector-icons/Entypo';
 
 const { width: screenWidth, height: screenHeight } = Dimensions.get('window');
 
@@ -47,33 +50,29 @@ const PhotoReviewScreen = ({ capturedPhoto, onNavigate, onAnalyze, onRetake }) =
 
       {/* Action Buttons */}
       <View style={styles.actionsContainer}>
-        <Text style={styles.instructionText}>
-          Review your captured field image. Ready to analyze the players?
-        </Text>
         
         <View style={styles.buttonRow}>
-          <TouchableOpacity 
-            style={[styles.button, styles.retakeButton]} 
+          <TouchableOpacity
+            style={[styles.button, styles.backHomeButton]}
+            onPress={() => onNavigate('home')}
+          >
+            <Entypo name="home" size={24} color="black" />
+          </TouchableOpacity>
+
+          <TouchableOpacity
+            style={[styles.button, styles.retakeButton]}
             onPress={handleRetake}
           >
-            <Text style={styles.buttonText}>📷 Retake</Text>
+            <FontAwesome5 name="redo" size={24} color="black" />
           </TouchableOpacity>
-          
-          <TouchableOpacity 
-            style={[styles.button, styles.analyzeButton]} 
+
+          <TouchableOpacity
+            style={[styles.button, styles.analyzeButton]}
             onPress={handleAnalyze}
           >
-            <Text style={styles.buttonText}>🔍 Analyze</Text>
+            <Ionicons name="analytics" size={24} color="black" />
           </TouchableOpacity>
         </View>
-
-        {/* Back to home option */}
-        <TouchableOpacity 
-          style={styles.backHomeButton} 
-          onPress={() => onNavigate('home')}
-        >
-          <Text style={styles.backHomeText}>← Back to Home</Text>
-        </TouchableOpacity>
       </View>
     </View>
   );
@@ -120,13 +119,15 @@ const styles = StyleSheet.create({
     alignSelf: 'center',
   },
   actionsContainer: {
-    flex: 1,
-    backgroundColor: '#f3f4f6',
-    borderTopLeftRadius: 24,
-    borderTopRightRadius: 24,
-    paddingTop: 32,
-    paddingHorizontal: 24,
-    justifyContent: 'space-between',
+    position: 'absolute',
+    bottom: '5%', // Move the buttons 10% higher
+    left: 0,
+    right: 0,
+    backgroundColor: 'transparent', // Ensure no background color
+    paddingTop: 0,
+    paddingHorizontal: 0,
+    justifyContent: 'center',
+    alignItems: 'center',
   },
   instructionText: {
     fontSize: 18,
@@ -137,14 +138,16 @@ const styles = StyleSheet.create({
   },
   buttonRow: {
     flexDirection: 'row',
-    justifyContent: 'space-between',
-    marginBottom: 24,
+    justifyContent: 'space-around',
+    alignItems: 'center',
+    width: '100%',
+    paddingHorizontal: 20,
   },
   button: {
-    flex: 1,
-    paddingVertical: 16,
-    paddingHorizontal: 20,
-    borderRadius: 16,
+    width: 60,
+    height: 60,
+    borderRadius: 30,
+    justifyContent: 'center',
     alignItems: 'center',
     marginHorizontal: 8,
     elevation: 4,
@@ -152,6 +155,7 @@ const styles = StyleSheet.create({
     shadowOffset: { width: 0, height: 2 },
     shadowOpacity: 0.1,
     shadowRadius: 4,
+    backgroundColor: '#3b82f6', // Default button color
   },
   retakeButton: {
     backgroundColor: '#dc2626',
@@ -165,8 +169,7 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
   },
   backHomeButton: {
-    alignItems: 'center',
-    paddingVertical: 16,
+    backgroundColor: '#6b7280',
   },
   backHomeText: {
     color: '#6b7280',

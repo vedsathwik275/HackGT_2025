@@ -12,6 +12,7 @@ import { HomeScreen, CameraScreen, PhotoReviewScreen, AnalyzeScreen } from './sc
 export default function App() {
   const [currentScreen, setCurrentScreen] = useState('home');
   const [capturedPhoto, setCapturedPhoto] = useState(null);
+  const [savedPlayData, setSavedPlayData] = useState(null); // For viewing saved plays
   
   const detectionData = useDetectionData();
   
@@ -25,6 +26,18 @@ export default function App() {
   // Navigation handler
   const handleNavigate = useCallback((screen) => {
     setCurrentScreen(screen);
+    
+    // Clear saved play data when navigating away from analyze screen
+    if (screen !== 'analyze') {
+      setSavedPlayData(null);
+    }
+  }, []);
+
+  // Handle viewing a saved play
+  const handleViewSavedPlay = useCallback((playData) => {
+    console.log('📋 Viewing saved play:', playData.playName);
+    setSavedPlayData(playData);
+    setCurrentScreen('analyze');
   }, []);
 
   // Handle photo capture from camera
@@ -77,7 +90,12 @@ export default function App() {
   const renderCurrentScreen = () => {
     switch (currentScreen) {
       case 'home':
-        return <HomeScreen onNavigate={handleNavigate} />;
+        return (
+          <HomeScreen 
+            onNavigate={handleNavigate} 
+            onViewSavedPlay={handleViewSavedPlay}
+          />
+        );
       
       case 'camera':
         return (
@@ -98,21 +116,29 @@ export default function App() {
         );
       
       case 'analyze':
+        const isViewingMode = savedPlayData !== null;
         return (
           <AnalyzeScreen 
-            mappedData={detectionData.mappedData}
-            detections={detectionData.detections}
-            isProcessing={detectionData.isProcessing || imageProcessor.isProcessing}
-            fieldDimensions={detectionData.fieldDimensions}
-            lineOfScrimmage={detectionData.lineOfScrimmage}
+            mappedData={isViewingMode ? null : detectionData.mappedData}
+            detections={isViewingMode ? null : detectionData.detections}
+            isProcessing={isViewingMode ? false : (detectionData.isProcessing || imageProcessor.isProcessing)}
+            fieldDimensions={isViewingMode ? null : detectionData.fieldDimensions}
+            lineOfScrimmage={isViewingMode ? null : detectionData.lineOfScrimmage}
             onNavigate={handleNavigate}
             onSavePlay={handleSavePlay}
-            capturedPhoto={capturedPhoto} // Pass capturedPhoto prop
+            capturedPhoto={isViewingMode ? null : capturedPhoto}
+            savedPlayData={savedPlayData}
+            isViewingMode={isViewingMode}
           />
         );
       
       default:
-        return <HomeScreen onNavigate={handleNavigate} />;
+        return (
+          <HomeScreen 
+            onNavigate={handleNavigate} 
+            onViewSavedPlay={handleViewSavedPlay}
+          />
+        );
     }
   };
 
