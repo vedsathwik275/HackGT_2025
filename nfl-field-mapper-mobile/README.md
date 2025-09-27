@@ -22,6 +22,27 @@ A React Native mobile application for detecting NFL players and referees in foot
 - npm or yarn
 - Expo CLI (`npm install -g @expo/cli`)
 - iOS Simulator (for iOS development) or Android Studio (for Android development)
+- **Backend Server**: The app now requires a backend server for coordinate processing
+
+### Backend Setup (Required)
+
+⚠️ **Important**: The mobile app now requires the backend server to be running for coordinate mapping functionality.
+
+1. **Start the backend server**:
+   ```bash
+   cd ../backend
+   npm install
+   npm run dev
+   ```
+
+2. **Verify backend is running**:
+   - Open browser to `http://localhost:3000/health`
+   - Should show: `{"status":"OK","service":"NFL Field Mapper Backend"}`
+
+3. **Backend features**:
+   - Processes coordinate mapping on server
+   - Handles file exports and downloads
+   - Provides real-time connection status in app
 
 ### Installation
 
@@ -90,6 +111,8 @@ npx eas build --platform all
 - **🔄 Pull-to-Refresh**: Refresh data with pull gesture
 - **📳 Haptic Feedback**: Touch feedback for better user experience
 - **🔔 Push Notifications**: Status updates and completion alerts
+- **🔌 Backend Integration**: Real-time server connection monitoring
+- **☁️ Cloud Processing**: Coordinate calculations handled on backend server
 
 ## 🏗️ Architecture
 
@@ -110,7 +133,8 @@ hooks/
 └── useImageProcessor.js    # Image processing and API calls
 
 services/
-└── CoordinateMapperService.js  # Coordinate mapping logic
+├── CoordinateMapperService.js      # DEPRECATED - moved to backend
+└── CoordinateMapperApiClient.js    # API client for backend communication
 ```
 
 ### Key Technologies

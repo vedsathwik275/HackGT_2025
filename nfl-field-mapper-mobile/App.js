@@ -10,6 +10,7 @@ import FieldVisualization from './components/FieldVisualization';
 import ExportButton from './components/ExportButton';
 import NotificationManager from './components/NotificationManager';
 import PlayerInfoModal from './components/PlayerInfoModal';
+import BackendConnectionStatus from './components/BackendConnectionStatus';
 
 export default function App() {
   const detectionData = useDetectionData();
@@ -55,7 +56,7 @@ export default function App() {
       <StatusBar style="dark" />
       <ScrollView style={styles.scrollView} contentContainerStyle={styles.scrollContent}>
         <Header />
-        
+                
         <ImageUpload
           imageProcessor={imageProcessor}
           onClearAll={handleClearAll}
