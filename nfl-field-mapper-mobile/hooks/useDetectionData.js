@@ -83,7 +83,16 @@ const useDetectionData = () => {
 
   // Calculate statistics
   const statistics = useMemo(() => {
-    const players = detections.filter(d => d.class === 'player');
+    // Define position arrays to match the service
+    const offensivePositions = ['QB', 'RB', 'FB', 'WR', 'TE', 'C', 'OG', 'OT'];
+    const defensivePositions = ['DE', 'DT', 'NT', 'LB', 'MLB', 'OLB', 'CB', 'DB', 'S', 'FS', 'SS'];
+    const specialPositions = ['K', 'P', 'LS', 'KR', 'PR'];
+    
+    const isPlayer = (d) => offensivePositions.includes(d.class) || 
+                           defensivePositions.includes(d.class) || 
+                           specialPositions.includes(d.class);
+    
+    const players = detections.filter(d => isPlayer(d));
     const refs = detections.filter(d => d.class === 'ref');
     const totalConfidence = detections.reduce((sum, d) => sum + d.confidence, 0);
     const avgConfidence = detections.length > 0 ? (totalConfidence / detections.length) : 0;

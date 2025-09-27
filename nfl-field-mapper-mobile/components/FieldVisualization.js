@@ -96,11 +96,27 @@ const FieldVisualization = ({
   const getMarkerColor = useCallback((detection, mappedPlayer) => {
     if (detection.class === 'ref') return '#fbbf24'; // Yellow for refs
     
-    if (mappedPlayer) {
-      return mappedPlayer.team === 'offense' ? '#10b981' : '#ef4444'; // Green for offense, red for defense
+    // Define position arrays for color coding
+    const offensivePositions = ['QB', 'RB', 'FB', 'WR', 'TE', 'C', 'OG', 'OT'];
+    const defensivePositions = ['DE', 'DT', 'NT', 'LB', 'MLB', 'OLB', 'CB', 'DB', 'S', 'FS', 'SS'];
+    const specialPositions = ['K', 'P', 'LS', 'KR', 'PR'];
+    
+    if (offensivePositions.includes(detection.class)) {
+      return '#10b981'; // Green for offense
+    } else if (defensivePositions.includes(detection.class)) {
+      return '#ef4444'; // Red for defense
+    } else if (specialPositions.includes(detection.class)) {
+      return '#f59e0b'; // Orange for special teams
     }
     
-    return '#3b82f6'; // Default blue for players
+    // Fallback to mapped player data
+    if (mappedPlayer) {
+      if (mappedPlayer.team === 'offense') return '#10b981';
+      if (mappedPlayer.team === 'defense') return '#ef4444';
+      if (mappedPlayer.team === 'special') return '#f59e0b';
+    }
+    
+    return '#3b82f6'; // Default blue for unknown
   }, []);
 
   // Generate player markers
@@ -128,14 +144,12 @@ const FieldVisualization = ({
           <SvgText
             x={svgPos.x}
             y={svgPos.y + 4}
-            fontSize="10"
+            fontSize="8"
             fill="#ffffff"
             textAnchor="middle"
             fontWeight="bold"
           >
-            {detection.class === 'ref' ? 'R' : 
-             mappedPlayer?.team === 'offense' ? 'O' : 
-             mappedPlayer?.team === 'defense' ? 'D' : 'P'}
+            {detection.class === 'ref' ? 'R' : detection.class}
           </SvgText>
         </G>
       );
@@ -201,6 +215,11 @@ const FieldVisualization = ({
           <View style={styles.legendItem}>
             <View style={[styles.legendDot, { backgroundColor: '#ef4444' }]} />
             <Text style={styles.legendText}>Defense</Text>
+          </View>
+          
+          <View style={styles.legendItem}>
+            <View style={[styles.legendDot, { backgroundColor: '#f59e0b' }]} />
+            <Text style={styles.legendText}>Special Teams</Text>
           </View>
           
           <View style={styles.legendItem}>

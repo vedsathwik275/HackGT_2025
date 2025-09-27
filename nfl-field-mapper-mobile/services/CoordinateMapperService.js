@@ -10,6 +10,34 @@ import * as Sharing from 'expo-sharing';
 class CoordinateMapperService {
   constructor() {
     this.nflFieldWidthYards = 53.3;
+    
+    // Define offensive and defensive positions
+    this.offensivePositions = ['QB', 'RB', 'FB', 'WR', 'TE', 'C', 'OG', 'OT'];
+    this.defensivePositions = ['DE', 'DT', 'NT', 'LB', 'MLB', 'OLB', 'CB', 'DB', 'S', 'FS', 'SS'];
+    this.specialPositions = ['K', 'P', 'LS', 'KR', 'PR'];
+  }
+
+  /**
+   * Determine if a position is offensive, defensive, or special teams
+   */
+  getPositionType(positionClass) {
+    if (this.offensivePositions.includes(positionClass)) {
+      return 'offense';
+    } else if (this.defensivePositions.includes(positionClass)) {
+      return 'defense';
+    } else if (this.specialPositions.includes(positionClass)) {
+      return 'special';
+    }
+    return 'unknown';
+  }
+
+  /**
+   * Check if a detection is a player (has a football position)
+   */
+  isPlayer(detection) {
+    return this.offensivePositions.includes(detection.class) || 
+           this.defensivePositions.includes(detection.class) ||
+           this.specialPositions.includes(detection.class);
   }
 
   /**
@@ -18,29 +46,42 @@ class CoordinateMapperService {
   classifyOffenseDefense(players, lineOfScrimmageX) {
     const offense = [];
     const defense = [];
+    const special = [];
+    const unknown = [];
     
     for (const player of players) {
-      if (player.class !== 'player') {
+      if (!this.isPlayer(player)) {
         continue;
       }
       
-      const x = player.x;
+      const positionType = this.getPositionType(player.class);
       
-      if (x < lineOfScrimmageX) {
+      // First classify by position type
+      if (positionType === 'offense') {
         offense.push(player);
-      } else {
+      } else if (positionType === 'defense') {
         defense.push(player);
+      } else if (positionType === 'special') {
+        special.push(player);
+      } else {
+        // For unknown positions, fall back to line of scrimmage classification
+        const x = player.x;
+        if (x < lineOfScrimmageX) {
+          offense.push(player);
+        } else {
+          defense.push(player);
+        }
       }
     }
     
-    return { offense, defense };
+    return { offense, defense, special, unknown };
   }
 
   /**
    * Estimate line of scrimmage to create roughly balanced teams
    */
   estimateLineOfScrimmage(players) {
-    const playerList = players.filter(p => p.class === 'player');
+    const playerList = players.filter(p => this.isPlayer(p));
     if (playerList.length < 4) {
       return null;
     }
@@ -175,18 +216,27 @@ class CoordinateMapperService {
     const fieldCenterY = fieldDims.fieldCenterY;
     
     const allDetections = detectionData.predictions;
-    const players = allDetections.filter(d => d.class === 'player');
+    const players = allDetections.filter(d => this.isPlayer(d));
     
-    const { offense, defense } = this.classifyOffenseDefense(players, lineOfScrimmageX);
+    const { offense, defense, special } = this.classifyOffenseDefense(players, lineOfScrimmageX);
     
     for (const detection of allDetections) {
-      if (detection.class === 'player') {
+      if (this.isPlayer(detection)) {
         const xYards = (detection.x - lineOfScrimmageX) / pixelsPerYard;
         const yYards = (detection.y - fieldCenterY) / pixelsPerYard;
-        const team = offense.includes(detection) ? "offense" : "defense";
+        
+        let team = "unknown";
+        if (offense.includes(detection)) {
+          team = "offense";
+        } else if (defense.includes(detection)) {
+          team = "defense";
+        } else if (special && special.includes(detection)) {
+          team = "special";
+        }
         
         mappedData.players.push({
           detectionId: detection.detection_id,
+          position: detection.class, // Add the specific position
           team: team,
           coordinates: {
             xYards: Math.round(xYards * 100) / 100,
@@ -241,7 +291,7 @@ class CoordinateMapperService {
    */
   processDetections(detectionData) {
     const allDetections = detectionData.predictions;
-    const players = allDetections.filter(d => d.class === 'player');
+    const players = allDetections.filter(d => this.isPlayer(d));
     
     const lineOfScrimmageX = this.estimateLineOfScrimmage(players);
     const fieldDims = this.calculateFieldDimensions(allDetections, lineOfScrimmageX, players);

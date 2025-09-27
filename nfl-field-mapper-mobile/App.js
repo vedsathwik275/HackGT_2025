@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import { StatusBar } from 'expo-status-bar';
 import { StyleSheet, View, ScrollView, SafeAreaView } from 'react-native';
 import useDetectionData from './hooks/useDetectionData';
@@ -9,9 +9,11 @@ import ProcessingStatus from './components/ProcessingStatus';
 import FieldVisualization from './components/FieldVisualization';
 import ExportButton from './components/ExportButton';
 import NotificationManager from './components/NotificationManager';
+import PlayerInfoModal from './components/PlayerInfoModal';
 
 export default function App() {
   const detectionData = useDetectionData();
+  const [selectedPlayerIndex, setSelectedPlayerIndex] = useState(null);
   
   // Image processor with callback for when detections are received
   const handleDetectionsReceived = useCallback(async (detections, imgDimensions) => {
@@ -24,7 +26,20 @@ export default function App() {
   const handleClearAll = useCallback(() => {
     imageProcessor.resetImagePreview();
     detectionData.clearAll();
+    setSelectedPlayerIndex(null);
   }, [imageProcessor, detectionData]);
+
+  // Handle player marker click
+  const handlePlayerClick = useCallback((index) => {
+    setSelectedPlayerIndex(index);
+    detectionData.highlightDetection(index);
+  }, [detectionData]);
+
+  // Close player info modal
+  const closePlayerInfo = useCallback(() => {
+    setSelectedPlayerIndex(null);
+    detectionData.clearHighlights();
+  }, [detectionData]);
 
   // Show welcome message on mount
   useEffect(() => {
@@ -58,7 +73,7 @@ export default function App() {
           lineOfScrimmage={detectionData.lineOfScrimmage}
           fieldDimensions={detectionData.fieldDimensions}
           highlightedIndex={detectionData.highlightedIndex}
-          onMarkerClick={detectionData.highlightDetection}
+          onMarkerClick={handlePlayerClick}
         />
         
         <ExportButton 
@@ -66,6 +81,14 @@ export default function App() {
           disabled={imageProcessor.isProcessing || detectionData.isProcessing || !detectionData.mappedData}
         />
       </ScrollView>
+      
+      {/* Player Info Modal */}
+      <PlayerInfoModal
+        visible={selectedPlayerIndex !== null}
+        detection={selectedPlayerIndex !== null ? detectionData.detections[selectedPlayerIndex] : null}
+        mappedPlayer={selectedPlayerIndex !== null ? detectionData.getMappedPlayerById(detectionData.detections[selectedPlayerIndex]?.detection_id) : null}
+        onClose={closePlayerInfo}
+      />
       
       <NotificationManager />
     </SafeAreaView>
