@@ -1,6 +1,8 @@
 import matplotlib.pyplot as plt
 import numpy as np
 import json
+import sys
+from pathlib import Path
 
 def is_player_position(class_name):
     """Helper function to check if a class represents a player position"""
@@ -559,6 +561,26 @@ if __name__ == "__main__":
     
     # Map coordinates and export to JSON
     mapped_data = map_coordinates(detection_data, line_of_scrimmage_x, field_dims)
+
+    # Call classifier from defensive_coverage.py (if available)
+    try:
+        script_dir = Path(__file__).resolve().parent
+        sys.path.insert(0, str(script_dir / 'testpy'))
+        from defensive_coverage import classify_coverage_v2
+
+        coverage_result = classify_coverage_v2(mapped_data)
+        print("\n=== Defensive Coverage (inline call) ===")
+        print(json.dumps(coverage_result, indent=2))
+        # write result file
+        try:
+            out_path = script_dir / 'testpy' / 'coverage_result_inline.json'
+            with out_path.open('w', encoding='utf-8') as cf:
+                json.dump(coverage_result, cf, indent=2)
+            print(f"Saved inline coverage result to: {out_path}")
+        except Exception as e:
+            print(f"Warning: failed to save inline coverage result: {e}")
+    except Exception as e:
+        print(f"Warning: could not import/run classify_coverage_v2: {e}")
     
     # Create the diagram
     fig, ax = create_football_diagram()
