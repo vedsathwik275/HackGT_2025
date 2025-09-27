@@ -1,0 +1,15 @@
+# Core dependencies for College Football Tool + Gemini Integration
+google-generativeai
+requests
+beautifulsoup4
+langchain
+pydantic
+
+# Optional dependencies for enhanced features
+flask          # For web demo interface
+flask-cors     # For CORS support
+python-dotenv # For .env file support
+
+# Development and testing
+pytest         # For unit testing
+pytest-asyncio # For async testing
