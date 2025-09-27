@@ -1,0 +1,9 @@
+🔗  Linked to jai-desais-projects-1c45e5e8/football-next-gen-backend (created .vercel and added it to .gitignore)
+🔍  Inspect: https://vercel.com/jai-desais-projects-1c45e5e8/football-next-gen-backend/3a9vTAPeQbFtKpKVNRaMio8pqDgx [2s]
+✅  Production: https://football-next-gen-backend-bm46obu6w.vercel.app [2s]
+📝  Deployed to production. Run `vercel --prod` to overwrite later (https://vercel.link/2F).
+💡  To change the domain or build command, go to https://vercel.com/jai-desais-projects-1c45e5e8/football-next-gen-backend/settings
+
+Common next commands:
+- `vercel inspect football-next-gen-backend-bm46obu6w.vercel.app --logs`
+- `vercel redeploy football-next-gen-backend-bm46obu6w.vercel.app`
