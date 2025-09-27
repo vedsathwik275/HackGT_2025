@@ -1,6 +1,6 @@
 # 🏈 NFL Field Detection Mapper (React)
 
-A modern React application for detecting NFL players and referees in football images, with automatic coordinate mapping to field positions and team classification.
+A modern React application for detecting NFL players and referees in football images, with automatic coordinate mapping to field positions and team classification. Now with **backend API integration** for enhanced processing capabilities.
 
 ## ✨ Features
 
@@ -12,6 +12,9 @@ A modern React application for detecting NFL players and referees in football im
 - **📱 Responsive Design**: Works on desktop, tablet, and mobile devices
 - **⌨️ Keyboard Shortcuts**: Quick actions for power users
 - **📤 Data Export**: Export mapped coordinates as JSON files
+- **🌐 Backend Integration**: Seamless integration with Express.js backend for enhanced processing
+- **🔄 Hybrid Processing**: Auto-fallback between backend and local processing
+- **⚙️ Configurable API**: Easy backend URL configuration with connection testing
 
 ## 🚀 Quick Start
 
@@ -47,6 +50,43 @@ npm run build
 ```
 
 This creates an optimized production build in the `build/` folder.
+
+## 🌐 Backend Integration
+
+The application now supports backend API integration for enhanced processing capabilities:
+
+### Processing Modes
+
+- **🔄 Auto Mode (Recommended)**: Automatically uses backend when available, falls back to local processing
+- **🌐 Backend Mode**: Forces backend processing (requires backend server)  
+- **🏠 Local Mode**: Uses only local browser-based processing
+
+### Backend Setup
+
+1. **Start the backend server** (from the `backend/` directory):
+   ```bash
+   cd ../backend
+   npm install
+   npm start
+   ```
+
+2. **Configure backend URL** (if different from localhost:3000):
+   - Click the "Config" button in the Backend Connection Status panel
+   - Enter your backend URL (e.g., `http://your-server:3000`)
+   - Test the connection and save
+
+### Backend Features
+
+- **Enhanced Processing**: More accurate coordinate mapping using server-side algorithms
+- **File Export**: Save processed data directly to the backend server
+- **Health Monitoring**: Real-time backend connection status
+- **Automatic Fallback**: Seamlessly switches to local processing if backend is unavailable
+
+### Connection Status Indicators
+
+- 🟢 **Online**: Backend is connected and available
+- 🔴 **Offline**: Backend is not accessible, using local processing
+- 🟡 **Unknown**: Connection status being determined
 
 ## 🎮 Usage
 

@@ -1,19 +1,9 @@
-import * as FileSystem from 'expo-file-system/legacy';
-import * as Sharing from 'expo-sharing';
+const fs = require('fs').promises;
+const path = require('path');
 
 /**
- * @deprecated This service has been moved to the backend.
- * Use CoordinateMapperApiClient instead for all coordinate mapping operations.
- * 
- * This file is kept for reference only and should not be used in production.
- * The functionality has been migrated to an Express.js backend service.
- * 
- * Migration date: $(date)
- * Replacement: ../services/CoordinateMapperApiClient.js
- * Backend location: ../../backend/services/CoordinateMapperService.js
- * 
- * CoordinateMapperService.js (DEPRECATED)
- * React Native service for football player coordinate mapping
+ * CoordinateMapperService.js
+ * Node.js service for football player coordinate mapping
  * Converts pixel coordinates to field-relative coordinates in yards
  */
 
@@ -25,6 +15,21 @@ class CoordinateMapperService {
     this.offensivePositions = ['QB', 'RB', 'FB', 'WR', 'TE', 'C', 'OG', 'OT'];
     this.defensivePositions = ['DE', 'DT', 'NT', 'LB', 'MLB', 'OLB', 'CB', 'DB', 'S', 'FS', 'SS'];
     this.specialPositions = ['K', 'P', 'LS', 'KR', 'PR'];
+    
+    // Ensure exports directory exists
+    this.exportDir = process.env.EXPORT_DIR || path.join(__dirname, '../exports');
+    this.ensureExportDir();
+  }
+
+  /**
+   * Ensure export directory exists
+   */
+  async ensureExportDir() {
+    try {
+      await fs.mkdir(this.exportDir, { recursive: true });
+    } catch (error) {
+      console.error('Error creating export directory:', error);
+    }
   }
 
   /**
@@ -216,7 +221,8 @@ class CoordinateMapperService {
           pixelsPerYard: fieldDims.pixelsPerYard
         },
         lineOfScrimmagePixel: lineOfScrimmageX,
-        fieldCenterYPixel: fieldDims.fieldCenterY
+        fieldCenterYPixel: fieldDims.fieldCenterY,
+        processedAt: new Date().toISOString()
       },
       players: [],
       referees: []
@@ -315,31 +321,36 @@ class CoordinateMapperService {
   }
 
   /**
-   * Export to JSON for sharing (React Native version)
+   * Export to JSON file (Node.js version)
    */
   async exportToJSON(mappedData, filename = 'football_coordinates.json') {
     try {
       const jsonString = JSON.stringify(mappedData, null, 2);
-      const fileUri = FileSystem.documentDirectory + filename;
+      const filePath = path.join(this.exportDir, filename);
       
-      await FileSystem.writeAsStringAsync(fileUri, jsonString);
+      await fs.writeFile(filePath, jsonString, 'utf8');
       
-      // Share the file
-      if (await Sharing.isAvailableAsync()) {
-        await Sharing.shareAsync(fileUri);
-      } else {
-        console.log('Sharing is not available on this platform');
-        if (global.showNotification) {
-          global.showNotification('File saved but sharing not available', 'warning');
-        }
-      }
+      return {
+        success: true,
+        filePath: filePath,
+        filename: filename,
+        size: jsonString.length
+      };
     } catch (error) {
       console.error('Error exporting JSON:', error);
-      if (global.showNotification) {
-        global.showNotification(`Export failed: ${error.message}`, 'error');
-      }
-      throw error;
+      throw new Error(`Export failed: ${error.message}`);
     }
+  }
+
+  /**
+   * Get available positions for validation
+   */
+  getAvailablePositions() {
+    return {
+      offensive: [...this.offensivePositions],
+      defensive: [...this.defensivePositions],
+      special: [...this.specialPositions]
+    };
   }
 
   // Utility methods
@@ -354,4 +365,4 @@ class CoordinateMapperService {
   }
 }
 
-export default CoordinateMapperService;
+module.exports = CoordinateMapperService; 
