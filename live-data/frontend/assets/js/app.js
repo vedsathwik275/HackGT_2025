@@ -5,7 +5,8 @@
 
 class NextGenFootballApp {
     constructor() {
-        this.apiBaseUrl = 'http://localhost:5001/api';
+        // Use relative URLs for production deployment
+        this.apiBaseUrl = window.location.origin + '/api';
         this.isLoading = false;
         this.messageHistory = [];
         this.selectedSport = null; // null = both, 'college', 'nfl'
