@@ -5,8 +5,8 @@
 
 class NextGenFootballApp {
     constructor() {
-        // Use relative URLs for production deployment
-        this.apiBaseUrl = window.location.origin + '/api';
+        // Use deployed API URL
+        this.apiBaseUrl = 'https://nextgen-live-data-api.onrender.com/api';
         this.isLoading = false;
         this.messageHistory = [];
         this.selectedSport = null; // null = both, 'college', 'nfl'
