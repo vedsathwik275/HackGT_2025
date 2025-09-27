@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NFL Field Detection Mapper</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body class="bg-gray-100 min-h-screen">
+    <div class="container mx-auto p-6">
+        <!-- Header -->
+        <div class="bg-white rounded-lg shadow-lg p-6 mb-6">
+            <h1 class="text-3xl font-bold text-gray-800 mb-4">🏈 NFL Field Detection Mapper</h1>
+            <p class="text-gray-600 mb-4">Upload an image to automatically detect players and referees, then visualize them on an NFL field.</p>
+        </div>
+
+        <!-- Image Upload Section -->
+        <div class="bg-white rounded-lg shadow-lg p-6 mb-6">
+            <h2 class="text-xl font-semibold text-gray-800 mb-4">🖼️ Image Upload & Detection</h2>
+            
+            <div class="grid md:grid-cols-2 gap-6">
+                <!-- Upload Controls -->
+                <div>
+                    <div class="mb-4">
+                        <label class="block text-sm font-medium text-gray-700 mb-2">Upload Football Image</label>
+                        <input type="file" id="imageFile" accept="image/*" 
+                               class="block w-full text-sm text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-blue-50 file:text-blue-700 hover:file:bg-blue-100">
+                    </div>
+                    
+                    <div class="flex flex-wrap gap-3">
+                        <button id="detectPlayers" class="bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded-lg transition-colors flex items-center gap-2" disabled>
+                            <span class="loading-spinner hidden"></span>
+                            <span class="button-text">🔍 Detect Players</span>
+                        </button>
+                        <button id="loadSample" class="bg-green-500 hover:bg-green-600 text-white px-4 py-2 rounded-lg transition-colors">
+                            📂 Load Sample Data
+                        </button>
+                        <button id="loadJsonFile" class="bg-purple-500 hover:bg-purple-600 text-white px-4 py-2 rounded-lg transition-colors">
+                            📄 Load JSON File
+                        </button>
+                        <button id="clearField" class="bg-red-500 hover:bg-red-600 text-white px-4 py-2 rounded-lg transition-colors">
+                            🗑️ Clear All
+                        </button>
+                    </div>
+
+                    <input type="file" id="jsonFileInput" accept=".json" class="hidden">
+                </div>
+
+                <!-- Image Preview -->
+                <div>
+                    <label class="block text-sm font-medium text-gray-700 mb-2">Image Preview</label>
+                    <div id="imagePreviewContainer" class="border-2 border-dashed border-gray-300 rounded-lg p-6 text-center min-h-[200px] flex items-center justify-center">
+                        <div class="text-gray-500">
+                            <svg class="mx-auto h-12 w-12 mb-2" stroke="currentColor" fill="none" viewBox="0 0 48 48">
+                                <path d="M28 8H12a4 4 0 00-4 4v20m32-12v8m0 0v8a4 4 0 01-4 4H12a4 4 0 01-4-4v-4m32-4l-3.172-3.172a4 4 0 00-5.656 0L28 28M8 32l9.172-9.172a4 4 0 015.656 0L28 28m0 0l4 4m4-24h8m-4-4v8m-12 4h.02" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                            </svg>
+                            <p>No image selected</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Processing Status -->
+        <div id="processingStatus" class="bg-blue-50 border border-blue-200 rounded-lg p-4 mb-6 hidden">
+            <div class="flex items-center gap-3">
+                <div class="loading-spinner"></div>
+                <div>
+                    <h3 class="font-semibold text-blue-800">Processing Image...</h3>
+                    <p class="text-sm text-blue-600" id="processingMessage">Uploading image to detection service...</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Stats Panel -->
+        <div class="bg-white rounded-lg shadow-lg p-6 mb-6">
+            <h2 class="text-xl font-semibold text-gray-800 mb-4">📊 Detection Statistics</h2>
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+                <div class="bg-blue-50 p-4 rounded-lg">
+                    <div class="text-2xl font-bold text-blue-600" id="playerCount">0</div>
+                    <div class="text-sm text-gray-600">Players</div>
+                </div>
+                <div class="bg-yellow-50 p-4 rounded-lg">
+                    <div class="text-2xl font-bold text-yellow-600" id="refCount">0</div>
+                    <div class="text-sm text-gray-600">Referees</div>
+                </div>
+                <div class="bg-green-50 p-4 rounded-lg">
+                    <div class="text-2xl font-bold text-green-600" id="totalCount">0</div>
+                    <div class="text-sm text-gray-600">Total</div>
+                </div>
+                <div class="bg-purple-50 p-4 rounded-lg">
+                    <div class="text-2xl font-bold text-purple-600" id="avgConfidence">0%</div>
+                    <div class="text-sm text-gray-600">Avg Confidence</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Field Visualization -->
+        <div class="bg-white rounded-lg shadow-lg p-6">
+            <h2 class="text-xl font-semibold text-gray-800 mb-4">🏟️ Field Visualization</h2>
+            <div class="flex justify-center">
+                <div class="relative bg-green-600 rounded-lg p-4" style="width: 1000px; height: 533px;">
+                    <svg id="nflField" width="100%" height="100%" class="border-2 border-white">
+                        <!-- Field background -->
+                        <rect width="100%" height="100%" fill="#2d5a27"/>
+                        
+                        <!-- End zones -->
+                        <rect x="0" y="0" width="83.33" height="100%" class="end-zone"/>
+                        <rect x="916.67" y="0" width="83.33" height="100%" class="end-zone"/>
+                        
+                        <!-- Yard lines -->
+                        <g id="yardLines"></g>
+                        
+                        <!-- Hash marks -->
+                        <g id="hashMarks"></g>
+                        
+                        <!-- Field numbers -->
+                        <g id="fieldNumbers"></g>
+                        
+                        <!-- Detection markers will be added here -->
+                        <g id="detectionMarkers"></g>
+                    </svg>
+                </div>
+            </div>
+            
+            <!-- Legend -->
+            <div class="mt-4 flex justify-center">
+                <div class="bg-gray-50 p-4 rounded-lg">
+                    <h3 class="font-semibold text-gray-800 mb-2">Legend</h3>
+                    <div class="flex flex-wrap gap-4">
+                        <div class="flex items-center gap-2">
+                            <div class="w-4 h-4 bg-blue-500 rounded-full"></div>
+                            <span class="text-sm">Players</span>
+                        </div>
+                        <div class="flex items-center gap-2">
+                            <div class="w-4 h-4 bg-yellow-500 rounded-full"></div>
+                            <span class="text-sm">Referees</span>
+                        </div>
+                        <div class="flex items-center gap-2">
+                            <div class="w-4 h-4 bg-red-500 rounded-full"></div>
+                            <span class="text-sm">Low Confidence (&lt;70%)</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Detection Details -->
+        <div class="bg-white rounded-lg shadow-lg p-6 mt-6">
+            <h2 class="text-xl font-semibold text-gray-800 mb-4">📋 Detection Details</h2>
+            <div class="overflow-x-auto">
+                <table class="min-w-full table-auto">
+                    <thead class="bg-gray-50">
+                        <tr>
+                            <th class="px-4 py-2 text-left">ID</th>
+                            <th class="px-4 py-2 text-left">Type</th>
+                            <th class="px-4 py-2 text-left">Position (x,y)</th>
+                            <th class="px-4 py-2 text-left">Size</th>
+                            <th class="px-4 py-2 text-left">Confidence</th>
+                            <th class="px-4 py-2 text-left">Field Position</th>
+                        </tr>
+                    </thead>
+                    <tbody id="detectionTable" class="divide-y divide-gray-200">
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <script type="module" src="js/App.js"></script>
+</body>
+</html>
