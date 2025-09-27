@@ -6,9 +6,8 @@ import useImageProcessor from './hooks/useImageProcessor';
 import Header from './components/Header';
 import ImageUpload from './components/ImageUpload';
 import ProcessingStatus from './components/ProcessingStatus';
-import StatsPanel from './components/StatsPanel';
 import FieldVisualization from './components/FieldVisualization';
-import DetectionTable from './components/DetectionTable';
+import ExportButton from './components/ExportButton';
 import NotificationManager from './components/NotificationManager';
 
 export default function App() {
@@ -53,12 +52,6 @@ export default function App() {
           message={imageProcessor.processingMessage}
         />
         
-        <StatsPanel
-          statistics={detectionData.statistics}
-          fieldDimensions={detectionData.fieldDimensions}
-          lineOfScrimmage={detectionData.lineOfScrimmage}
-        />
-        
         <FieldVisualization
           detections={detectionData.detections}
           mappedData={detectionData.mappedData}
@@ -68,12 +61,9 @@ export default function App() {
           onMarkerClick={detectionData.highlightDetection}
         />
         
-        <DetectionTable
-          detections={detectionData.detections}
-          mappedData={detectionData.mappedData}
-          highlightedIndex={detectionData.highlightedIndex}
-          onRowClick={detectionData.highlightDetection}
+        <ExportButton 
           onExportData={detectionData.exportMappedData}
+          disabled={imageProcessor.isProcessing || detectionData.isProcessing || !detectionData.mappedData}
         />
       </ScrollView>
       

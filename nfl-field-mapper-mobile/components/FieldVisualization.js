@@ -90,32 +90,7 @@ const FieldVisualization = ({
     return marks;
   }, [fieldScale]);
 
-  // Generate field numbers
-  const generateFieldNumbers = useCallback(() => {
-    const numbers = [];
-    const lineSpacing = fieldScale.width / 12;
-    const yardNumbers = [10, 20, 30, 40, 50, 40, 30, 20, 10];
-    
-    yardNumbers.forEach((number, index) => {
-      const x = (index + 2) * lineSpacing;
-      numbers.push(
-        <SvgText
-          key={`number-${index}`}
-          x={x}
-          y={fieldScale.height / 2 + 5}
-          fontSize="16"
-          fill="#ffffff"
-          textAnchor="middle"
-          fontWeight="bold"
-          opacity="0.7"
-        >
-          {number}
-        </SvgText>
-      );
-    });
-    
-    return numbers;
-  }, [fieldScale]);
+
 
   // Get marker color based on detection type and team
   const getMarkerColor = useCallback((detection, mappedPlayer) => {
@@ -205,9 +180,6 @@ const FieldVisualization = ({
           
           {/* Hash marks */}
           <G>{generateHashMarks()}</G>
-          
-          {/* Field numbers */}
-          <G>{generateFieldNumbers()}</G>
           
           {/* Line of scrimmage */}
           {generateLineOfScrimmage()}
