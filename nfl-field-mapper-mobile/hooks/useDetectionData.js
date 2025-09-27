@@ -23,16 +23,20 @@ const useDetectionData = () => {
         setImageDimensions(imgDimensions);
       }
 
+      console.log('📊 Raw Roboflow Predictions:', JSON.stringify(newDetections, null, 2));
+
       // Map coordinates if we have detections
       if (newDetections && newDetections.length > 0) {
         const detectionData = { predictions: newDetections };
         
-        // Make API call to backend
+        console.log('➡️ Calling backend to process detections...');
         const coordinateResults = await apiClient.processDetections(detectionData);
+        console.log('✅ Backend processed detections:', coordinateResults);
         
-        setMappedData(coordinateResults.mappedData);
-        setLineOfScrimmage(coordinateResults.lineOfScrimmageX);
-        setFieldDimensions(coordinateResults.fieldDims);
+        // Expected fields: mappedData, lineOfScrimmageX, fieldDims
+        setMappedData(coordinateResults.mappedData || null);
+        setLineOfScrimmage(coordinateResults.lineOfScrimmageX ?? null);
+        setFieldDimensions(coordinateResults.fieldDims || null);
         
         if (global.showNotification) {
           global.showNotification('✅ Coordinates processed successfully!', 'success');
@@ -41,11 +45,14 @@ const useDetectionData = () => {
         setMappedData(null);
         setLineOfScrimmage(null);
         setFieldDimensions(null);
+        
+        if (global.showNotification) {
+          global.showNotification('❌ No players detected in image', 'error');
+        }
       }
     } catch (error) {
       console.error('Error processing detections:', error);
       
-      // Provide more detailed error messages
       let errorMessage = 'Error processing detections';
       if (error.message.includes('Unable to connect')) {
         errorMessage = '🔌 Backend server offline. Please start the server.';

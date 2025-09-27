@@ -1,5 +1,6 @@
 import { useState, useCallback } from 'react';
 import * as FileSystem from 'expo-file-system/legacy';
+import * as ImageManipulator from 'expo-image-manipulator';
 
 const useImageProcessor = (onDetectionsReceived) => {
   const [currentImage, setCurrentImage] = useState(null);
@@ -25,22 +26,72 @@ const useImageProcessor = (onDetectionsReceived) => {
     }
   }, []);
 
-  // Convert image to base64
-  const imageToBase64 = useCallback(async (file) => {
+  // Convert image to base64, with optional rotation for API submission
+  const imageToBase64 = useCallback(async (file, rotateForAPI = false) => {
+    console.log('🔄 Converting image to base64...');
+    console.log('File URI:', file.uri);
+    console.log('Rotate for API:', rotateForAPI);
+    
     try {
-      const base64 = await FileSystem.readAsStringAsync(file.uri, {
+      let processedFile = file;
+      
+      // Rotate to landscape if needed for API submission
+      if (rotateForAPI) {
+        const isPortrait = file.height > file.width;
+        console.log(`📐 Image orientation: ${isPortrait ? 'Portrait' : 'Landscape'}`);
+        
+        if (isPortrait) {
+          console.log('🔄 Rotating image to landscape for Roboflow API...');
+          processedFile = await ImageManipulator.manipulateAsync(
+            file.uri,
+            [{ rotate: 270 }],
+            { 
+              compress: 0.9, 
+              format: ImageManipulator.SaveFormat.JPEG 
+            }
+          );
+          
+          console.log('✅ Image rotated to landscape for API:', {
+            width: processedFile.width,
+            height: processedFile.height
+          });
+        }
+      }
+      
+      const base64 = await FileSystem.readAsStringAsync(processedFile.uri, {
         encoding: FileSystem.EncodingType.Base64,
       });
+      
+      console.log('✅ Base64 conversion successful');
+      console.log('Base64 string length:', base64.length);
+      console.log('Base64 preview (first 50 chars):', base64.substring(0, 50) + '...');
+      
       return base64;
     } catch (error) {
-      console.error('Base64 conversion error:', error);
+      console.error('💥 Base64 conversion error:', error);
+      console.error('File details:', {
+        uri: file.uri,
+        exists: file.uri ? 'checking...' : 'no URI'
+      });
       throw new Error(`Failed to convert image to base64: ${error.message}`);
     }
   }, []);
 
   // Detect players in uploaded image
-  const detectPlayersInImage = useCallback(async () => {
-    if (!currentImage) {
+  const detectPlayersInImage = useCallback(async (imageFile = null) => {
+    // Use provided image or fall back to currentImage state
+    const imageToProcess = imageFile || currentImage;
+    
+    console.log('🏈 Starting player detection...');
+    console.log('📷 Image to process:', {
+      uri: imageToProcess?.uri,
+      width: imageToProcess?.width,
+      height: imageToProcess?.height,
+      hasImageFile: !!imageFile,
+      hasCurrentImage: !!currentImage
+    });
+    
+    if (!imageToProcess) {
       throw new Error('Please upload an image first');
     }
 
@@ -48,8 +99,18 @@ const useImageProcessor = (onDetectionsReceived) => {
     setProcessingMessage('Converting image to base64...');
 
     try {
-      const base64Image = await imageToBase64(currentImage);
+      const base64Image = await imageToBase64(imageToProcess, true); // Rotate for API submission
       setProcessingMessage('Sending to detection service...');
+
+      console.log('🔍 Making API request to Roboflow...');
+      console.log('API URL:', `${API_URL}?api_key=${API_KEY}`);
+      console.log('Image dimensions:', imageToProcess.width, 'x', imageToProcess.height);
+      console.log('Base64 image length:', base64Image.length);
+
+      // Save the base64 image to a file for testing
+      const base64FilePath = `${FileSystem.documentDirectory}test_image_base64.txt`;
+      await FileSystem.writeAsStringAsync(base64FilePath, base64Image);
+      console.log('📝 Base64 image saved for testing at:', base64FilePath);
 
       const response = await fetch(`${API_URL}?api_key=${API_KEY}`, {
         method: 'POST',
@@ -59,18 +120,36 @@ const useImageProcessor = (onDetectionsReceived) => {
         body: base64Image
       });
 
+      console.log('📡 Response status:', response.status);
+      console.log('📡 Response headers:', response.headers);
+
       if (!response.ok) {
         throw new Error(`API request failed: ${response.status} ${response.statusText}`);
       }
 
       setProcessingMessage('Processing detection results...');
       const data = await response.json();
+      
+      console.log('🎯 Full API Response:', JSON.stringify(data, null, 2));
+      console.log('🎯 Predictions array:', data.predictions);
+      console.log('🎯 Number of predictions:', data.predictions?.length || 0);
+      
+      if (data.predictions && data.predictions.length > 0) {
+        console.log('✅ First prediction:', data.predictions[0]);
+      } else {
+        console.log('❌ No predictions found in response');
+      }
 
       setProcessingMessage('Mapping coordinates to field positions...');
       
+      // Use dimensions from the provided image or current dimensions
+      const dimensions = (imageFile && imageFile.width && imageFile.height) 
+        ? { width: imageFile.width, height: imageFile.height }
+        : imageDimensions;
+      
       // Call the callback with the detection results
       if (onDetectionsReceived) {
-        await onDetectionsReceived(data.predictions || [], imageDimensions);
+        await onDetectionsReceived(data.predictions || [], dimensions);
       }
 
       // Show success notification
@@ -82,7 +161,15 @@ const useImageProcessor = (onDetectionsReceived) => {
       }
 
     } catch (error) {
-      console.error('Detection error:', error);
+      console.error('💥 Detection error occurred:');
+      console.error('Error message:', error.message);
+      console.error('Error stack:', error.stack);
+      console.error('Image being processed:', {
+        uri: imageToProcess?.uri,
+        width: imageToProcess?.width,
+        height: imageToProcess?.height
+      });
+      
       if (global.showNotification) {
         global.showNotification(`Detection failed: ${error.message}`, 'error');
       }

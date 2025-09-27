@@ -1,20 +1,19 @@
 import React, { useCallback, useEffect, useState } from 'react';
 import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, View, ScrollView, SafeAreaView } from 'react-native';
+import { StyleSheet, View } from 'react-native';
 import useDetectionData from './hooks/useDetectionData';
 import useImageProcessor from './hooks/useImageProcessor';
-import Header from './components/Header';
-import ImageUpload from './components/ImageUpload';
-import ProcessingStatus from './components/ProcessingStatus';
-import FieldVisualization from './components/FieldVisualization';
-import ExportButton from './components/ExportButton';
 import NotificationManager from './components/NotificationManager';
-import PlayerInfoModal from './components/PlayerInfoModal';
-import BackendConnectionStatus from './components/BackendConnectionStatus';
+import FloatingCaptureButton from './components/FloatingCaptureButton';
+
+// Screen imports
+import { HomeScreen, CameraScreen, PhotoReviewScreen, AnalyzeScreen } from './screens';
 
 export default function App() {
+  const [currentScreen, setCurrentScreen] = useState('home');
+  const [capturedPhoto, setCapturedPhoto] = useState(null);
+  
   const detectionData = useDetectionData();
-  const [selectedPlayerIndex, setSelectedPlayerIndex] = useState(null);
   
   // Image processor with callback for when detections are received
   const handleDetectionsReceived = useCallback(async (detections, imgDimensions) => {
@@ -23,89 +22,134 @@ export default function App() {
 
   const imageProcessor = useImageProcessor(handleDetectionsReceived);
 
-  // Clear all data
-  const handleClearAll = useCallback(() => {
-    imageProcessor.resetImagePreview();
+  // Navigation handler
+  const handleNavigate = useCallback((screen) => {
+    setCurrentScreen(screen);
+  }, []);
+
+  // Handle photo capture from camera
+  const handlePhotoTaken = useCallback((photo) => {
+    setCapturedPhoto(photo);
+    console.log('Photo captured:', photo.uri);
+  }, []);
+
+  // Handle analyze process
+  const handleAnalyze = useCallback(async (photo) => {
+    try {
+      console.log('Starting analysis process...');
+      
+      // Convert photo to the format expected by imageProcessor
+      const fileObject = {
+        uri: photo.uri,
+        width: photo.width,
+        height: photo.height,
+      };
+      
+      // Process the image directly without relying on state
+      imageProcessor.handleImageUpload(fileObject); // Still set state for consistency
+      await imageProcessor.detectPlayersInImage(fileObject); // Pass image directly
+      
+    } catch (error) {
+      console.error('Analysis error:', error);
+    }
+  }, [imageProcessor]);
+
+  // Handle retake
+  const handleRetake = useCallback(() => {
+    setCapturedPhoto(null);
+    // Clear any previous detection data
     detectionData.clearAll();
-    setSelectedPlayerIndex(null);
-  }, [imageProcessor, detectionData]);
-
-  // Handle player marker click
-  const handlePlayerClick = useCallback((index) => {
-    setSelectedPlayerIndex(index);
-    detectionData.highlightDetection(index);
   }, [detectionData]);
 
-  // Close player info modal
-  const closePlayerInfo = useCallback(() => {
-    setSelectedPlayerIndex(null);
-    detectionData.clearHighlights();
-  }, [detectionData]);
+  // Handle save play
+  const handleSavePlay = useCallback((playData) => {
+    console.log('Play saved:', playData);
+    // Here you can implement actual save logic later
+    // For now, just logging as requested
+  }, []);
+
+  // Handle floating capture button press
+  const handleFloatingCapture = useCallback(() => {
+    handleNavigate('camera');
+  }, [handleNavigate]);
+
+  // Determine which screen to show
+  const renderCurrentScreen = () => {
+    switch (currentScreen) {
+      case 'home':
+        return <HomeScreen onNavigate={handleNavigate} />;
+      
+      case 'camera':
+        return (
+          <CameraScreen 
+            onNavigate={handleNavigate} 
+            onPhotoTaken={handlePhotoTaken}
+          />
+        );
+      
+      case 'photoReview':
+        return (
+          <PhotoReviewScreen 
+            capturedPhoto={capturedPhoto}
+            onNavigate={handleNavigate}
+            onAnalyze={handleAnalyze}
+            onRetake={handleRetake}
+          />
+        );
+      
+      case 'analyze':
+        return (
+          <AnalyzeScreen 
+            mappedData={detectionData.mappedData}
+            detections={detectionData.detections}
+            isProcessing={detectionData.isProcessing || imageProcessor.isProcessing}
+            fieldDimensions={detectionData.fieldDimensions}
+            lineOfScrimmage={detectionData.lineOfScrimmage}
+            onNavigate={handleNavigate}
+            onSavePlay={handleSavePlay}
+            capturedPhoto={capturedPhoto} // Pass capturedPhoto prop
+          />
+        );
+      
+      default:
+        return <HomeScreen onNavigate={handleNavigate} />;
+    }
+  };
+
+  // Determine if floating capture button should show
+  const shouldShowFloatingButton = currentScreen !== 'camera' && currentScreen !== 'photoReview';
 
   // Show welcome message on mount
   useEffect(() => {
     const timer = setTimeout(() => {
-      console.log('🏈 NFL Field Detection Mapper initialized');
+      console.log('🏈 NFL Field Detection Mapper initialized with streamlined workflow');
     }, 1000);
 
     return () => clearTimeout(timer);
   }, []);
 
   return (
-    <SafeAreaView style={styles.container}>
+    <View style={styles.container}>
       <StatusBar style="dark" />
-      <ScrollView style={styles.scrollView} contentContainerStyle={styles.scrollContent}>
-        <Header />
-                
-        <ImageUpload
-          imageProcessor={imageProcessor}
-          onClearAll={handleClearAll}
-          isProcessingDetection={detectionData.isProcessing}
-        />
-        
-        <ProcessingStatus
-          isProcessing={imageProcessor.isProcessing}
-          message={imageProcessor.processingMessage}
-        />
-        
-        <FieldVisualization
-          detections={detectionData.detections}
-          mappedData={detectionData.mappedData}
-          lineOfScrimmage={detectionData.lineOfScrimmage}
-          fieldDimensions={detectionData.fieldDimensions}
-          highlightedIndex={detectionData.highlightedIndex}
-          onMarkerClick={handlePlayerClick}
-        />
-        
-        <ExportButton 
-          onExportData={detectionData.exportMappedData}
-          disabled={imageProcessor.isProcessing || detectionData.isProcessing || !detectionData.mappedData}
-        />
-      </ScrollView>
       
-      {/* Player Info Modal */}
-      <PlayerInfoModal
-        visible={selectedPlayerIndex !== null}
-        detection={selectedPlayerIndex !== null ? detectionData.detections[selectedPlayerIndex] : null}
-        mappedPlayer={selectedPlayerIndex !== null ? detectionData.getMappedPlayerById(detectionData.detections[selectedPlayerIndex]?.detection_id) : null}
-        onClose={closePlayerInfo}
+      {/* Current Screen */}
+      {renderCurrentScreen()}
+      
+      {/* Floating Capture Button */}
+      <FloatingCaptureButton 
+        onPress={handleFloatingCapture}
+        show={shouldShowFloatingButton}
       />
       
+      {/* Notification Manager */}
       <NotificationManager />
-    </SafeAreaView>
+    </View>
   );
 }
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#f3f4f6', // bg-gray-100 equivalent
-  },
-  scrollView: {
-    flex: 1,
-  },
-  scrollContent: {
-    padding: 16,
-    paddingBottom: 32,
+    backgroundColor: '#f3f4f6',
   },
 });
