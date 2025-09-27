@@ -2,52 +2,67 @@ import matplotlib.pyplot as plt
 import numpy as np
 import json
 
-# Load the detection data
+def is_player_position(class_name):
+    """Helper function to check if a class represents a player position"""
+    player_positions = {'QB', 'RB', 'WR', 'C', 'OG', 'OT', 'FB', 'TE', 'DE', 'DT', 'LB', 'DB', 'S', 'CB', 'FS', 'SS'}
+    return class_name in player_positions
+
+# Load the detection data with player positions
 detection_data = {
     "predictions": [
-        {"x": 351.5, "y": 241, "width": 61, "height": 68, "confidence": 0.927, "class": "player", "class_id": 0, "detection_id": "0b7f9539-f4f1-4872-ad08-42d21355bba9"},
-        {"x": 380, "y": 469, "width": 80, "height": 102, "confidence": 0.917, "class": "player", "class_id": 0, "detection_id": "7c5e5c3a-f56e-4e6f-9ebc-1d3a448e4a83"},
-        {"x": 473, "y": 185, "width": 48, "height": 74, "confidence": 0.915, "class": "player", "class_id": 0, "detection_id": "be6372b0-b7bb-42f9-ac20-6a042db321cb"},
-        {"x": 528.5, "y": 281, "width": 61, "height": 52, "confidence": 0.907, "class": "player", "class_id": 0, "detection_id": "5ef24bef-3fb5-46e6-a91a-9deea896f10a"},
-        {"x": 532, "y": 473.5, "width": 54, "height": 95, "confidence": 0.904, "class": "player", "class_id": 0, "detection_id": "340e07c6-5787-42f6-832a-51836d5e24e4"},
-        {"x": 632.5, "y": 238.5, "width": 35, "height": 81, "confidence": 0.904, "class": "player", "class_id": 0, "detection_id": "84ce3940-4735-4a63-ad0c-3f36815a72d6"},
-        {"x": 414.5, "y": 122.5, "width": 47, "height": 73, "confidence": 0.903, "class": "player", "class_id": 0, "detection_id": "5956021f-ec46-4f3b-a56b-f61ff078dbb1"},
-        {"x": 682, "y": 362.5, "width": 42, "height": 83, "confidence": 0.902, "class": "player", "class_id": 0, "detection_id": "886d4c53-7abd-4111-8068-ee6b865142ee"},
-        {"x": 569, "y": 131.5, "width": 34, "height": 63, "confidence": 0.897, "class": "player", "class_id": 0, "detection_id": "17485a06-717f-4592-83d0-42894cc7b401"},
-        {"x": 1018.5, "y": 400.5, "width": 39, "height": 85, "confidence": 0.896, "class": "player", "class_id": 0, "detection_id": "147f4d40-978d-439f-a6a6-f7a7f9b5184d"},
-        {"x": 189, "y": 354, "width": 44, "height": 94, "confidence": 0.893, "class": "player", "class_id": 0, "detection_id": "d4f42b03-594b-4c2f-b384-54a71b04bc5b"},
-        {"x": 694, "y": 193.5, "width": 34, "height": 69, "confidence": 0.891, "class": "player", "class_id": 0, "detection_id": "35f847bc-3ecd-422d-90f3-b74dacfdbd33"},
-        {"x": 826, "y": 322, "width": 34, "height": 88, "confidence": 0.89, "class": "ref", "class_id": 1, "detection_id": "ab02f8de-902e-495c-9988-b1829c9b89dc"},
-        {"x": 236, "y": 328, "width": 38, "height": 96, "confidence": 0.889, "class": "player", "class_id": 0, "detection_id": "49596639-697c-4a08-bcf4-849f24fce78c"},
-        {"x": 529, "y": 397, "width": 64, "height": 90, "confidence": 0.889, "class": "player", "class_id": 0, "detection_id": "8133a6df-fa97-46bf-b38d-4c3400666c53"},
-        {"x": 879, "y": 214.5, "width": 34, "height": 69, "confidence": 0.886, "class": "player", "class_id": 0, "detection_id": "3216b71d-0344-4c84-92f3-b01e7ab81652"},
-        {"x": 534.5, "y": 329, "width": 67, "height": 54, "confidence": 0.88, "class": "player", "class_id": 0, "detection_id": "771ae14a-da18-45c9-bf96-8df6e7a248bc"},
-        {"x": 459, "y": 343.5, "width": 56, "height": 61, "confidence": 0.872, "class": "player", "class_id": 0, "detection_id": "2351aeb8-5e32-4b01-8490-b710102e1847"},
-        {"x": 414.5, "y": 374, "width": 53, "height": 74, "confidence": 0.861, "class": "player", "class_id": 0, "detection_id": "41f46066-c483-46db-9e50-116baac2fce6"},
-        {"x": 421.5, "y": 310.5, "width": 57, "height": 49, "confidence": 0.793, "class": "player", "class_id": 0, "detection_id": "702b6259-728d-46a5-8e39-29e010ce8f1a"}
+        {"x": 1246, "y": 362.5, "width": 48, "height": 97, "confidence": 0.899, "class": "S", "class_id": 11, "detection_id": "252cc2ae-5f0f-4688-878d-80e3742caad2"},
+        {"x": 755.5, "y": 548, "width": 51, "height": 96, "confidence": 0.895, "class": "DB", "class_id": 1, "detection_id": "c1bd70bf-5e68-4fdc-acb6-d5fcf8821038"},
+        {"x": 552.5, "y": 95.5, "width": 49, "height": 73, "confidence": 0.891, "class": "WR", "class_id": 14, "detection_id": "ae8f6e95-25ad-4ce2-a2d7-b2b9f3e857a2"},
+        {"x": 776, "y": 96.5, "width": 34, "height": 79, "confidence": 0.873, "class": "DB", "class_id": 1, "detection_id": "9a255d88-ed05-4fd6-8ade-ed0ea0716234"},
+        {"x": 681, "y": 376, "width": 50, "height": 90, "confidence": 0.865, "class": "LB", "class_id": 5, "detection_id": "f3425997-2625-4a4a-a146-991750289bed"},
+        {"x": 634.5, "y": 290, "width": 53, "height": 92, "confidence": 0.863, "class": "LB", "class_id": 5, "detection_id": "c633b005-1c63-4954-a3cf-5ff625106812"},
+        {"x": 550, "y": 231.5, "width": 66, "height": 71, "confidence": 0.861, "class": "WR", "class_id": 14, "detection_id": "e2e3082c-5a0c-455e-bbe0-44bddd72830e"},
+        {"x": 194, "y": 373, "width": 40, "height": 108, "confidence": 0.86, "class": "QB", "class_id": 8, "detection_id": "82de9008-98fd-45b0-b1f3-3fd3a763c20a"},
+        {"x": 575, "y": 314, "width": 64, "height": 70, "confidence": 0.816, "class": "DE", "class_id": 2, "detection_id": "0daf5f81-7664-4588-8df2-84d987dbb88d"},
+        {"x": 225, "y": 326, "width": 40, "height": 80, "confidence": 0.81, "class": "RB", "class_id": 9, "detection_id": "3431fa19-b774-4e02-8ff4-c39c80f789c3"},
+        {"x": 458.5, "y": 374, "width": 57, "height": 62, "confidence": 0.793, "class": "C", "class_id": 0, "detection_id": "6182ae3c-ba8e-48cd-a449-f78e0ac66588"},
+        {"x": 514.5, "y": 487, "width": 53, "height": 112, "confidence": 0.79, "class": "DE", "class_id": 2, "detection_id": "ea2b8a61-3285-45e4-8e91-57de27564a1d"},
+        {"x": 986, "y": 214.5, "width": 38, "height": 91, "confidence": 0.779, "class": "DB", "class_id": 1, "detection_id": "aec725ed-b01b-41ae-9075-6de72fa96452"},
+        {"x": 436, "y": 317, "width": 48, "height": 56, "confidence": 0.777, "class": "OT", "class_id": 7, "detection_id": "8d2698b7-0d9b-4e4b-a5ee-dd823bf80b5a"},
+        {"x": 969.5, "y": 474.5, "width": 49, "height": 113, "confidence": 0.776, "class": "S", "class_id": 11, "detection_id": "29a9be92-aee6-41e9-a64f-6bca2a7eb3db"},
+        {"x": 233.5, "y": 451, "width": 33, "height": 104, "confidence": 0.764, "class": "WR", "class_id": 14, "detection_id": "6d181f4b-2135-444f-bbe0-d3ecbe1611ab"},
+        {"x": 434.5, "y": 350.5, "width": 51, "height": 55, "confidence": 0.728, "class": "OG", "class_id": 6, "detection_id": "279c6b90-2e9b-4a94-9024-4e024f545522"},
+        {"x": 406, "y": 431, "width": 60, "height": 78, "confidence": 0.728, "class": "OG", "class_id": 6, "detection_id": "f8a9cba5-e9df-46ee-b50c-7eba3ee4d55d"},
+        {"x": 555.5, "y": 404.5, "width": 67, "height": 93, "confidence": 0.575, "class": "DT", "class_id": 3, "detection_id": "3c9639ef-9c9e-409c-8663-ca136c938d45"},
+        {"x": 402, "y": 380, "width": 48, "height": 54, "confidence": 0.55, "class": "OG", "class_id": 6, "detection_id": "04a023c7-6409-4661-b1a0-6fd9ca743df1"}
     ]
 }
 
-def classify_offense_defense(players, line_of_scrimmage_x):
+def classify_offense_defense(players, line_of_scrimmage_x=None):
     """
-    Classify players as offense or defense based on their position relative to the line of scrimmage.
-    In American football, one team lines up on one side of the line, the other team on the other side.
+    Classify players as offense or defense based on their actual position names.
+    This is much more accurate than spatial analysis.
     """
     offense = []
     defense = []
     
+    # Define offensive and defensive positions
+    offensive_positions = {'QB', 'RB', 'WR', 'C', 'OG', 'OT', 'FB', 'TE'}
+    defensive_positions = {'DE', 'DT', 'LB', 'DB', 'S', 'CB', 'FS', 'SS'}
+    
     for player in players:
-        if player['class'] != 'player':
-            continue
-            
-        x = player['x']
+        position = player['class']
         
-        # Players to the left of line of scrimmage vs right
-        # You may need to flip this depending on which direction your team is going
-        if x < line_of_scrimmage_x:
+        if position in offensive_positions:
             offense.append(player)
-        else:
+        elif position in defensive_positions:
             defense.append(player)
+        else:
+            # If unknown position, still add to a team based on spatial analysis as fallback
+            if line_of_scrimmage_x is not None:
+                x = player['x']
+                if x < line_of_scrimmage_x:
+                    offense.append(player)
+                else:
+                    defense.append(player)
+            else:
+                # If no line of scrimmage, add to defense as default
+                defense.append(player)
     
     return offense, defense
 
@@ -56,7 +71,7 @@ def estimate_line_of_scrimmage(players):
     Estimate line of scrimmage to create roughly balanced teams (around 11 players each).
     Try multiple methods to find the best split.
     """
-    player_list = [p for p in players if p['class'] == 'player']
+    player_list = [p for p in players if is_player_position(p['class'])]
     if len(player_list) < 4:
         return None
     
@@ -251,10 +266,10 @@ def create_football_diagram():
     # Set up the plot - make it vertical (taller than wide) like a football field section
     fig, ax = plt.subplots(1, 1, figsize=(10, 12))
     
-    # Extract all players and referee
+    # Extract all players (no referees in new data)
     all_detections = detection_data['predictions']
-    players = [d for d in all_detections if d['class'] == 'player']
-    refs = [d for d in all_detections if d['class'] == 'ref']
+    players = [d for d in all_detections if is_player_position(d['class'])]
+    refs = []  # No referees in the new position data
     
     # Estimate line of scrimmage (vertical line)
     line_of_scrimmage_x = estimate_line_of_scrimmage(players)
@@ -275,9 +290,11 @@ def create_football_diagram():
         ax.scatter(off_x, off_y, c='blue', s=150, alpha=0.8, 
                   label=f'Offense ({len(offense)})', edgecolors='navy', linewidth=2)
         
-        # Add player numbers for offense
-        for i, (x, y) in enumerate(zip(off_x, off_y)):
-            ax.annotate(f'O{i+1}', (x, y), xytext=(5, 5), textcoords='offset points', 
+        # Add player position labels for offense
+        for i, player in enumerate(offense):
+            x, y = player['x'], player['y']
+            position = player['class']
+            ax.annotate(position, (x, y), xytext=(5, 5), textcoords='offset points', 
                        fontsize=8, color='white', weight='bold')
     
     # Plot defensive players (red circles)  
@@ -287,17 +304,14 @@ def create_football_diagram():
         ax.scatter(def_x, def_y, c='red', s=150, alpha=0.8, 
                   label=f'Defense ({len(defense)})', edgecolors='darkred', linewidth=2)
         
-        # Add player numbers for defense
-        for i, (x, y) in enumerate(zip(def_x, def_y)):
-            ax.annotate(f'D{i+1}', (x, y), xytext=(5, 5), textcoords='offset points', 
+        # Add player position labels for defense
+        for i, player in enumerate(defense):
+            x, y = player['x'], player['y']
+            position = player['class']
+            ax.annotate(position, (x, y), xytext=(5, 5), textcoords='offset points', 
                        fontsize=8, color='white', weight='bold')
     
-    # Plot referee (yellow triangle)
-    if refs:
-        ref_x = [r['x'] for r in refs]
-        ref_y = [r['y'] for r in refs]
-        ax.scatter(ref_x, ref_y, c='yellow', s=200, marker='^', 
-                  label='Referee', edgecolors='black', linewidth=2)
+    # No referees in position-based data
     
     # Draw line of scrimmage (VERTICAL line)
     if line_of_scrimmage_x:
@@ -356,7 +370,7 @@ def create_football_diagram():
     balance_diff = abs(len(offense) - len(defense)) if offense and defense else 0
     balance_status = "✓ Balanced" if balance_diff <= 3 else "⚠ Unbalanced" if balance_diff <= 6 else "❌ Very Unbalanced"
     
-    info_text = f'Players: {len(players)} | Referees: {len(refs)}\n'
+    info_text = f'Players: {len(players)} (with positions)\n'
     info_text += f'Split: {len(offense)}-{len(defense)} | {balance_status}\n'
     info_text += f'Field: {field_dims["width_yards"]:.1f}×{field_dims["length_yards"]:.1f} yards (NFL standard)\n'
     info_text += f'Player spread: {field_dims["detected_width_yards"]:.1f} yards wide\n'
@@ -382,13 +396,12 @@ def print_detection_summary():
     Print a summary of the detections
     """
     all_detections = detection_data['predictions']
-    players = [d for d in all_detections if d['class'] == 'player']
-    refs = [d for d in all_detections if d['class'] == 'ref']
+    players = [d for d in all_detections if is_player_position(d['class'])]
+    refs = []  # No referees in the new position data
     
     print("=== American Football Play Detection Summary ===")
     print(f"Total detections: {len(all_detections)}")
-    print(f"Players: {len(players)}")
-    print(f"Referees: {len(refs)}")
+    print(f"Players: {len(players)} (with specific positions)")
     print(f"Average confidence: {np.mean([d['confidence'] for d in all_detections]):.3f}")
     
     # Estimate line of scrimmage
@@ -422,11 +435,12 @@ def print_detection_summary():
     
     print(f"\nPlayer positions (x=horizontal, y=vertical):")
     for i, player in enumerate(players):
+        position = player['class']
         side = "LEFT" if player['x'] < line_x else "RIGHT"
-        print(f"  Player {i+1}: ({player['x']:.1f}, {player['y']:.1f}) - {side} - Conf: {player['confidence']:.3f}")
+        team = "OFFENSE" if position in {'QB', 'RB', 'WR', 'C', 'OG', 'OT', 'FB', 'TE'} else "DEFENSE"
+        print(f"  {position}: ({player['x']:.1f}, {player['y']:.1f}) - {team} ({side}) - Conf: {player['confidence']:.3f}")
     
-    if refs:
-        print(f"\nReferee position: ({refs[0]['x']:.1f}, {refs[0]['y']:.1f}) - Confidence: {refs[0]['confidence']:.3f}")
+    # No referees in position-based data
 
 def map_coordinates(detection_data, line_of_scrimmage_x, field_dims):
     """
@@ -461,14 +475,14 @@ def map_coordinates(detection_data, line_of_scrimmage_x, field_dims):
     
     # Process all detections
     all_detections = detection_data['predictions']
-    players = [d for d in all_detections if d['class'] == 'player']
+    players = [d for d in all_detections if is_player_position(d['class'])]
     
     # Classify offense and defense
     offense, defense = classify_offense_defense(players, line_of_scrimmage_x)
     
     # Map player coordinates
     for detection in all_detections:
-        if detection['class'] == 'player':
+        if is_player_position(detection['class']):
             # Convert pixel coordinates to yard coordinates relative to line of scrimmage and field center
             x_yards = (detection['x'] - line_of_scrimmage_x) / pixels_per_yard
             y_yards = (detection['y'] - field_center_y) / pixels_per_yard
@@ -478,6 +492,7 @@ def map_coordinates(detection_data, line_of_scrimmage_x, field_dims):
             
             player_data = {
                 "detection_id": detection['detection_id'],
+                "position": detection['class'],  # Player position (QB, WR, DE, etc.)
                 "team": team,
                 "coordinates": {
                     "x_yards": round(x_yards, 2),  # Distance from line of scrimmage
@@ -495,36 +510,26 @@ def map_coordinates(detection_data, line_of_scrimmage_x, field_dims):
             }
             mapped_data["players"].append(player_data)
         
-        elif detection['class'] == 'ref':
-            # Convert referee coordinates
-            x_yards = (detection['x'] - line_of_scrimmage_x) / pixels_per_yard
-            y_yards = (detection['y'] - field_center_y) / pixels_per_yard
-            
-            referee_data = {
-                "detection_id": detection['detection_id'],
-                "coordinates": {
-                    "x_yards": round(x_yards, 2),
-                    "y_yards": round(y_yards, 2),
-                    "original_pixel_x": detection['x'],
-                    "original_pixel_y": detection['y']
-                },
-                "confidence": detection['confidence'],
-                "bounding_box": {
-                    "width_pixels": detection['width'],
-                    "height_pixels": detection['height'],
-                    "width_yards": round(detection['width'] / pixels_per_yard, 2),
-                    "height_yards": round(detection['height'] / pixels_per_yard, 2)
-                }
-            }
-            mapped_data["referees"].append(referee_data)
+        # No referees in position-based data
     
-    # Add team statistics
+    # Add team statistics with position breakdowns
+    offensive_positions = {}
+    defensive_positions = {}
+    
+    for player in mapped_data["players"]:
+        position = player["position"]
+        if player["team"] == "offense":
+            offensive_positions[position] = offensive_positions.get(position, 0) + 1
+        else:
+            defensive_positions[position] = defensive_positions.get(position, 0) + 1
+    
     mapped_data["team_stats"] = {
         "total_players": len(mapped_data["players"]),
         "offense_count": len(offense),
         "defense_count": len(defense),
-        "referee_count": len(mapped_data["referees"]),
-        "team_balance": "balanced" if abs(len(offense) - len(defense)) <= 3 else "unbalanced"
+        "team_balance": "balanced" if abs(len(offense) - len(defense)) <= 3 else "unbalanced",
+        "offensive_positions": offensive_positions,
+        "defensive_positions": defensive_positions
     }
     
     # Export to JSON file
@@ -533,7 +538,7 @@ def map_coordinates(detection_data, line_of_scrimmage_x, field_dims):
         json.dump(mapped_data, f, indent=2)
     
     print(f"\n=== Coordinate Mapping Complete ===")
-    print(f"Mapped {len(mapped_data['players'])} players and {len(mapped_data['referees'])} referees")
+    print(f"Mapped {len(mapped_data['players'])} players with specific positions")
     print(f"Exported to: {output_filename}")
     print(f"Coordinate system: Line of scrimmage at x=0, field center at y=0")
     print(f"Scale: {pixels_per_yard:.1f} pixels per yard")
@@ -546,7 +551,7 @@ if __name__ == "__main__":
     
     # Get the data needed for coordinate mapping
     all_detections = detection_data['predictions']
-    players = [d for d in all_detections if d['class'] == 'player']
+    players = [d for d in all_detections if is_player_position(d['class'])]
     
     # Calculate line of scrimmage and field dimensions for coordinate mapping
     line_of_scrimmage_x = estimate_line_of_scrimmage(players)
