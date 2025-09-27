@@ -6,7 +6,7 @@ Clean Flask API backend for both NFL and College Football statistics
 import os
 import json
 from datetime import datetime
-from flask import Flask, request, jsonify, send_from_directory, send_file
+from flask import Flask, request, jsonify
 from flask_cors import CORS
 import google.generativeai as genai
 from dotenv import load_dotenv
@@ -207,37 +207,36 @@ def clear_cache():
             'error': f'Cache clear error: {str(e)}'
         }), 500
 
-# Static file serving routes for frontend
+# API-only root route
 @app.route('/')
-def serve_frontend():
-    """Serve the main frontend HTML file"""
-    return send_file('frontend/index.html')
-
-@app.route('/<path:path>')
-def serve_static_files(path):
-    """Serve static files from frontend directory"""
-    try:
-        return send_from_directory('frontend', path)
-    except:
-        # If file not found, serve index.html for SPA routing
-        return send_file('frontend/index.html')
+def api_info():
+    """API information endpoint"""
+    return jsonify({
+        'service': 'NextGen Live Football Stats API',
+        'version': '1.0.0',
+        'description': 'Real-time NFL and College Football statistics with AI-powered insights',
+        'endpoints': {
+            'health': '/api/health',
+            'chat': '/api/chat (POST)',
+            'stats': '/api/stats',
+            'cache_clear': '/api/cache/clear (POST)'
+        },
+        'documentation': 'https://github.com/your-repo/live-data',
+        'status': 'running'
+    })
 
 @app.errorhandler(404)
 def not_found(error):
-    # For API routes, return JSON error
-    if request.path.startswith('/api/'):
-        return jsonify({
-            'error': 'API endpoint not found',
-            'available_endpoints': [
-                '/api/health',
-                '/api/chat',
-                '/api/stats',
-                '/api/cache/clear'
-            ]
-        }), 404
-    # For other routes, serve the frontend
-    else:
-        return send_file('frontend/index.html')
+    return jsonify({
+        'error': 'Endpoint not found',
+        'available_endpoints': [
+            '/',
+            '/api/health',
+            '/api/chat',
+            '/api/stats',
+            '/api/cache/clear'
+        ]
+    }), 404
 
 @app.errorhandler(500)
 def internal_error(error):
