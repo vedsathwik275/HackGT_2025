@@ -10,10 +10,10 @@ curl http://localhost:3000/api/plays/play_123
 
 Vercel:
 Save:
-curl -X POST https://football-next-gen-backend-9d2u65uaq.vercel.app/api/plays/save -H "Content-Type: application/json" -d '{"play_id":"play_123","data":{"foo":"bar"}}'
+curl -X POST https://football-next-gen-backend.vercel.app/api/plays/save -H "Content-Type: application/json" -d '{"play_id":"play_123","data":{"foo":"bar"}}'
 
 List:
-curl https://football-next-gen-backend-9d2u65uaq.vercel.app/api/plays
+curl https://football-next-gen-backend.vercel.app/api/plays
 
 Get:
-curl https://football-next-gen-backend-9d2u65uaq.vercel.app/api/plays/play_123
+curl https://football-next-gen-backend.vercel.app/api/plays/play_123
