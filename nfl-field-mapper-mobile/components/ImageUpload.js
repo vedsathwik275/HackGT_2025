@@ -10,78 +10,99 @@ const ImageUpload = ({ imageProcessor, onClearAll, isProcessingDetection }) => {
   const [error, setError] = useState('');
 
   const requestPermissions = async () => {
-    const { status } = await ImagePicker.requestMediaLibraryPermissionsAsync();
-    if (status !== 'granted') {
-      Alert.alert('Permission needed', 'We need camera roll permissions to select images.');
-      return false;
+    // Request both camera and media library permissions
+    const cameraResult = await ImagePicker.requestCameraPermissionsAsync();
+    const mediaResult = await ImagePicker.requestMediaLibraryPermissionsAsync();
+    
+    if (cameraResult.status !== 'granted') {
+      Alert.alert('Camera Permission needed', 'We need camera permissions to take photos.');
+      return { camera: false, mediaLibrary: mediaResult.status === 'granted' };
     }
-    return true;
+    
+    if (mediaResult.status !== 'granted') {
+      Alert.alert('Media Library Permission needed', 'We need camera roll permissions to select images from gallery.');
+      return { camera: true, mediaLibrary: false };
+    }
+    
+    return { camera: true, mediaLibrary: true };
   };
 
   const handleImagePicker = useCallback(async () => {
-    const hasPermission = await requestPermissions();
-    if (!hasPermission) return;
+    const permissions = await requestPermissions();
+    
+    // Create alert options based on available permissions
+    const alertOptions = [];
+    
+    if (permissions.camera) {
+      alertOptions.push({
+        text: 'Camera',
+        onPress: async () => {
+          const result = await ImagePicker.launchCameraAsync({
+            mediaTypes: ImagePicker.MediaTypeOptions.Images,
+            allowsEditing: true,
+            aspect: [16, 9],
+            quality: 0.8,
+          });
 
-    Alert.alert(
-      'Select Image',
-      'Choose how you want to select an image',
-      [
-        {
-          text: 'Camera',
-          onPress: async () => {
-            const result = await ImagePicker.launchCameraAsync({
-              mediaTypes: ImagePicker.MediaTypeOptions.Images,
-              allowsEditing: true,
-              aspect: [16, 9],
-              quality: 0.8,
-            });
+          if (!result.canceled) {
+            const asset = result.assets[0];
+            const file = {
+              uri: asset.uri,
+              name: 'camera_image.jpg',
+              type: 'image/jpeg',
+              width: asset.width || 1280,
+              height: asset.height || 600,
+            };
+            imageProcessor.handleImageUpload(file);
+            setImagePreview(asset.uri);
+            setError('');
+          }
+        },
+      });
+    }
+    
+    if (permissions.mediaLibrary) {
+      alertOptions.push({
+        text: 'Gallery',
+        onPress: async () => {
+          const result = await ImagePicker.launchImageLibraryAsync({
+            mediaTypes: ImagePicker.MediaTypeOptions.Images,
+            allowsEditing: true,
+            aspect: [16, 9],
+            quality: 0.8,
+          });
 
-            if (!result.canceled) {
-              const asset = result.assets[0];
-              const file = {
-                uri: asset.uri,
-                name: 'camera_image.jpg',
-                type: 'image/jpeg',
-                width: asset.width || 1280,
-                height: asset.height || 600,
-              };
-              imageProcessor.handleImageUpload(file);
-              setImagePreview(asset.uri);
-              setError('');
-            }
-          },
+          if (!result.canceled) {
+            const asset = result.assets[0];
+            const file = {
+              uri: asset.uri,
+              name: 'selected_image.jpg',
+              type: 'image/jpeg',
+              width: asset.width || 1280,
+              height: asset.height || 600,
+            };
+            imageProcessor.handleImageUpload(file);
+            setImagePreview(asset.uri);
+            setError('');
+          }
         },
-        {
-          text: 'Gallery',
-          onPress: async () => {
-            const result = await ImagePicker.launchImageLibraryAsync({
-              mediaTypes: ImagePicker.MediaTypeOptions.Images,
-              allowsEditing: true,
-              aspect: [16, 9],
-              quality: 0.8,
-            });
-
-            if (!result.canceled) {
-              const asset = result.assets[0];
-              const file = {
-                uri: asset.uri,
-                name: 'selected_image.jpg',
-                type: 'image/jpeg',
-                width: asset.width || 1280,
-                height: asset.height || 600,
-              };
-              imageProcessor.handleImageUpload(file);
-              setImagePreview(asset.uri);
-              setError('');
-            }
-          },
-        },
-        {
-          text: 'Cancel',
-          style: 'cancel',
-        },
-      ]
-    );
+      });
+    }
+    
+    alertOptions.push({
+      text: 'Cancel',
+      style: 'cancel',
+    });
+    
+    if (alertOptions.length > 1) {
+      Alert.alert(
+        'Select Image',
+        'Choose how you want to select an image',
+        alertOptions
+      );
+    } else {
+      Alert.alert('No Permissions', 'Please grant camera or media library permissions to select images.');
+    }
   }, [imageProcessor]);
 
   const handleJSONPicker = useCallback(async () => {
