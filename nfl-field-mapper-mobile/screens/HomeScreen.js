@@ -1,11 +1,32 @@
-import React, { useState, useEffect } from 'react';
-import { View, Text, TouchableOpacity, StyleSheet, FlatList, ActivityIndicator, Alert } from 'react-native';
+import React, { useState, useEffect, useMemo } from 'react';
+import { View, Text, TouchableOpacity, StyleSheet, FlatList, ActivityIndicator, Alert, TextInput } from 'react-native';
 import PlaysApiClient from '../services/PlaysApiClient';
+
+const formatDate = (timestamp) => {
+  try {
+    return new Date(timestamp).toLocaleDateString();
+  } catch {
+    return 'Unknown date';
+  }
+};
 
 const HomeScreen = ({ onNavigate, onViewSavedPlay }) => {
   const [savedPlays, setSavedPlays] = useState([]);
   const [loading, setLoading] = useState(true);
   const [playsClient] = useState(new PlaysApiClient());
+  const [isCollapsed, setIsCollapsed] = useState(false);
+  const [searchText, setSearchText] = useState('');
+
+  // Filter plays based on search text
+  const filteredPlays = useMemo(() => {
+    if (!searchText.trim()) {
+      return savedPlays;
+    }
+    return savedPlays.filter(play => 
+      play.playName.toLowerCase().includes(searchText.toLowerCase()) ||
+      formatDate(play.timestamp).toLowerCase().includes(searchText.toLowerCase())
+    );
+  }, [savedPlays, searchText]);
 
   useEffect(() => {
     loadSavedPlays();
@@ -62,11 +83,24 @@ const HomeScreen = ({ onNavigate, onViewSavedPlay }) => {
     }
   };
 
-  const formatDate = (timestamp) => {
-    try {
-      return new Date(timestamp).toLocaleDateString();
-    } catch {
-      return 'Unknown date';
+  const handleChatPress = () => {
+    console.log('🗣️ Opening chat...');
+    if (onNavigate) {
+      onNavigate('chat');
+    }
+  };
+
+  const handleTopGamesPress = () => {
+    console.log('🏆 Opening chat with top games question...');
+    if (onNavigate) {
+      onNavigate('chat', { preloadedMessage: 'What are the most exciting games happening right now?' });
+    }
+  };
+
+  const handleLiveScoresPress = () => {
+    console.log('⚡ Opening chat with live scores question...');
+    if (onNavigate) {
+      onNavigate('chat', { preloadedMessage: 'Show me all the current live scores' });
     }
   };
 
@@ -100,44 +134,112 @@ const HomeScreen = ({ onNavigate, onViewSavedPlay }) => {
 
   return (
     <View style={styles.container}>
-      <Text style={styles.title}>NFL Field Mapper</Text>
-      <Text style={styles.subtitle}>Capture and analyze football plays</Text>
-      
-      {/* Main Capture Button */}
-      <TouchableOpacity 
-        style={styles.captureButton} 
-        onPress={() => onNavigate('camera')}
-      >
-        <Text style={styles.captureButtonText}>📷 Capture New Play</Text>
-      </TouchableOpacity>
+      {/* Centered Content */}
+      <View style={styles.centeredContent}>
+        <Text style={styles.title}>Gameday Companion</Text>
+        
+        {/* Main Action Buttons */}
+        <View style={styles.buttonContainer}>
+          <TouchableOpacity 
+            style={styles.chatButton} 
+            onPress={handleChatPress}
+          >
+            <Text style={styles.chatButtonText}>💬 Chat</Text>
+          </TouchableOpacity>
 
-      {/* Saved Plays Section */}
-      <View style={styles.previousPlaysSection}>
-        <View style={styles.sectionHeader}>
-          <Text style={styles.sectionTitle}>Saved Plays</Text>
-          {!loading && (
-            <TouchableOpacity onPress={loadSavedPlays} style={styles.refreshButton}>
-              <Text style={styles.refreshButtonText}>🔄</Text>
-            </TouchableOpacity>
+          <TouchableOpacity 
+            style={styles.captureButton} 
+            onPress={() => onNavigate('camera')}
+          >
+            <Text style={styles.captureButtonText}>📷 Capture</Text>
+          </TouchableOpacity>
+        </View>
+
+        {/* Secondary Action Buttons */}
+        <View style={styles.secondaryButtonContainer}>
+          <TouchableOpacity 
+            style={styles.topGamesButton} 
+            onPress={handleTopGamesPress}
+          >
+            <Text style={styles.topGamesButtonText}>🏆 Top Games</Text>
+          </TouchableOpacity>
+
+          <TouchableOpacity 
+            style={styles.liveScoresButton} 
+            onPress={handleLiveScoresPress}
+          >
+            <Text style={styles.liveScoresButtonText}>⚡ Live Scores</Text>
+          </TouchableOpacity>
+        </View>
+
+        {/* Saved Plays Section */}
+        <View style={styles.previousPlaysSection}>
+          <TouchableOpacity 
+            style={styles.sectionHeader}
+            onPress={() => setIsCollapsed(!isCollapsed)}
+          >
+            <Text style={styles.sectionTitle}>Saved Plays</Text>
+            <View style={styles.headerButtons}>
+              {!loading && !isCollapsed && (
+                <TouchableOpacity onPress={loadSavedPlays} style={styles.refreshButton}>
+                  <Text style={styles.refreshButtonText}>🔄</Text>
+                </TouchableOpacity>
+              )}
+              <Text style={styles.collapseIcon}>
+                {isCollapsed ? '▶' : '▼'}
+              </Text>
+            </View>
+          </TouchableOpacity>
+          
+          {!isCollapsed && (
+            <>
+              {/* Search Input */}
+              <View style={styles.searchContainer}>
+                <TextInput
+                  style={styles.searchInput}
+                  placeholder="Search plays..."
+                  value={searchText}
+                  onChangeText={setSearchText}
+                  clearButtonMode="while-editing"
+                />
+              </View>
+              
+              {loading ? (
+                <View style={styles.loadingContainer}>
+                  <ActivityIndicator size="large" color="#059669" />
+                  <Text style={styles.loadingText}>Loading saved plays...</Text>
+                </View>
+              ) : (
+                <FlatList
+                  data={filteredPlays}
+                  renderItem={renderPlayItem}
+                  keyExtractor={(item) => item.id}
+                  style={styles.playsList}
+                  showsVerticalScrollIndicator={false}
+                  ListEmptyComponent={() => (
+                    searchText ? (
+                      <View style={styles.emptyState}>
+                        <Text style={styles.emptyStateText}>No plays found</Text>
+                        <Text style={styles.emptyStateSubtext}>
+                          Try adjusting your search terms
+                        </Text>
+                      </View>
+                    ) : renderEmptyState()
+                  )}
+                />
+              )}
+            </>
           )}
         </View>
-        
-        {loading ? (
-          <View style={styles.loadingContainer}>
-            <ActivityIndicator size="large" color="#059669" />
-            <Text style={styles.loadingText}>Loading saved plays...</Text>
-          </View>
-        ) : (
-          <FlatList
-            data={savedPlays}
-            renderItem={renderPlayItem}
-            keyExtractor={(item) => item.id}
-            style={styles.playsList}
-            showsVerticalScrollIndicator={false}
-            ListEmptyComponent={renderEmptyState}
-          />
-        )}
       </View>
+      
+      {/* Floating Chat Button (Bottom Left) */}
+      <TouchableOpacity
+        style={styles.floatingChatButton}
+        onPress={handleChatPress}
+      >
+        <Text style={styles.floatingChatButtonText}>💬</Text>
+      </TouchableOpacity>
     </View>
   );
 };
@@ -146,28 +248,35 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: '#f3f4f6',
+    marginTop: 70,
+  },
+  centeredContent: {
+    flex: 1,
     padding: 20,
+    alignItems: 'center',
+    justifyContent: 'center',
   },
   title: {
     fontSize: 32,
     fontWeight: 'bold',
     color: '#1f2937',
     textAlign: 'center',
-    marginTop: 40,
-    marginBottom: 8,
-  },
-  subtitle: {
-    fontSize: 16,
-    color: '#6b7280',
-    textAlign: 'center',
+    marginTop: 20,
     marginBottom: 40,
   },
+  buttonContainer: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    width: '100%',
+    marginBottom: 16,
+    gap: 12,
+  },
   captureButton: {
+    flex: 1,
     backgroundColor: '#059669',
     borderRadius: 16,
     padding: 20,
     alignItems: 'center',
-    marginBottom: 40,
     elevation: 4,
     shadowColor: '#000',
     shadowOffset: { width: 0, height: 2 },
@@ -176,22 +285,107 @@ const styles = StyleSheet.create({
   },
   captureButtonText: {
     color: '#ffffff',
-    fontSize: 20,
+    fontSize: 18,
+    fontWeight: 'bold',
+  },
+  chatButton: {
+    flex: 1,
+    backgroundColor: '#3b82f6',
+    borderRadius: 16,
+    padding: 20,
+    alignItems: 'center',
+    elevation: 4,
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.1,
+    shadowRadius: 4,
+  },
+  chatButtonText: {
+    color: '#ffffff',
+    fontSize: 18,
+    fontWeight: 'bold',
+  },
+  floatingChatButton: {
+    position: 'absolute',
+    bottom: 30,
+    left: 30,
+    width: 60,
+    height: 60,
+    borderRadius: 30,
+    backgroundColor: '#3b82f6',
+    justifyContent: 'center',
+    alignItems: 'center',
+    elevation: 8,
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 4 },
+    shadowOpacity: 0.3,
+    shadowRadius: 8,
+  },
+  floatingChatButtonText: {
+    fontSize: 24,
+    color: '#ffffff',
+  },
+  secondaryButtonContainer: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    width: '100%',
+    marginBottom: 20,
+    gap: 12,
+  },
+  topGamesButton: {
+    flex: 1,
+    backgroundColor: '#4f46e5', // A darker blue for top games
+    borderRadius: 16,
+    padding: 20,
+    alignItems: 'center',
+    elevation: 4,
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.1,
+    shadowRadius: 4,
+  },
+  topGamesButtonText: {
+    color: '#ffffff',
+    fontSize: 18,
+    fontWeight: 'bold',
+  },
+  liveScoresButton: {
+    flex: 1,
+    backgroundColor: '#ef4444', // A red for live scores
+    borderRadius: 16,
+    padding: 20,
+    alignItems: 'center',
+    elevation: 4,
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.1,
+    shadowRadius: 4,
+  },
+  liveScoresButtonText: {
+    color: '#ffffff',
+    fontSize: 18,
     fontWeight: 'bold',
   },
   previousPlaysSection: {
     flex: 1,
+    width: '100%',
   },
   sectionHeader: {
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
     marginBottom: 16,
+    paddingVertical: 8,
+  },
+  headerButtons: {
+    flexDirection: 'row',
+    alignItems: 'center',
   },
   sectionTitle: {
     fontSize: 22,
     fontWeight: 'bold',
     color: '#1f2937',
+    textAlign: 'center',
   },
   refreshButton: {
     padding: 8,
@@ -199,8 +393,28 @@ const styles = StyleSheet.create({
   refreshButtonText: {
     fontSize: 18,
   },
+  collapseIcon: {
+    fontSize: 16,
+    color: '#6b7280',
+    marginLeft: 8,
+    fontWeight: 'bold',
+  },
+  searchContainer: {
+    marginBottom: 16,
+    width: '100%',
+  },
+  searchInput: {
+    backgroundColor: '#ffffff',
+    borderRadius: 8,
+    paddingHorizontal: 16,
+    paddingVertical: 12,
+    fontSize: 16,
+    borderWidth: 1,
+    borderColor: '#e5e7eb',
+  },
   playsList: {
     flex: 1,
+    width: '100%',
   },
   playItem: {
     flexDirection: 'row',
@@ -265,6 +479,7 @@ const styles = StyleSheet.create({
     marginTop: 12,
     fontSize: 16,
     color: '#6b7280',
+    textAlign: 'center',
   },
   emptyState: {
     flex: 1,
@@ -277,6 +492,7 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
     color: '#6b7280',
     marginBottom: 8,
+    textAlign: 'center',
   },
   emptyStateSubtext: {
     fontSize: 14,
