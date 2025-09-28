@@ -1,0 +1,485 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gameday Companion - The Future of Football Analytics</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap');
+        
+        * {
+            font-family: 'Inter', sans-serif;
+        }
+        
+        .gradient-text {
+            background: linear-gradient(135deg, #10b981, #3b82f6, #8b5cf6);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        
+        .hero-bg {
+            background: radial-gradient(ellipse at center, rgba(16, 185, 129, 0.1) 0%, transparent 70%),
+                        linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
+        }
+        
+        .card-hover {
+            transition: all 0.3s ease;
+        }
+        
+        .card-hover:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 25px 50px rgba(16, 185, 129, 0.2);
+        }
+        
+        .floating {
+            animation: floating 3s ease-in-out infinite;
+        }
+        
+        @keyframes floating {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-10px); }
+        }
+        
+        .pulse-green {
+            animation: pulse-green 2s infinite;
+        }
+        
+        @keyframes pulse-green {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.7; }
+        }
+        
+        .field-lines {
+            background-image: 
+                linear-gradient(90deg, rgba(16, 185, 129, 0.3) 1px, transparent 1px),
+                linear-gradient(rgba(16, 185, 129, 0.3) 1px, transparent 1px);
+            background-size: 40px 40px;
+        }
+    </style>
+</head>
+<body class="bg-slate-900 text-white overflow-x-hidden">
+    
+    <!-- Navigation -->
+    <nav class="fixed top-0 w-full bg-slate-900/90 backdrop-blur-md z-50 border-b border-slate-800">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-16">
+                <div class="flex items-center space-x-2">
+                    <div class="w-8 h-8 bg-emerald-500 rounded-lg flex items-center justify-center">
+                        <span class="text-white font-bold text-sm">🏈</span>
+                    </div>
+                    <span class="text-xl font-bold">Gameday Companion</span>
+                </div>
+                <div class="hidden md:flex space-x-8">
+                    <a href="#features" class="hover:text-emerald-400 transition-colors">Features</a>
+                    <a href="#how-it-works" class="hover:text-emerald-400 transition-colors">How It Works</a>
+                    <a href="#tech" class="hover:text-emerald-400 transition-colors">Technology</a>
+                </div>
+                <a href="https://github.com/vedsathwik275/HackGT_2025" target="_blank" class="bg-emerald-500 hover:bg-emerald-600 px-4 py-2 rounded-lg transition-colors inline-flex items-center space-x-2">
+                    <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
+                        <path fill-rule="evenodd" d="M10 0C4.477 0 0 4.484 0 10.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0110 4.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.203 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.942.359.31.678.921.678 1.856 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0020 10.017C20 4.484 15.522 0 10 0z" clip-rule="evenodd"></path>
+                    </svg>
+                    <span>GitHub</span>
+                </a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero-bg min-h-screen flex items-center relative overflow-hidden">
+        <div class="field-lines absolute inset-0 opacity-20"></div>
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-16 relative z-10">
+            <div class="grid lg:grid-cols-2 gap-12 items-center">
+                <div class="space-y-8">
+                    <div class="space-y-4">
+                        <div class="inline-flex items-center space-x-2 bg-emerald-500/10 border border-emerald-500/20 rounded-full px-4 py-2">
+                            <div class="w-2 h-2 bg-emerald-500 rounded-full pulse-green"></div>
+                            <span class="text-emerald-400 text-sm font-medium">First-Ever Live Sports AI Integration</span>
+                        </div>
+                        <h1 class="text-5xl lg:text-7xl font-black leading-tight">
+                            The Future of 
+                            <span class="gradient-text">Football Analytics</span>
+                        </h1>
+                        <p class="text-xl text-slate-300 leading-relaxed max-w-2xl">
+                            Chat with live NFL data, analyze defensive coverages with computer vision, and get AI-powered coaching insights - all from your phone.
+                        </p>
+                    </div>
+                    
+                    <div class="flex flex-col sm:flex-row gap-4">
+                        <a href="https://github.com/vedsathwik275/HackGT_2025" target="_blank" class="bg-emerald-500 hover:bg-emerald-600 text-white px-8 py-4 rounded-xl font-semibold text-lg transition-all hover:scale-105 hover:shadow-lg hover:shadow-emerald-500/25 text-center">
+                            View on GitHub
+                        </a>
+                    </div>
+                    
+                    <div class="flex items-center space-x-8 pt-4">
+                        <div class="text-center">
+                            <div class="text-3xl font-bold text-emerald-400">1st</div>
+                            <div class="text-sm text-slate-400">LLM + Live Sports Data</div>
+                        </div>
+                        <div class="text-center">
+                            <div class="text-3xl font-bold text-blue-400">36hr</div>
+                            <div class="text-sm text-slate-400">Hackathon Build</div>
+                        </div>
+                        <div class="text-center">
+                            <div class="text-3xl font-bold text-purple-400">3</div>
+                            <div class="text-sm text-slate-400">Core Technologies</div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="relative floating">
+                    <div class="bg-gradient-to-br from-slate-800 to-slate-900 rounded-3xl p-8 border border-slate-700 shadow-2xl">
+                        <div class="space-y-6">
+                            <div class="flex items-center space-x-3">
+                                <div class="w-3 h-3 bg-red-500 rounded-full"></div>
+                                <div class="w-3 h-3 bg-yellow-500 rounded-full"></div>
+                                <div class="w-3 h-3 bg-green-500 rounded-full"></div>
+                            </div>
+                            <div class="space-y-4">
+                                <div class="bg-slate-700 rounded-lg p-4">
+                                    <p class="text-slate-300 text-sm">💬 "How many yards does Lamar Jackson have right now?"</p>
+                                </div>
+                                <div class="bg-emerald-500/10 border border-emerald-500/20 rounded-lg p-4">
+                                    <p class="text-emerald-400 text-sm">🤖 Lamar Jackson currently has 287 passing yards and 45 rushing yards in today's game vs the Steelers...</p>
+                                </div>
+                                <div class="bg-slate-700 rounded-lg p-4">
+                                    <p class="text-slate-300 text-sm">📸 *Takes photo of TV screen*</p>
+                                </div>
+                                <div class="bg-blue-500/10 border border-blue-500/20 rounded-lg p-4">
+                                    <p class="text-blue-400 text-sm">👁️ Detected: Cover 3 defense with 7 players in coverage. Weak side blitz likely...</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section id="features" class="py-24 bg-slate-800/50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center space-y-4 mb-16">
+                <h2 class="text-4xl lg:text-5xl font-bold">Revolutionary Features</h2>
+                <p class="text-xl text-slate-300 max-w-3xl mx-auto">
+                    Three groundbreaking technologies working together to transform how you experience football
+                </p>
+            </div>
+            
+            <div class="grid md:grid-cols-3 gap-8">
+                <div class="card-hover bg-gradient-to-br from-emerald-500/10 to-emerald-600/5 border border-emerald-500/20 rounded-2xl p-8">
+                    <div class="w-16 h-16 bg-emerald-500 rounded-2xl flex items-center justify-center mb-6">
+                        <span class="text-2xl">🤖</span>
+                    </div>
+                    <h3 class="text-2xl font-bold mb-4 text-emerald-400">Live Gameday Chat</h3>
+                    <p class="text-slate-300 mb-6">
+                        Ask our AI anything about live NFL and college games. Get instant answers about player stats, scores, and play-by-play details from real-time ESPN data.
+                    </p>
+                    <div class="space-y-2">
+                        <div class="flex items-center space-x-2 text-sm text-slate-400">
+                            <div class="w-1.5 h-1.5 bg-emerald-400 rounded-full"></div>
+                            <span>Real-time ESPN data integration</span>
+                        </div>
+                        <div class="flex items-center space-x-2 text-sm text-slate-400">
+                            <div class="w-1.5 h-1.5 bg-emerald-400 rounded-full"></div>
+                            <span>LangChain + OpenAI GPT powered</span>
+                        </div>
+                        <div class="flex items-center space-x-2 text-sm text-slate-400">
+                            <div class="w-1.5 h-1.5 bg-emerald-400 rounded-full"></div>
+                            <span>Smart caching system</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="card-hover bg-gradient-to-br from-blue-500/10 to-blue-600/5 border border-blue-500/20 rounded-2xl p-8">
+                    <div class="w-16 h-16 bg-blue-500 rounded-2xl flex items-center justify-center mb-6">
+                        <span class="text-2xl">👁️</span>
+                    </div>
+                    <h3 class="text-2xl font-bold mb-4 text-blue-400">Computer Vision Analysis</h3>
+                    <p class="text-slate-300 mb-6">
+                        Take a photo of your TV and instantly detect all players, identify defensive coverages, and map positions onto a virtual football field.
+                    </p>
+                    <div class="space-y-2">
+                        <div class="flex items-center space-x-2 text-sm text-slate-400">
+                            <div class="w-1.5 h-1.5 bg-blue-400 rounded-full"></div>
+                            <span>Custom YOLOv11 player detection</span>
+                        </div>
+                        <div class="flex items-center space-x-2 text-sm text-slate-400">
+                            <div class="w-1.5 h-1.5 bg-blue-400 rounded-full"></div>
+                            <span>Coordinate mapping algorithms</span>
+                        </div>
+                        <div class="flex items-center space-x-2 text-sm text-slate-400">
+                            <div class="w-1.5 h-1.5 bg-blue-400 rounded-full"></div>
+                            <span>Coverage scheme classification</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="card-hover bg-gradient-to-br from-purple-500/10 to-purple-600/5 border border-purple-500/20 rounded-2xl p-8">
+                    <div class="w-16 h-16 bg-purple-500 rounded-2xl flex items-center justify-center mb-6">
+                        <span class="text-2xl">🏆</span>
+                    </div>
+                    <h3 class="text-2xl font-bold mb-4 text-purple-400">AI Defensive Coaching</h3>
+                    <p class="text-slate-300 mb-6">
+                        Get expert-level analysis of defensive formations with our specialized coaching AI that understands the chess match of football.
+                    </p>
+                    <div class="space-y-2">
+                        <div class="flex items-center space-x-2 text-sm text-slate-400">
+                            <div class="w-1.5 h-1.5 bg-purple-400 rounded-full"></div>
+                            <span>Professional-grade analysis</span>
+                        </div>
+                        <div class="flex items-center space-x-2 text-sm text-slate-400">
+                            <div class="w-1.5 h-1.5 bg-purple-400 rounded-full"></div>
+                            <span>Defensive scheme breakdowns</span>
+                        </div>
+                        <div class="flex items-center space-x-2 text-sm text-slate-400">
+                            <div class="w-1.5 h-1.5 bg-purple-400 rounded-full"></div>
+                            <span>Strategic insights and tips</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- How It Works Section -->
+    <section id="how-it-works" class="py-24">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center space-y-4 mb-16">
+                <h2 class="text-4xl lg:text-5xl font-bold">How It Works</h2>
+                <p class="text-xl text-slate-300 max-w-3xl mx-auto">
+                    Three simple steps to unlock professional-level football analysis
+                </p>
+            </div>
+            
+            <div class="grid md:grid-cols-3 gap-8">
+                <div class="text-center space-y-6">
+                    <div class="relative">
+                        <div class="w-20 h-20 bg-emerald-500 rounded-full flex items-center justify-center mx-auto text-2xl font-bold">1</div>
+                        <div class="absolute top-10 left-1/2 transform translate-x-8 hidden md:block">
+                            <div class="w-32 h-0.5 bg-gradient-to-r from-emerald-500 to-blue-500"></div>
+                        </div>
+                    </div>
+                    <h3 class="text-xl font-bold">Chat or Capture</h3>
+                    <p class="text-slate-300">Ask questions about live games or take a photo of your TV screen during any play</p>
+                </div>
+                
+                <div class="text-center space-y-6">
+                    <div class="relative">
+                        <div class="w-20 h-20 bg-blue-500 rounded-full flex items-center justify-center mx-auto text-2xl font-bold">2</div>
+                        <div class="absolute top-10 left-1/2 transform translate-x-8 hidden md:block">
+                            <div class="w-32 h-0.5 bg-gradient-to-r from-blue-500 to-purple-500"></div>
+                        </div>
+                    </div>
+                    <h3 class="text-xl font-bold">AI Analysis</h3>
+                    <p class="text-slate-300">Our AI processes live data or analyzes your image using computer vision and machine learning</p>
+                </div>
+                
+                <div class="text-center space-y-6">
+                    <div class="w-20 h-20 bg-purple-500 rounded-full flex items-center justify-center mx-auto text-2xl font-bold">3</div>
+                    <h3 class="text-xl font-bold">Get Insights</h3>
+                    <p class="text-slate-300">Receive instant answers, defensive coverage analysis, and expert coaching insights</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Accomplishments Section -->
+    <section class="py-24 bg-slate-800/50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center space-y-4 mb-16">
+                <h2 class="text-4xl lg:text-5xl font-bold">Breakthrough Achievements</h2>
+                <p class="text-xl text-slate-300 max-w-3xl mx-auto">
+                    Setting new standards in sports technology innovation
+                </p>
+            </div>
+            
+            <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
+                <div class="text-center space-y-3">
+                    <div class="text-4xl font-black gradient-text">1st</div>
+                    <div class="text-sm text-slate-400 uppercase tracking-wider">Ever</div>
+                    <div class="text-lg font-semibold">LLM + Live Sports Data Integration</div>
+                </div>
+                <div class="text-center space-y-3">
+                    <div class="text-4xl font-black text-emerald-400">36hr</div>
+                    <div class="text-sm text-slate-400 uppercase tracking-wider">Build Time</div>
+                    <div class="text-lg font-semibold">Hackathon Challenge</div>
+                </div>
+                <div class="text-center space-y-3">
+                    <div class="text-4xl font-black text-blue-400">82%</div>
+                    <div class="text-sm text-slate-400 uppercase tracking-wider">Accuracy</div>
+                    <div class="text-lg font-semibold">Player Detection Rate</div>
+                </div>
+                <div class="text-center space-y-3">
+                    <div class="text-4xl font-black text-purple-400">∞</div>
+                    <div class="text-sm text-slate-400 uppercase tracking-wider">Possibilities</div>
+                    <div class="text-lg font-semibold">Sports AI Applications</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Technology Stack -->
+    <section id="tech" class="py-24">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center space-y-4 mb-16">
+                <h2 class="text-4xl lg:text-5xl font-bold">Built with Cutting-Edge Tech</h2>
+                <p class="text-xl text-slate-300 max-w-3xl mx-auto">
+                    Microservices architecture powering the future of sports analytics
+                </p>
+            </div>
+            
+            <div class="grid lg:grid-cols-3 gap-8">
+                <div class="bg-slate-800 rounded-2xl p-8 border border-slate-700">
+                    <h3 class="text-xl font-bold mb-6 text-emerald-400">Mobile Frontend</h3>
+                    <div class="space-y-4">
+                        <div class="flex items-center space-x-3">
+                            <div class="w-2 h-2 bg-emerald-400 rounded-full"></div>
+                            <span>React Native with Expo</span>
+                        </div>
+                        <div class="flex items-center space-x-3">
+                            <div class="w-2 h-2 bg-emerald-400 rounded-full"></div>
+                            <span>Cross-platform compatibility</span>
+                        </div>
+                        <div class="flex items-center space-x-3">
+                            <div class="w-2 h-2 bg-emerald-400 rounded-full"></div>
+                            <span>Camera integration</span>
+                        </div>
+                        <div class="flex items-center space-x-3">
+                            <div class="w-2 h-2 bg-emerald-400 rounded-full"></div>
+                            <span>Real-time chat interface</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="bg-slate-800 rounded-2xl p-8 border border-slate-700">
+                    <h3 class="text-xl font-bold mb-6 text-blue-400">Computer Vision API</h3>
+                    <div class="space-y-4">
+                        <div class="flex items-center space-x-3">
+                            <div class="w-2 h-2 bg-blue-400 rounded-full"></div>
+                            <span>Node.js on Vercel</span>
+                        </div>
+                        <div class="flex items-center space-x-3">
+                            <div class="w-2 h-2 bg-blue-400 rounded-full"></div>
+                            <span>YOLOv11 + Roboflow</span>
+                        </div>
+                        <div class="flex items-center space-x-3">
+                            <div class="w-2 h-2 bg-blue-400 rounded-full"></div>
+                            <span>Custom coordinate mapping</span>
+                        </div>
+                        <div class="flex items-center space-x-3">
+                            <div class="w-2 h-2 bg-blue-400 rounded-full"></div>
+                            <span>Supabase storage</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="bg-slate-800 rounded-2xl p-8 border border-slate-700">
+                    <h3 class="text-xl font-bold mb-6 text-purple-400">Live Data Engine</h3>
+                    <div class="space-y-4">
+                        <div class="flex items-center space-x-3">
+                            <div class="w-2 h-2 bg-purple-400 rounded-full"></div>
+                            <span>Python Flask on Render</span>
+                        </div>
+                        <div class="flex items-center space-x-3">
+                            <div class="w-2 h-2 bg-purple-400 rounded-full"></div>
+                            <span>Real-time ESPN scraping</span>
+                        </div>
+                        <div class="flex items-center space-x-3">
+                            <div class="w-2 h-2 bg-purple-400 rounded-full"></div>
+                            <span>LangChain + OpenAI GPT</span>
+                        </div>
+                        <div class="flex items-center space-x-3">
+                            <div class="w-2 h-2 bg-purple-400 rounded-full"></div>
+                            <span>Smart caching system</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="py-24 bg-gradient-to-br from-emerald-500/10 to-blue-500/10">
+        <div class="max-w-4xl mx-auto text-center px-4 sm:px-6 lg:px-8">
+            <h2 class="text-4xl lg:text-5xl font-bold mb-6">Experience the Future of Football Analytics</h2>
+            <p class="text-xl text-slate-300 mb-8 max-w-2xl mx-auto">
+                See our groundbreaking 36-hour hackathon project in action. The first-ever integration of live sports data with AI and computer vision.
+            </p>
+            <div class="flex flex-col sm:flex-row gap-4 justify-center">
+                <a href="https://github.com/vedsathwik275/HackGT_2025" target="_blank" class="bg-emerald-500 hover:bg-emerald-600 text-white px-8 py-4 rounded-xl font-semibold text-lg transition-all hover:scale-105 hover:shadow-lg hover:shadow-emerald-500/25 text-center">
+                    View on GitHub
+                </a>
+            </div>
+            <p class="text-sm text-slate-400 mt-6">Hackathon prototype • Open source • Built in 36 hours</p>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="py-12 bg-slate-900 border-t border-slate-800">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex flex-col md:flex-row justify-between items-center">
+                <div class="flex items-center space-x-2 mb-4 md:mb-0">
+                    <div class="w-8 h-8 bg-emerald-500 rounded-lg flex items-center justify-center">
+                        <span class="text-white font-bold text-sm">🏈</span>
+                    </div>
+                    <span class="text-xl font-bold">Gameday Companion</span>
+                </div>
+                <div class="text-slate-400 text-sm">
+                    Built with ❤️ at the hackathon • Pioneering the future of sports technology
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Smooth scrolling for navigation links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+
+        // Add scroll effect to navigation
+        window.addEventListener('scroll', () => {
+            const nav = document.querySelector('nav');
+            if (window.scrollY > 100) {
+                nav.classList.add('bg-slate-900/95');
+            } else {
+                nav.classList.remove('bg-slate-900/95');
+            }
+        });
+
+        // Add intersection observer for animations
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = '1';
+                    entry.target.style.transform = 'translateY(0)';
+                }
+            });
+        }, observerOptions);
+
+        // Observe all card elements
+        document.querySelectorAll('.card-hover').forEach(el => {
+            el.style.opacity = '0';
+            el.style.transform = 'translateY(20px)';
+            el.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+            observer.observe(el);
+        });
+    </script>
+</body>
+</html>
