@@ -7,10 +7,11 @@ import NotificationManager from './components/NotificationManager';
 import FloatingCaptureButton from './components/FloatingCaptureButton';
 
 // Screen imports
-import { HomeScreen, CameraScreen, PhotoReviewScreen, AnalyzeScreen } from './screens';
+import { HomeScreen, CameraScreen, PhotoReviewScreen, AnalyzeScreen, ChatScreen } from './screens';
 
 export default function App() {
   const [currentScreen, setCurrentScreen] = useState('home');
+  const [navigationParams, setNavigationParams] = useState(null); // Store navigation parameters
   const [capturedPhoto, setCapturedPhoto] = useState(null);
   const [savedPlayData, setSavedPlayData] = useState(null); // For viewing saved plays
   
@@ -24,8 +25,9 @@ export default function App() {
   const imageProcessor = useImageProcessor(handleDetectionsReceived);
 
   // Navigation handler
-  const handleNavigate = useCallback((screen) => {
+  const handleNavigate = useCallback((screen, params = null) => {
     setCurrentScreen(screen);
+    setNavigationParams(params);
     
     // Clear saved play data when navigating away from analyze screen
     if (screen !== 'analyze') {
@@ -132,6 +134,14 @@ export default function App() {
           />
         );
       
+      case 'chat':
+        return (
+          <ChatScreen 
+            route={{ params: navigationParams }}
+            onNavigate={handleNavigate}
+          />
+        );
+      
       default:
         return (
           <HomeScreen 
@@ -143,7 +153,7 @@ export default function App() {
   };
 
   // Determine if floating capture button should show
-  const shouldShowFloatingButton = currentScreen !== 'camera' && currentScreen !== 'photoReview';
+  const shouldShowFloatingButton = currentScreen !== 'camera' && currentScreen !== 'photoReview' && currentScreen !== 'chat';
 
   // Show welcome message on mount
   useEffect(() => {
