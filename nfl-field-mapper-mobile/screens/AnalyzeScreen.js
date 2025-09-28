@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { View, Text, TouchableOpacity, StyleSheet, ScrollView, ActivityIndicator, Alert, Image, TextInput, KeyboardAvoidingView, Platform } from 'react-native';
 import * as ImageManipulator from 'expo-image-manipulator';
 import FontAwesome from '@expo/vector-icons/FontAwesome';
+import Feather from '@expo/vector-icons/Feather';
 import FieldVisualization from '../components/FieldVisualization';
 import ProcessingStatus from '../components/ProcessingStatus';
 import PlaysApiClient from '../services/PlaysApiClient';
@@ -312,6 +313,7 @@ const AnalyzeScreen = ({
         {currentCoverageAnalysis?.coverage_call && (
           <View style={styles.coverageContainer}>
             <Text style={styles.coverageTitle}>Coverage Call</Text>
+            <Feather name="arrow-up-right" size={24} color="black" style={styles.coverageIcon} />
             <TouchableOpacity onPress={handleCoverageChat} activeOpacity={0.8}>
               <Text style={styles.coverageText}>{currentCoverageAnalysis.coverage_call}</Text>
               <Text style={styles.coverageHint}>Tap to open coaching analysis</Text>
@@ -508,6 +510,7 @@ const styles = StyleSheet.create({
     shadowOffset: { width: 0, height: 1 },
     shadowOpacity: 0.05,
     shadowRadius: 2,
+    position: 'relative',
   },
   coverageTitle: {
     fontSize: 18,
@@ -526,6 +529,11 @@ const styles = StyleSheet.create({
     color: '#6b7280',
     textAlign: 'center',
     marginTop: 6,
+  },
+  coverageIcon: {
+    position: 'absolute',
+    top: 8,
+    right: 8,
   },
   statsContainer: {
     backgroundColor: '#fff',
