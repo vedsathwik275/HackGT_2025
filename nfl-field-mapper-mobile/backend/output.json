@@ -1,0 +1,12 @@
+{
+  "coverage_call": "Cover 1 (Man Free)",
+  "analysis": {
+    "deep_safeties": 1,
+    "deep_corners": 1,
+    "man_signals": 2,
+    "zone_signals": 0,
+    "press_corners": 0,
+    "shallow_corners": 0,
+    "avg_lb_depth": 3.41
+  }
+}
