@@ -363,150 +363,131 @@ class CoordinateMapperService {
   }
 
   /**
-   * Calculate Euclidean distance between two players
+   * Calculates the Euclidean distance between two players.
+   * @param {object} playerA - The first player object.
+   * @param {object} playerB - The second player object.
+   * @returns {number} The distance between the two players in yards.
    */
   calculateDistance(playerA, playerB) {
-    const dx = playerA.coordinates.xYards - playerB.coordinates.xYards;
-    const dy = playerA.coordinates.yYards - playerB.coordinates.yYards;
-    return Math.sqrt(dx * dx + dy * dy);
+      const dx = playerA.coordinates.x_yards - playerB.coordinates.x_yards;
+      const dy = playerA.coordinates.y_yards - playerB.coordinates.y_yards;
+      return Math.sqrt(dx**2 + dy**2);
   }
 
   /**
-   * Classifies defensive coverage into specific play types:
-   * - Cover 0, Cover 1, Cover 2 (Man/Zone), Cover 3, Cover 4 (Man/Zone)
-   * Accounts for both deep safeties and deep corners.
-   * Adds man indicator if WR and DB are aligned within 1 yard (y_yards difference).
-   * Thresholds scaled for mapping where 11 real yards = 7 mapped yards.
+   * Classifies defensive coverage into specific play types based on player alignments.
+   * This function matches receivers to the closest aligned DBs to identify man coverage signals.
+   * Remaining DBs are then classified as zone players or deep safeties.
+   * @param {object} playData - The raw play data object containing a list of players.
+   * @returns {object} An object containing the coverage call and detailed analysis metrics.
    */
   classifyCoverageV2(playData) {
-    // --- Thresholds (mapped yards) ---
-    const DEEP_SAFETY_MIN = 5;
-    const DEEP_CORNER_MIN = 5;    // ~5.7 mapped yards
-    const PRESS_YARDS = 3;         // ~1.3 mapped yards
-    const MAN_MATCH_YARDS = 12;    // ~3.2 mapped yards
-    const SHALLOW_FLAT_YARDS = 4.0;  // ~2.5 mapped yards
-    const ALIGNMENT_Y_DIFF = 1.5;           // 1 yard difference in y_yards → man indicator
+      // --- Thresholds (in yards) ---
+      const DEEP_SAFETY_MIN = 7;    // Distance from LOS considered "deep safety"
+      const DEEP_CORNER_MIN = 5;    // Kept for potential backward compatibility
+      const PRESS_YARDS = 3;        // Distance for press coverage classification
+      const MAN_MATCH_YARDS = 12;   // Safety distance threshold for matching
+      const SHALLOW_FLAT_YARDS = 4.0;
+      const ALIGNMENT_Y_DIFF = 1;   // Max y-difference to consider a DB aligned with a receiver
 
-    // --- Player Filtering ---
-    const defense = playData.players?.filter(p => p.team === "defense") || [];
-    const offense = playData.players?.filter(p => p.team === "offense") || [];
+      // --- Player Filtering ---
+      const defense = playData.players?.filter(p => p.team === "defense") || [];
+      const offense = playData.players?.filter(p => p.team === "offense") || [];
 
-    const safeties = defense.filter(p => ["S", "FS", "SS"].includes(p.position));
-    const dbs = defense.filter(p => ["DB", "CB"].includes(p.position));
-    const corners = defense.filter(p => p.position === "CB");
-    const lbs = defense.filter(p => ["LB", "MLB", "OLB"].includes(p.position));
-    const receivers = offense.filter(p => ["WR", "TE"].includes(p.position));
+      const dbs = defense.filter(p => ["DB", "CB", "S", "FS", "SS"].includes(p.position));
+      const lbs = defense.filter(p => ["LB", "MLB", "OLB"].includes(p.position));
+      const receivers = offense.filter(p => ["WR", "TE"].includes(p.position));
 
-    // --- Core Analysis ---
-    const deepSafeties = safeties.filter(s => Math.abs(s.coordinates.xYards) >= DEEP_SAFETY_MIN);
-    const numDeepSafeties = deepSafeties.length;
+      // --- Core Analysis ---
+      const deepSafeties = [];
+      let manSignals = 0;
+      let zoneSignals = 0;
+      const pressCorners = 0; // Note: Original python code initialized but never used these.
+      const shallowCorners = 0; // They are included here to match the output structure.
 
-    const deepCorners = corners.filter(c => Math.abs(c.coordinates.xYards) >= DEEP_CORNER_MIN);
-    const numDeepCorners = deepCorners.length;
+      // Work on a mutable list of available DBs
+      let availableDbs = [...dbs];
 
-    let manSignals = 0;
-    let zoneSignals = 0;
-    let pressCorners = 0;
-    let shallowCorners = 0;
+      // For each receiver, find the closest aligned DB.
+      // If a match is found, count it as a man signal and remove the DB from the available pool.
+      for (const receiver of receivers) {
+          // Find aligned DB candidates among the remaining DBs
+          const candidates = availableDbs.filter(db =>
+              Math.abs(db.coordinates.y_yards - receiver.coordinates.y_yards) <= ALIGNMENT_Y_DIFF &&
+              Math.abs(db.coordinates.x_yards) <= 7
+          );
 
-    if (receivers.length > 0 && dbs.length > 0) {
-      const availableReceivers = [...receivers]; // Create a mutable copy
-      
-      // Sort DBs by y-coordinates (left to right)
-      const sortedDbs = [...dbs].sort((a, b) => a.coordinates.yYards - b.coordinates.yYards);
-      
-      for (const db of sortedDbs) {
-        if (availableReceivers.length === 0) {
-          break; // Stop if no more receivers are available to match
-        }
+          if (candidates.length === 0) {
+              continue; // No aligned DBs for this receiver
+          }
 
-        // Find the receiver with minimum y-distance to the current DB
-        const closestReceiver = availableReceivers.reduce((closest, receiver) => {
-          const currentDistance = Math.abs(receiver.coordinates.yYards - db.coordinates.yYards);
-          const closestDistance = Math.abs(closest.coordinates.yYards - db.coordinates.yYards);
-          return currentDistance < closestDistance ? receiver : closest;
-        });
+          // Pick the candidate DB with the minimum euclidean distance to the receiver
+          const closestDb = candidates.reduce((prev, curr) =>
+              calculateDistance(curr, receiver) < calculateDistance(prev, receiver) ? curr : prev
+          );
 
-        const yDiff = Math.abs(db.coordinates.yYards - closestReceiver.coordinates.yYards);
-        const distance = this.calculateDistance(db, closestReceiver);
-
-        // Proximity indicator
-        if (distance <= MAN_MATCH_YARDS && yDiff <= ALIGNMENT_Y_DIFF) {
+          // Count as a man coverage signal and remove the matched DB
           manSignals++;
-          console.log(`MAN SIGNAL: DB (${db.position}) at (x:${db.coordinates.xYards.toFixed(1)}, y:${db.coordinates.yYards.toFixed(1)}) vs ` + 
-                `Receiver (${closestReceiver.position}) at (x:${closestReceiver.coordinates.xYards.toFixed(1)}, y:${closestReceiver.coordinates.yYards.toFixed(1)})` +
-                `\nY-Align: ${yDiff.toFixed(2)}, Total Dist: ${distance.toFixed(2)}\n`);
-        } else {
-          zoneSignals++;
-          console.log(`ZONE SIGNAL: DB (${db.position}) at (x:${db.coordinates.xYards.toFixed(1)}, y:${db.coordinates.yYards.toFixed(1)}) vs ` +
-                `Receiver (${closestReceiver.position}) at (x:${closestReceiver.coordinates.xYards.toFixed(1)}, y:${closestReceiver.coordinates.yYards.toFixed(1)})` +
-                `\nY-Align: ${yDiff.toFixed(2)}, Total Dist: ${distance.toFixed(2)}\n`);
-        }
-
-        // Remove the matched receiver from available receivers
-        const receiverIndex = availableReceivers.findIndex(r => r === closestReceiver);
-        if (receiverIndex !== -1) {
-          availableReceivers.splice(receiverIndex, 1);
-        }
+          const dbIndex = availableDbs.findIndex(db => db === closestDb);
+          if (dbIndex > -1) {
+              availableDbs.splice(dbIndex, 1);
+          }   
       }
-    }
 
-    const lbDepths = lbs.map(lb => lb.coordinates.xYards).filter(depth => depth !== undefined);
-    const avgLbDepth = lbDepths.length > 0 ? Math.abs(lbDepths.reduce((sum, depth) => sum + depth, 0) / lbDepths.length) : 0;
-
-    // --- Coverage Classification ---
-    let coverage = "Unknown";
-
-    if (numDeepSafeties === 0) {
-      if (manSignals >= dbs.length - 1) {
-        coverage = "Cover 0 (All-out Man Blitz)";
-      } else {
-        coverage = "Cover 0 Variant (Blitz/Robber)";
+      for (const db of availableDbs) {
+          const distFromLos = Math.abs(db.coordinates.x_yards);
+          if (distFromLos <= DEEP_SAFETY_MIN) {
+              zoneSignals++;
+          } else {
+              deepSafeties.push(db);
+          }
       }
-    } else if (numDeepSafeties === 1) {
-      if (manSignals > zoneSignals) {
-        coverage = "Cover 1 (Man Free)";
-      } else if (numDeepCorners >= 2) {
-        coverage = "Cover 3 Zone (1 Safety + 2 Deep Corners)";
-      } else {
-        coverage = "Cover 3 Zone";
-      }
-    } else if (numDeepSafeties === 2) {
-      if (manSignals > zoneSignals) {
-        coverage = "Cover 2 Man";
-      } else if (shallowCorners >= 2) {
-        coverage = "Cover 2 Zone (Shallow Flats)";
-      } else if (numDeepCorners >= 2) {
-        coverage = "Cover 4 Zone (2 Safeties + 2 Corners Deep)";
-      } else {
-        coverage = "Cover 2 Zone";
-      }
-    } else if (numDeepSafeties >= 3) {
-      if (manSignals > zoneSignals) {
-        coverage = "Cover 4 Man (Quarters Man-Match)";
-      } else {
-        coverage = "Cover 4 Zone (Quarters Zone)";
-      }
-    }
 
-    const coverageAnalysis = {
-      coverage_call: coverage,
-      analysis: {
-        deep_safeties: numDeepSafeties,
-        deep_corners: numDeepCorners,
-        man_signals: manSignals,
-        zone_signals: zoneSignals,
-        press_corners: pressCorners,
-        shallow_corners: shallowCorners,
-        avg_lb_depth: Math.round(avgLbDepth * 100) / 100
+      const numDeepSafeties = deepSafeties.length;
+      console.log(numDeepSafeties);
+
+      const lbDepths = lbs.map(lb => lb.coordinates?.x_yards).filter(d => d !== undefined);
+      const avgLbDepth = lbDepths.length > 0 ? Math.abs(lbDepths.reduce((sum, depth) => sum + depth, 0) / lbDepths.length) : 0;
+
+      // --- Coverage Classification ---
+      let coverage = "Unknown";
+
+      if (numDeepSafeties === 0) {
+          coverage = "Cover 0 Man";
+      } else if (numDeepSafeties === 1) {
+          coverage = (manSignals >= zoneSignals) ? "Cover 1 (Man Free)" : "Cover 3 Zone";
+      } else if (numDeepSafeties === 2) {
+          if (manSignals >= zoneSignals) {
+              coverage = "Cover 2 Man";
+          } else if (zoneSignals <= 2) {
+              coverage = "Cover 2 Zone";
+          } else {
+              coverage = "Cover 4 Zone";
+          }
+      } else if (numDeepSafeties === 3) {
+          coverage = (manSignals >= zoneSignals) ? "Cover 3 Man" : "Cover 4 Zone";
+      } else if (numDeepSafeties >= 4) {
+          coverage = "Prevent";
       }
-    };
 
-    // Save to output.json in the backend directory
-    const outputPath = path.join(__dirname, 'output.json');
-    require('fs').writeFileSync(outputPath, JSON.stringify(coverageAnalysis, null, 2));
+      const coverageAnalysis = {
+          coverage_call: coverage,
+          analysis: {
+              deep_safeties: numDeepSafeties,
+              deep_corners: dbs.filter(c => Math.abs(c.coordinates.x_yards) >= DEEP_CORNER_MIN).length,
+              man_signals: manSignals,
+              zone_signals: zoneSignals,
+              press_corners: pressCorners,
+              shallow_corners: shallowCorners,
+              avg_lb_depth: parseFloat(avgLbDepth.toFixed(2))
+          }
+      };
 
-    return coverageAnalysis;
+      // Save to output.json in the current directory
+      const outputPath = path.join(__dirname, 'output.json');
+      fs.writeFileSync(outputPath, JSON.stringify(coverageAnalysis, null, 2));
+
+      return coverageAnalysis;
   }
 
   // Utility methods
