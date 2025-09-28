@@ -3,6 +3,10 @@ node_modules
 
 // ignore .env
 .env
+.venv
+build/
+uv.lock
+*.DS_Store
 
 // ignore .env.local
 .env.local
@@ -10,8 +14,11 @@ node_modules
 // ignore .env.development.local
 .env.development.local
 
-// pycache
-__pycache__
+
+// ignore outputs
+nfl-field-mapper-mobile/backend/generated_content
+nfl-field-mapper-mobile/backend/input_content
+*__pycache__/
 
 //hackgt
 hackgt
