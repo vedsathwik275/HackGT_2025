@@ -1,5 +1,5 @@
-# Core dependencies for College Football Tool + Gemini Integration
-google-generativeai
+# Core dependencies for College Football Tool + OpenAI Integration
+openai
 requests
 beautifulsoup4
 langchain

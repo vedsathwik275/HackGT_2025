@@ -8,7 +8,7 @@ import json
 from datetime import datetime
 from flask import Flask, request, jsonify
 from flask_cors import CORS
-import google.generativeai as genai
+from openai import OpenAI
 from dotenv import load_dotenv
 from smart_cache_manager import get_smart_espn_data, smart_cache
 
@@ -19,17 +19,17 @@ CORS(app)  # Enable CORS for all routes
 chat_session = None
 
 class NextGenChatSession:
-    """NextGen Live Football Stats chat session with Gemini AI (NFL + College)"""
+    """NextGen Live Football Stats chat session with OpenAI GPT-5-nano (NFL + College)"""
     
-    def __init__(self, gemini_api_key: str):
-        self.gemini_api_key = gemini_api_key
+    def __init__(self, openai_api_key: str):
+        self.openai_api_key = openai_api_key
         
-        # Initialize Gemini chat
-        genai.configure(api_key=gemini_api_key)
-        self.model = genai.GenerativeModel('gemini-2.5-flash')
-        self.chat = self.model.start_chat(history=[])
+        # Initialize OpenAI client
+        self.client = OpenAI(api_key=openai_api_key)
+        self.model = "gpt-5-nano-2025-08-07"
+        self.conversation_history = []
         
-        print("🏈 NextGen Live Football Stats API initialized (NFL + College Football)")
+        print("🏈 NextGen Live Football Stats API initialized with OpenAI GPT-5-nano (NFL + College Football)")
     
     def get_response(self, user_input: str, sport: str = None) -> dict:
         """Get AI response for user input with sport selection"""
@@ -73,19 +73,37 @@ class NextGenChatSession:
             sports_included = scraped_data.get('sports', ['college'])
             sport_description = ' and '.join([s.title() for s in sports_included])
             
-            # Send full raw data to Gemini with context
-            prompt = f"""
-            You are NextGen Live Football Stats AI assistant. Use the following current ESPN football data to answer the user's question.
+            # Send full raw data to OpenAI with context
+            system_message = "You are NextGen Live Football Stats AI assistant. Use the provided current ESPN football data to answer user questions. Keep responses conversational and engaging, focusing on the most relevant and exciting information. If data includes both NFL and College Football, make it clear which sport you're referring to in your response."
             
+            user_message = f"""
             Current Football Data ({sport_description}):
             {scraped_data}
             
             User Question: {user_input}
             
-            Please provide a helpful, informative response based on the current data. You have access to detailed player statistics, live game scores, and team information from {sport_description}. Keep it conversational and engaging. Focus on the most relevant and exciting information. If the data includes both NFL and College Football, make it clear which sport you're referring to in your response.
+            Please provide a helpful, informative response based on the current data. You have access to detailed player statistics, live game scores, and team information from {sport_description}.
             """
             
-            response = self.chat.send_message(prompt)
+            # Add to conversation history
+            messages = [
+                {"role": "system", "content": system_message},
+                *self.conversation_history,
+                {"role": "user", "content": user_message}
+            ]
+            
+            response = self.client.chat.completions.create(
+                model=self.model,
+                messages=messages,
+                max_tokens=1000,
+                temperature=0.7
+            )
+            
+            # Update conversation history (keep last 10 exchanges)
+            self.conversation_history.append({"role": "user", "content": user_input})
+            self.conversation_history.append({"role": "assistant", "content": response.choices[0].message.content})
+            if len(self.conversation_history) > 20:  # Keep last 10 exchanges (20 messages)
+                self.conversation_history = self.conversation_history[-20:]
             
             # Create status message with smart cache info
             games_count = scraped_data.get('total_games', 0)
@@ -96,7 +114,7 @@ class NextGenChatSession:
             
             return {
                 'success': True,
-                'response': response.text,
+                'response': response.choices[0].message.content,
                 'stats': {
                     'games_tracked': games_count,
                     'fresh_games': fresh_games,
@@ -251,14 +269,14 @@ def main():
     
     load_dotenv()
     
-    gemini_api_key = os.getenv('GEMINI_API_KEY')
-    if not gemini_api_key:
-        print("❌ Error: GEMINI_API_KEY not found in environment")
-        print("   Please set your API key: export GEMINI_API_KEY=your_key_here")
+    openai_api_key = os.getenv('OPENAI_API_KEY')
+    if not openai_api_key:
+        print("❌ Error: OPENAI_API_KEY not found in environment")
+        print("   Please set your API key: export OPENAI_API_KEY=your_key_here")
         return
     
     # Initialize chat session
-    chat_session = NextGenChatSession(gemini_api_key)
+    chat_session = NextGenChatSession(openai_api_key)
     
     print("🚀 Starting NextGen Live Football Stats API Server...")
     print("   🏈 Supports both NFL and College Football")
