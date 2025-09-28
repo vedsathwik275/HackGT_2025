@@ -68,16 +68,11 @@ def classify_coverage_v2(play_data):
                 # defensive: if not present, skip
                 pass
 
-            print(f"MAN MATCH: Receiver ({receiver.get('position')}) at (x:{receiver['coordinates']['x_yards']:.1f}, y:{receiver['coordinates']['y_yards']:.1f}) "
-                f"matched to DB ({closest_db.get('position')}) at (x:{closest_db['coordinates']['x_yards']:.1f}, y:{closest_db['coordinates']['y_yards']:.1f})\n")
 
         # After matching receivers, classify remaining (unused) DBs:
         # - if within DEEP_SAFETY_MIN yards of LOS -> zone coverage contributor
         # - if greater than DEEP_SAFETY_MIN -> deep safety (DS)
-        print(f"DEBUG: available_dbs count = {len(available_dbs)}")
-        for i, db in enumerate(available_dbs):
-            coords = db.get('coordinates', {}) or {}
-            print(f"DEBUG DB[{i}]: position={db.get('position')} team={db.get('team')} x={coords.get('x_yards')} y={coords.get('y_yards')}")
+            
 
         for db in available_dbs:
             dist_from_los = abs(db['coordinates']['x_yards'])
@@ -135,8 +130,8 @@ def classify_coverage_v2(play_data):
         }
     
         # Save to output.json in the backend directory (keeps existing behavior)
-        output_path = os.path.join(os.path.dirname(__file__), 'output.json')
-        with open(output_path, 'w') as f:
-            json.dump(coverage_analysis, f, indent=2)
+        # output_path = os.path.join(os.path.dirname(__file__), 'output.json')
+        # with open(output_path, 'w') as f:
+        #     json.dump(coverage_analysis, f, indent=2)
     
         return coverage_analysis
