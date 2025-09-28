@@ -1,0 +1,240 @@
+{
+    "inference_id": "bf671ddc-24ee-43e8-a904-dc417ea6a72d",
+    "time": 0.16775141800098936,
+    "image": {
+      "width": 2102,
+      "height": 1196
+    },
+    "predictions": [
+      {
+        "x": 1743.0,
+        "y": 653.5,
+        "width": 70.0,
+        "height": 151.0,
+        "confidence": 0.9080461859703064,
+        "class": "RB",
+        "class_id": 9,
+        "detection_id": "c8e4541c-772e-4dd7-b050-29e8e1e24fd7"
+      },
+      {
+        "x": 986.0,
+        "y": 952.0,
+        "width": 64.0,
+        "height": 174.0,
+        "confidence": 0.8878201842308044,
+        "class": "DB",
+        "class_id": 1,
+        "detection_id": "e9a1e3e7-6f2f-4458-8cec-66ba969fb765"
+      },
+      {
+        "x": 339.5,
+        "y": 774.0,
+        "width": 57.0,
+        "height": 202.0,
+        "confidence": 0.8805360198020935,
+        "class": "S",
+        "class_id": 11,
+        "detection_id": "0ade4449-e0c1-415a-aebf-848bfee8fd9f"
+      },
+      {
+        "x": 1699.0,
+        "y": 562.0,
+        "width": 72.0,
+        "height": 166.0,
+        "confidence": 0.8588044047355652,
+        "class": "QB",
+        "class_id": 8,
+        "detection_id": "004daabf-3a3a-4baa-8e37-48c216a3c4d6"
+      },
+      {
+        "x": 1185.5,
+        "y": 838.0,
+        "width": 57.0,
+        "height": 184.0,
+        "confidence": 0.8452380299568176,
+        "class": "LB",
+        "class_id": 5,
+        "detection_id": "c09a6970-e3b5-45c1-933c-56d1596f269a"
+      },
+      {
+        "x": 1240.0,
+        "y": 606.5,
+        "width": 104.0,
+        "height": 95.0,
+        "confidence": 0.8375000357627869,
+        "class": "DT",
+        "class_id": 3,
+        "detection_id": "143ffa18-7cb5-4b4f-9bce-de402e3b2c49"
+      },
+      {
+        "x": 1407.0,
+        "y": 548.5,
+        "width": 94.0,
+        "height": 83.0,
+        "confidence": 0.8339889049530029,
+        "class": "OG",
+        "class_id": 6,
+        "detection_id": "75538eda-e4b1-43e6-9909-b255099e5b93"
+      },
+      {
+        "x": 1417.5,
+        "y": 703.0,
+        "width": 97.0,
+        "height": 86.0,
+        "confidence": 0.8284410238265991,
+        "class": "OT",
+        "class_id": 7,
+        "detection_id": "e586a1b4-b4d5-471f-a189-7470afa46d25"
+      },
+      {
+        "x": 1402.5,
+        "y": 648.0,
+        "width": 95.0,
+        "height": 80.0,
+        "confidence": 0.8164302706718445,
+        "class": "OG",
+        "class_id": 6,
+        "detection_id": "6fd0d638-5bab-43aa-aece-c77ab77b3b22"
+      },
+      {
+        "x": 1366.0,
+        "y": 600.5,
+        "width": 108.0,
+        "height": 93.0,
+        "confidence": 0.7872098088264465,
+        "class": "C",
+        "class_id": 0,
+        "detection_id": "af7123f2-e512-41d0-8068-8a09e09a4489"
+      },
+      {
+        "x": 1223.5,
+        "y": 705.5,
+        "width": 93.0,
+        "height": 97.0,
+        "confidence": 0.7830939888954163,
+        "class": "DE",
+        "class_id": 2,
+        "detection_id": "58664cc9-cbfe-4e1e-a79f-420414684c2e"
+      },
+      {
+        "x": 460.0,
+        "y": 182.5,
+        "width": 62.0,
+        "height": 133.0,
+        "confidence": 0.7767309546470642,
+        "class": "DB",
+        "class_id": 1,
+        "detection_id": "240fdd2b-0994-4024-838f-1b742d5870fd"
+      },
+      {
+        "x": 1462.5,
+        "y": 825.0,
+        "width": 95.0,
+        "height": 142.0,
+        "confidence": 0.776108980178833,
+        "class": "TE",
+        "class_id": 12,
+        "detection_id": "5c1d81e7-07cb-4f61-8e5f-aeae8759caa8"
+      },
+      {
+        "x": 969.0,
+        "y": 583.5,
+        "width": 66.0,
+        "height": 151.0,
+        "confidence": 0.7744782567024231,
+        "class": "LB",
+        "class_id": 5,
+        "detection_id": "e6a47c7b-5d4d-4e0d-a666-4254108c1d5b"
+      },
+      {
+        "x": 1242.0,
+        "y": 514.0,
+        "width": 104.0,
+        "height": 84.0,
+        "confidence": 0.7716642618179321,
+        "class": "DE",
+        "class_id": 2,
+        "detection_id": "134c421d-d349-4659-b0a0-be6253f23701"
+      },
+      {
+        "x": 1561.0,
+        "y": 237.0,
+        "width": 74.0,
+        "height": 132.0,
+        "confidence": 0.7609944939613342,
+        "class": "WR",
+        "class_id": 14,
+        "detection_id": "537828c2-68dc-4aa5-94ad-bec541225202"
+      },
+      {
+        "x": 1462.5,
+        "y": 823.5,
+        "width": 91.0,
+        "height": 141.0,
+        "confidence": 0.752606987953186,
+        "class": "WING",
+        "class_id": 13,
+        "detection_id": "e22fe59b-480f-4e60-a59f-aced8c2bdfd7"
+      },
+      {
+        "x": 1420.0,
+        "y": 482.0,
+        "width": 86.0,
+        "height": 82.0,
+        "confidence": 0.7520357370376587,
+        "class": "OT",
+        "class_id": 7,
+        "detection_id": "704c3566-48c8-4ba5-90bb-a687560f4b3d"
+      },
+      {
+        "x": 1055.5,
+        "y": 276.0,
+        "width": 55.0,
+        "height": 134.0,
+        "confidence": 0.7323432564735413,
+        "class": "LB",
+        "class_id": 5,
+        "detection_id": "ec424144-6ce3-47f1-b0ac-a18b6c21228c"
+      },
+      {
+        "x": 1246.5,
+        "y": 403.0,
+        "width": 87.0,
+        "height": 100.0,
+        "confidence": 0.7252206802368164,
+        "class": "LB",
+        "class_id": 5,
+        "detection_id": "abf78386-21b5-4e30-a99e-029269647a46"
+      },
+      {
+        "x": 1241.0,
+        "y": 516.5,
+        "width": 104.0,
+        "height": 87.0,
+        "confidence": 0.7121142745018005,
+        "class": "DT",
+        "class_id": 3,
+        "detection_id": "312185bc-7ca6-48c4-9050-51ad5bc65365"
+      },
+      {
+        "x": 1413.5,
+        "y": 772.0,
+        "width": 103.0,
+        "height": 106.0,
+        "confidence": 0.6944926977157593,
+        "class": "OT",
+        "class_id": 7,
+        "detection_id": "05edc514-595c-4249-9127-c1317a0eb317"
+      },
+      {
+        "x": 1247.0,
+        "y": 409.0,
+        "width": 90.0,
+        "height": 102.0,
+        "confidence": 0.4801420569419861,
+        "class": "DE",
+        "class_id": 2,
+        "detection_id": "b31ce41f-2767-4f1c-b11e-f23dd070d46f"
+      }
+    ]
+  }

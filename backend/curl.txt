@@ -24,6 +24,14 @@ curl -X POST http://localhost:3000/api/coordinates/process \
   -H "Content-Type: application/json" \
   --data-binary @/Users/jaidesai/hackgt/HackGT_2025/backend/test-payload.json
 
+curl -X POST http://localhost:3000/api/coordinates/process \
+  -H "Content-Type: application/json" \
+  --data-binary @/Users/jaidesai/hackgt/HackGT_2025/backend/examples/example2.json
+
+curl -X POST http://localhost:3000/api/coordinates/process \
+  -H "Content-Type: application/json" \
+  --data-binary @/Users/jaidesai/hackgt/HackGT_2025/backend/examples/example3.json
+
 
 curl -X POST https://football-next-gen-backend.vercel.app/api/coordinates/process \
   -H "Content-Type: application/json" \

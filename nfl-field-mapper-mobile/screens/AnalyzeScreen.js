@@ -309,7 +309,7 @@ const AnalyzeScreen = ({
           </View>
         )}
 
-        {/* Coverage Call (above personnel) */}
+        {/* Coverage Call (above field visualization) */}
         {currentCoverageAnalysis?.coverage_call && (
           <View style={styles.coverageContainer}>
             <Text style={styles.coverageTitle}>Coverage Call</Text>
@@ -320,9 +320,6 @@ const AnalyzeScreen = ({
             </TouchableOpacity>
           </View>
         )}
-
-        {/* Player Stats */}
-        {renderPlayerStats()}
 
         {/* Field Visualization */}
         <View style={styles.fieldContainer}>
@@ -335,6 +332,9 @@ const AnalyzeScreen = ({
             onMarkerClick={handlePlayerClick}
           />
         </View>
+
+        {/* Player Stats */}
+        {renderPlayerStats()}
 
         {/* Save Play Section (only for new captures) */}
         {!isViewingMode && (
