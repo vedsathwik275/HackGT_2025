@@ -17,6 +17,7 @@ const AnalyzeScreen = ({
   capturedPhoto, // Add capturedPhoto prop
   savedPlayData, // New prop for viewing saved plays
   isViewingMode = false, // New prop to indicate if we're viewing a saved play
+  coverageAnalysis,
 }) => {
   const [highlightedPlayerIndex, setHighlightedPlayerIndex] = useState(null);
   const [roboflowOrientedImage, setRoboflowOrientedImage] = useState(null);
@@ -29,6 +30,7 @@ const AnalyzeScreen = ({
   const currentDetections = savedPlayData?.detections || detections;
   const currentFieldDimensions = savedPlayData?.fieldDimensions || fieldDimensions;
   const currentLineOfScrimmage = savedPlayData?.lineOfScrimmage || lineOfScrimmage;
+  const currentCoverageAnalysis = savedPlayData?.coverageAnalysis || coverageAnalysis;
   
   // Set play name from saved data if viewing
   useEffect(() => {
@@ -103,6 +105,7 @@ const AnalyzeScreen = ({
       fieldDimensions: currentFieldDimensions,
       lineOfScrimmage: currentLineOfScrimmage,
       playerCount: currentDetections.length,
+      ...(currentCoverageAnalysis && { coverageAnalysis: currentCoverageAnalysis }),
     };
 
     try {
@@ -273,6 +276,14 @@ const AnalyzeScreen = ({
         {roboflowOrientedImage && !isViewingMode && (
           <View style={styles.imagePreviewContainer}>
             <Image source={{ uri: roboflowOrientedImage.uri }} style={styles.imagePreview} />
+          </View>
+        )}
+
+        {/* Coverage Call (above personnel) */}
+        {currentCoverageAnalysis?.coverage_call && (
+          <View style={styles.coverageContainer}>
+            <Text style={styles.coverageTitle}>Coverage Call</Text>
+            <Text style={styles.coverageText}>{currentCoverageAnalysis.coverage_call}</Text>
           </View>
         )}
 
@@ -454,6 +465,29 @@ const styles = StyleSheet.create({
     fontSize: 16,
     color: '#1e40af',
     fontWeight: '500',
+  },
+  coverageContainer: {
+    backgroundColor: '#fff',
+    borderRadius: 16,
+    padding: 20,
+    marginBottom: 20,
+    elevation: 2,
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 1 },
+    shadowOpacity: 0.05,
+    shadowRadius: 2,
+  },
+  coverageTitle: {
+    fontSize: 18,
+    fontWeight: 'bold',
+    color: '#1f2937',
+    marginBottom: 8,
+    textAlign: 'center',
+  },
+  coverageText: {
+    fontSize: 16,
+    color: '#111827',
+    textAlign: 'center',
   },
   statsContainer: {
     backgroundColor: '#fff',

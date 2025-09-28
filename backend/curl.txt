@@ -23,3 +23,10 @@ Request to test endpoint;
 curl -X POST http://localhost:3000/api/coordinates/process \
   -H "Content-Type: application/json" \
   --data-binary @/Users/jaidesai/hackgt/HackGT_2025/backend/test-payload.json
+
+
+curl -X POST https://football-next-gen-backend.vercel.app/api/coordinates/process \
+  -H "Content-Type: application/json" \
+  -H "User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:91.0) Gecko/20100101 Firefox/91.0" \
+  --data-binary @/Users/jaidesai/hackgt/HackGT_2025/backend/test-payload.json \
+  

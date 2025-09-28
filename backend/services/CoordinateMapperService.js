@@ -433,14 +433,8 @@ class CoordinateMapperService {
         // Proximity indicator
         if (distance <= MAN_MATCH_YARDS && yDiff <= ALIGNMENT_Y_DIFF) {
           manSignals++;
-          console.log(`MAN SIGNAL: DB (${db.position}) at (x:${db.coordinates.xYards.toFixed(1)}, y:${db.coordinates.yYards.toFixed(1)}) vs ` + 
-                `Receiver (${closestReceiver.position}) at (x:${closestReceiver.coordinates.xYards.toFixed(1)}, y:${closestReceiver.coordinates.yYards.toFixed(1)})` +
-                `\nY-Align: ${yDiff.toFixed(2)}, Total Dist: ${distance.toFixed(2)}\n`);
         } else {
           zoneSignals++;
-          console.log(`ZONE SIGNAL: DB (${db.position}) at (x:${db.coordinates.xYards.toFixed(1)}, y:${db.coordinates.yYards.toFixed(1)}) vs ` +
-                `Receiver (${closestReceiver.position}) at (x:${closestReceiver.coordinates.xYards.toFixed(1)}, y:${closestReceiver.coordinates.yYards.toFixed(1)})` +
-                `\nY-Align: ${yDiff.toFixed(2)}, Total Dist: ${distance.toFixed(2)}\n`);
         }
 
         // Remove the matched receiver from available receivers
@@ -502,9 +496,12 @@ class CoordinateMapperService {
       }
     };
 
+    // Basic summary logging
+    console.log(`Coverage call: ${coverage} | deep_safeties=${numDeepSafeties}, deep_corners=${numDeepCorners}, man_signals=${manSignals}, zone_signals=${zoneSignals}, avg_lb_depth=${Math.round(avgLbDepth * 100) / 100}`);
+
     // Save to output.json in the backend directory
-    const outputPath = path.join(__dirname, 'output.json');
-    require('fs').writeFileSync(outputPath, JSON.stringify(coverageAnalysis, null, 2));
+    // const outputPath = path.join(__dirname, 'output.json');
+    // require('fs').writeFileSync(outputPath, JSON.stringify(coverageAnalysis, null, 2));
 
     return coverageAnalysis;
   }

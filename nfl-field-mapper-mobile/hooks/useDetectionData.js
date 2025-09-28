@@ -9,6 +9,7 @@ const useDetectionData = () => {
   const [imageDimensions, setImageDimensions] = useState({ width: 1280, height: 600 });
   const [isProcessing, setIsProcessing] = useState(false);
   const [highlightedIndex, setHighlightedIndex] = useState(null);
+  const [coverageAnalysis, setCoverageAnalysis] = useState(null);
 
   // Initialize API client
   const apiClient = useMemo(() => new CoordinateMapperApiClient(), []);
@@ -33,10 +34,11 @@ const useDetectionData = () => {
         const coordinateResults = await apiClient.processDetections(detectionData);
         console.log('✅ Backend processed detections:', coordinateResults);
         
-        // Expected fields: mappedData, lineOfScrimmageX, fieldDims
+        // Expected fields: mappedData, lineOfScrimmageX, fieldDims, coverageAnalysis
         setMappedData(coordinateResults.mappedData || null);
         setLineOfScrimmage(coordinateResults.lineOfScrimmageX ?? null);
         setFieldDimensions(coordinateResults.fieldDims || null);
+        setCoverageAnalysis(coordinateResults.coverageAnalysis || null);
         
         if (global.showNotification) {
           global.showNotification('✅ Coordinates processed successfully!', 'success');
@@ -45,6 +47,7 @@ const useDetectionData = () => {
         setMappedData(null);
         setLineOfScrimmage(null);
         setFieldDimensions(null);
+        setCoverageAnalysis(null);
         
         if (global.showNotification) {
           global.showNotification('❌ No players detected in image', 'error');
@@ -77,6 +80,7 @@ const useDetectionData = () => {
     setLineOfScrimmage(null);
     setFieldDimensions(null);
     setHighlightedIndex(null);
+    setCoverageAnalysis(null);
     setIsProcessing(false);
   }, []);
 
@@ -197,6 +201,7 @@ const useDetectionData = () => {
     isProcessing,
     highlightedIndex,
     statistics,
+    coverageAnalysis,
 
     // Actions
     processDetections,

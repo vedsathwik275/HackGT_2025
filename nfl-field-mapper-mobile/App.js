@@ -132,6 +132,7 @@ export default function App() {
             capturedPhoto={isViewingMode ? null : capturedPhoto}
             savedPlayData={savedPlayData}
             isViewingMode={isViewingMode}
+            coverageAnalysis={isViewingMode ? null : detectionData.coverageAnalysis}
           />
         );
       
