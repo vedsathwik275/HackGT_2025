@@ -95,7 +95,7 @@ class NextGenChatSession:
             response = self.client.chat.completions.create(
                 model=self.model,
                 messages=messages,
-                max_tokens=1000,
+                max_completion_tokens=4096,
                 temperature=0.7
             )
             
