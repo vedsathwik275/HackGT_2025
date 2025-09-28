@@ -337,7 +337,7 @@ const ChatScreen = ({ route, onNavigate }) => {
       <KeyboardAvoidingView 
         style={styles.chatContainer}
         behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
-        keyboardVerticalOffset={Platform.OS === 'ios' ? 90 : 0}
+        keyboardVerticalOffset={Platform.OS === 'ios' ? 0 : 0}
       >
         <FlatList
           ref={flatListRef}
@@ -347,6 +347,8 @@ const ChatScreen = ({ route, onNavigate }) => {
           style={styles.messagesList}
           onContentSizeChange={() => flatListRef.current?.scrollToEnd()}
           showsVerticalScrollIndicator={false}
+          keyboardShouldPersistTaps="handled"
+          contentContainerStyle={styles.messagesContent}
           ListFooterComponent={isTyping ? renderTypingIndicator : null}
         />
 
@@ -426,7 +428,10 @@ const styles = StyleSheet.create({
   messagesList: {
     flex: 1,
     paddingHorizontal: 16,
+  },
+  messagesContent: {
     paddingVertical: 8,
+    paddingBottom: 16,
   },
   messageContainer: {
     marginVertical: 4,
@@ -503,7 +508,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'flex-end',
     paddingHorizontal: 16,
-    paddingVertical: 12,
+    paddingVertical: 8,
     backgroundColor: '#ffffff',
     borderTopWidth: 1,
     borderTopColor: '#e5e7eb',
