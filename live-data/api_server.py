@@ -27,7 +27,7 @@ class NextGenChatSession:
         
         # Initialize OpenAI client
         self.client = OpenAI(api_key=openai_api_key)
-        self.model = "gpt-5-mini-2025-08-07"
+        self.model = "gpt-5-nano-2025-08-07"
         self.conversation_history = []
         
         print("🏈 NextGen Live Football Stats API initialized with OpenAI GPT-5-nano (NFL + College Football)")
@@ -135,8 +135,7 @@ Please analyze the defensive positioning and provide expert coaching insights ba
             openai_start_time = time.time()
             response = self.client.chat.completions.create(
                 model=self.model,
-                messages=messages,
-                max_completion_tokens=1000
+                messages=messages
             )
             openai_duration = time.time() - openai_start_time
             
@@ -314,8 +313,7 @@ RESPONSE GUIDELINES:
             openai_start_time = time.time()
             response = self.client.chat.completions.create(
                 model=self.model,
-                messages=messages,
-                max_completion_tokens=1500
+                messages=messages
             )
             openai_duration = time.time() - openai_start_time
             

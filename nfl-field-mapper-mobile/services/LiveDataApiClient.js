@@ -16,9 +16,6 @@ class LiveDataApiClient {
     this.cacheURL = `${this.baseURL}/cache/clear`;
     this.timeout = 60000; // 60 seconds timeout
     
-    // Defensive coaching endpoint
-    this.defensiveCoachURL = `${this.baseURL}/defensive-coach`;
-    
     console.log(`🏈 LiveDataApiClient initialized with baseURL: ${this.baseURL}`);
     this.logSystemInfo();
   }
