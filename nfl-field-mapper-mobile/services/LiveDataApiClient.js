@@ -14,7 +14,7 @@ class LiveDataApiClient {
     this.healthURL = `${this.baseURL}/health`;
     this.statsURL = `${this.baseURL}/stats`;
     this.cacheURL = `${this.baseURL}/cache/clear`;
-    this.timeout = 30000; // 30 seconds timeout
+    this.timeout = 60000; // 60 seconds timeout
     
     console.log(`🏈 LiveDataApiClient initialized with baseURL: ${this.baseURL}`);
     this.logSystemInfo();

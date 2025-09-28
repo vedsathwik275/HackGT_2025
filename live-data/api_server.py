@@ -27,7 +27,7 @@ class NextGenChatSession:
         
         # Initialize OpenAI client
         self.client = OpenAI(api_key=openai_api_key)
-        self.model = "gpt-5-mini-2025-08-07"
+        self.model = "gpt-5-2025-08-07"
         self.conversation_history = []
         
         print("🏈 NextGen Live Football Stats API initialized with OpenAI GPT-5-nano (NFL + College Football)")
