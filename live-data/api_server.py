@@ -26,7 +26,7 @@ class NextGenChatSession:
         
         # Initialize OpenAI client
         self.client = OpenAI(api_key=openai_api_key)
-        self.model = "gpt-5-nano-2025-08-07"
+        self.model = "gpt-5-mini-2025-08-07"
         self.conversation_history = []
         
         print("🏈 NextGen Live Football Stats API initialized with OpenAI GPT-5-nano (NFL + College Football)")
@@ -34,6 +34,9 @@ class NextGenChatSession:
     def get_response(self, user_input: str, sport: str = None) -> dict:
         """Get AI response for user input with sport selection"""
         try:
+            print(f"🔍 DEBUG: Processing user input: '{user_input}'")
+            print(f"🔍 DEBUG: Sport filter: {sport}")
+            
             # Handle special commands
             if user_input.lower() == 'refresh':
                 # Clear smart cache for both sports
@@ -59,10 +62,13 @@ class NextGenChatSession:
                 # If no sport specified, get both
             
             # Get smart ESPN data with query context and sport preference
+            print(f"🔍 DEBUG: Fetching ESPN data...")
             scraped_data = get_smart_espn_data(query_hint=user_input, sport=sport)
+            print(f"🔍 DEBUG: ESPN data retrieved - Total games: {scraped_data.get('total_games', 0) if scraped_data else 0}")
             
             # Check if ESPN data retrieval failed
             if not scraped_data or not scraped_data.get('games'):
+                print(f"🔍 DEBUG: ESPN data retrieval failed - scraped_data: {bool(scraped_data)}")
                 return {
                     'success': False,
                     'error': 'Unable to retrieve football data from ESPN',
@@ -92,11 +98,26 @@ class NextGenChatSession:
                 {"role": "user", "content": user_message}
             ]
             
+            print(f"🔍 DEBUG: Sending to OpenAI - Model: {self.model}")
+            print(f"🔍 DEBUG: Message count: {len(messages)}")
+            print(f"🔍 DEBUG: System message length: {len(system_message)} chars")
+            print(f"🔍 DEBUG: User message length: {len(user_message)} chars")
+            
             response = self.client.chat.completions.create(
                 model=self.model,
                 messages=messages,
                 max_completion_tokens=4096
             )
+            
+            print(f"🔍 DEBUG: OpenAI response received")
+            print(f"🔍 DEBUG: Response choices count: {len(response.choices) if response.choices else 0}")
+            if response.choices and len(response.choices) > 0:
+                content = response.choices[0].message.content
+                print(f"🔍 DEBUG: Response content length: {len(content) if content else 0} chars")
+                print(f"🔍 DEBUG: Response content preview: {content[:100] if content else 'NONE'}...")
+            else:
+                print(f"🔍 DEBUG: No response choices found!")
+                print(f"🔍 DEBUG: Full response object: {response}")
             
             # Update conversation history (keep last 10 exchanges)
             self.conversation_history.append({"role": "user", "content": user_input})
@@ -111,9 +132,12 @@ class NextGenChatSession:
             fresh_games = combined_stats.get('fresh_games', 0)
             status_msg = f"✅ {games_count} games tracked ({fresh_games} fresh) - {sport_description}"
             
+            final_response = response.choices[0].message.content if response.choices else ""
+            print(f"🔍 DEBUG: Final response being returned: {len(final_response)} chars")
+            
             return {
                 'success': True,
-                'response': response.choices[0].message.content,
+                'response': final_response,
                 'stats': {
                     'games_tracked': games_count,
                     'fresh_games': fresh_games,
@@ -125,6 +149,11 @@ class NextGenChatSession:
             }
             
         except Exception as e:
+            print(f"🔍 DEBUG: Exception caught in get_response: {str(e)}")
+            print(f"🔍 DEBUG: Exception type: {type(e)}")
+            import traceback
+            print(f"🔍 DEBUG: Full traceback:")
+            traceback.print_exc()
             return {
                 'success': False,
                 'error': f"AI processing error: {str(e)}",
