@@ -14,6 +14,7 @@ class LiveDataApiClient {
     this.healthURL = `${this.baseURL}/health`;
     this.statsURL = `${this.baseURL}/stats`;
     this.cacheURL = `${this.baseURL}/cache/clear`;
+    this.defensiveCoachURL = `${this.baseURL}/defensive-coach`;
     this.timeout = 60000; // 60 seconds timeout
     
     console.log(`🏈 LiveDataApiClient initialized with baseURL: ${this.baseURL}`);
@@ -193,9 +194,6 @@ class LiveDataApiClient {
       const config = this.createRequestConfig('POST', requestBody);
       const response = await this.fetchWithTimeout(this.defensiveCoachURL, config);
       const data = await response.json();
-
-      console.log(response);
-      console.log(data);
 
       console.log(`🛡️ Defensive Coach Response:`, {
         success: data.success,
