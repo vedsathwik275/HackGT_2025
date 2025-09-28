@@ -31,6 +31,45 @@ class NextGenChatSession:
         
         print("🏈 NextGen Live Football Stats API initialized with OpenAI GPT-5-nano (NFL + College Football)")
     
+    def _filter_query_relevant_data(self, scraped_data: dict, user_input: str, sport: str = None) -> dict:
+        """Filter scraped data to only include games relevant to the user's query"""
+        
+        # Use smart cache to find games that match the query
+        matching_games = smart_cache.find_games_by_query(user_input, sport)
+        
+        # Count total matching games across sports
+        total_matches = sum(len(games) for games in matching_games.values())
+        
+        if total_matches == 0:
+            print(f"🔍 DEBUG: No specific game matches found for query, using all games")
+            return scraped_data
+        
+        print(f"🎯 DEBUG: Found {total_matches} games matching query: {matching_games}")
+        
+        # Create filtered dataset with only matching games
+        filtered_games = {}
+        sports_included = []
+        
+        for sport_key, game_ids in matching_games.items():
+            if game_ids:  # Only include sports that have matching games
+                sports_included.append(sport_key)
+                for game_id in game_ids:
+                    game_key = f"{sport_key}_{game_id}"
+                    if game_key in scraped_data.get('games', {}):
+                        filtered_games[game_key] = scraped_data['games'][game_key]
+        
+        # If we found specific matches, return filtered data
+        if filtered_games:
+            filtered_data = scraped_data.copy()
+            filtered_data['games'] = filtered_games
+            filtered_data['total_games'] = len(filtered_games)
+            filtered_data['sports'] = sports_included
+            filtered_data['filtered'] = True  # Flag to indicate this is filtered data
+            return filtered_data
+        
+        # Fallback to original data if filtering didn't work
+        return scraped_data
+    
     def get_response(self, user_input: str, sport: str = None) -> dict:
         """Get AI response for user input with sport selection"""
         try:
@@ -75,15 +114,28 @@ class NextGenChatSession:
                     'timestamp': datetime.now().isoformat()
                 }
             
+            # Filter data to only query-relevant games if specific matches found
+            original_game_count = len(scraped_data.get('games', {}))
+            filtered_data = self._filter_query_relevant_data(scraped_data, user_input, sport)
+            filtered_game_count = len(filtered_data.get('games', {}))
+            
+            print(f"🔍 DEBUG: Data filtering - Original: {original_game_count} games, Filtered: {filtered_game_count} games")
+            if filtered_game_count < original_game_count:
+                print(f"🎯 DEBUG: Using filtered dataset ({filtered_game_count} games) for faster LLM response")
+                scraped_data = filtered_data
+            
             # Determine sports included in data
             sports_included = scraped_data.get('sports', ['college'])
             sport_description = ' and '.join([s.title() for s in sports_included])
             
-            # Send full raw data to OpenAI with context
-            system_message = "You are NextGen Live Football Stats AI assistant. Use the provided current ESPN football data to answer user questions. Keep responses conversational and engaging, focusing on the most relevant and exciting information. If data includes both NFL and College Football, make it clear which sport you're referring to in your response."
+            # Send filtered data to OpenAI with context
+            is_filtered = scraped_data.get('filtered', False)
+            data_context = "filtered data focused on your query" if is_filtered else "comprehensive data"
+            
+            system_message = f"You are NextGen Live Football Stats AI assistant. Use the provided current ESPN football data to answer user questions. Keep responses conversational and engaging, focusing on the most relevant and exciting information. If data includes both NFL and College Football, make it clear which sport you're referring to in your response. You're working with {data_context}."
             
             user_message = f"""
-            Current Football Data ({sport_description}):
+            Current Football Data ({sport_description}) - {scraped_data.get('total_games', 0)} games:
             {scraped_data}
             
             User Question: {user_input}
@@ -106,7 +158,7 @@ class NextGenChatSession:
             response = self.client.chat.completions.create(
                 model=self.model,
                 messages=messages,
-                max_completion_tokens=4096
+                max_completion_tokens=1500
             )
             
             print(f"🔍 DEBUG: OpenAI response received")
