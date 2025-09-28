@@ -11,228 +11,31 @@ def is_player_position(class_name):
 
 # Load the detection data with player positions
 detection_data = {
-  "predictions": [
-    {
-      "x": 588.5,
-      "y": 241,
-      "width": 27,
-      "height": 30,
-      "confidence": 0.889,
-      "class": "C",
-      "class_id": 0,
-      "detection_id": "d9d8ad7c-3578-49db-abf0-cfaded67a3d5"
-    },
-    {
-      "x": 480.5,
-      "y": 239.5,
-      "width": 17,
-      "height": 45,
-      "confidence": 0.886,
-      "class": "LB",
-      "class_id": 5,
-      "detection_id": "c12fe5a8-1ed5-439e-83bb-f17bfb42a91f"
-    },
-    {
-      "x": 671,
-      "y": 324.5,
-      "width": 22,
-      "height": 43,
-      "confidence": 0.884,
-      "class": "WR",
-      "class_id": 14,
-      "detection_id": "3ab3141b-209a-45f4-80c5-46a5227deef3"
-    },
-    {
-      "x": 586,
-      "y": 311,
-      "width": 32,
-      "height": 28,
-      "confidence": 0.882,
-      "class": "DE",
-      "class_id": 2,
-      "detection_id": "f51c3537-bfa3-49ec-890b-ae291efc66d1"
-    },
-    {
-      "x": 534,
-      "y": 186.5,
-      "width": 30,
-      "height": 27,
-      "confidence": 0.878,
-      "class": "DE",
-      "class_id": 2,
-      "detection_id": "7786244a-11ee-4dca-9b43-a8b111b8e648"
-    },
-    {
-      "x": 562.5,
-      "y": 259.5,
-      "width": 29,
-      "height": 27,
-      "confidence": 0.874,
-      "class": "DT",
-      "class_id": 3,
-      "detection_id": "61ff956f-65df-4d4d-9bac-4a52d62ec380"
-    },
-    {
-      "x": 519.5,
-      "y": 48.5,
-      "width": 21,
-      "height": 33,
-      "confidence": 0.864,
-      "class": "WR",
-      "class_id": 14,
-      "detection_id": "7a8aed77-ed4c-421b-9933-a22aa77d64d3"
-    },
-    {
-      "x": 335.5,
-      "y": 57.5,
-      "width": 13,
-      "height": 37,
-      "confidence": 0.857,
-      "class": "DB",
-      "class_id": 1,
-      "detection_id": "30bf1aca-04eb-4ea4-b9ca-ccbf12c73b39"
-    },
-    {
-      "x": 604.5,
-      "y": 348.5,
-      "width": 17,
-      "height": 43,
-      "confidence": 0.854,
-      "class": "DB",
-      "class_id": 1,
-      "detection_id": "9b1193d8-1b2b-4498-a72e-140b8a53b993"
-    },
-    {
-      "x": 561,
-      "y": 107,
-      "width": 26,
-      "height": 38,
-      "confidence": 0.853,
-      "class": "WR",
-      "class_id": 14,
-      "detection_id": "942d23b7-4624-4c30-869b-ded6484eee58"
-    },
-    {
-      "x": 674.5,
-      "y": 206.5,
-      "width": 13,
-      "height": 41,
-      "confidence": 0.843,
-      "class": "RB",
-      "class_id": 9,
-      "detection_id": "690f4740-d406-4e8d-8fb6-3d6e43429180"
-    },
-    {
-      "x": 640.5,
-      "y": 411.5,
-      "width": 19,
-      "height": 45,
-      "confidence": 0.839,
-      "class": "DB",
-      "class_id": 1,
-      "detection_id": "336b7383-4751-4134-85c9-98d13f1e79ed"
-    },
-    {
-      "x": 627,
-      "y": 273.5,
-      "width": 28,
-      "height": 31,
-      "confidence": 0.839,
-      "class": "OT",
-      "class_id": 7,
-      "detection_id": "8e920d0d-c00e-4be4-8e0b-8033871aae7d"
-    },
-    {
-      "x": 681,
-      "y": 406,
-      "width": 28,
-      "height": 40,
-      "confidence": 0.827,
-      "class": "WR",
-      "class_id": 14,
-      "detection_id": "1694d099-f7e2-4e49-9c9f-15ab35b34e18"
-    },
-    {
-      "x": 710.5,
-      "y": 224,
-      "width": 17,
-      "height": 46,
-      "confidence": 0.826,
-      "class": "QB",
-      "class_id": 8,
-      "detection_id": "4e7c5c27-3e82-4673-bc43-5de78b8762a2"
-    },
-    {
-      "x": 538.5,
-      "y": 209.5,
-      "width": 23,
-      "height": 35,
-      "confidence": 0.807,
-      "class": "DT",
-      "class_id": 3,
-      "detection_id": "fadc2890-224d-4912-9881-eea857c1e09c"
-    },
-    {
-      "x": 596.5,
-      "y": 201.5,
-      "width": 23,
-      "height": 23,
-      "confidence": 0.797,
-      "class": "OT",
-      "class_id": 7,
-      "detection_id": "ec5006d6-1728-49a1-a6df-3037d08e9a59"
-    },
-    {
-      "x": 614.5,
-      "y": 255,
-      "width": 21,
-      "height": 24,
-      "confidence": 0.784,
-      "class": "OG",
-      "class_id": 6,
-      "detection_id": "4ddce744-8dd1-451a-ace7-5f05105b4b61"
-    },
-    {
-      "x": 600.5,
-      "y": 219,
-      "width": 21,
-      "height": 26,
-      "confidence": 0.782,
-      "class": "OG",
-      "class_id": 6,
-      "detection_id": "97c31653-4c9c-4177-b375-8e4081c2dec3"
-    },
-    {
-      "x": 469.5,
-      "y": 145,
-      "width": 15,
-      "height": 44,
-      "confidence": 0.777,
-      "class": "DB",
-      "class_id": 1,
-      "detection_id": "7bdbe89f-bd02-4611-a497-3ee9e414395d"
-    },
-    {
-      "x": 396.5,
-      "y": 320,
-      "width": 21,
-      "height": 46,
-      "confidence": 0.661,
-      "class": "DB",
-      "class_id": 1,
-      "detection_id": "cc056499-a3eb-4bbe-b943-1143b3a3aa00"
-    },
-    {
-      "x": 304.5,
-      "y": 149.5,
-      "width": 15,
-      "height": 39,
-      "confidence": 0.568,
-      "class": "DB",
-      "class_id": 1,
-      "detection_id": "55515202-b7a7-4e28-b857-904ed10a98f1"
-    }
-  ]
+    "predictions": [
+        {"x": 907.5, "y": 252, "width": 45, "height": 74, "confidence": 0.911, "class": "LB", "class_id": 5, "detection_id": "ec7cfd37-a25a-4cf1-a2f3-b9622efe0747"},
+        {"x": 441, "y": 677, "width": 74, "height": 106, "confidence": 0.897, "class": "WR", "class_id": 14, "detection_id": "b9d18ccc-2199-4147-ad66-6bfa89a031cf"},
+        {"x": 740, "y": 540, "width": 48, "height": 102, "confidence": 0.896, "class": "LB", "class_id": 5, "detection_id": "e3d33d07-46f9-41f6-b196-18dce2001ed4"},
+        {"x": 360.5, "y": 396.5, "width": 45, "height": 99, "confidence": 0.893, "class": "RB", "class_id": 9, "detection_id": "b5a73cc1-f907-43a1-9e9a-6f7225f2a6bf"},
+        {"x": 747.5, "y": 108.5, "width": 41, "height": 75, "confidence": 0.89, "class": "WR", "class_id": 14, "detection_id": "5b113f6b-9b20-4d3f-b865-fd4c1a942b41"},
+        {"x": 425, "y": 557, "width": 58, "height": 108, "confidence": 0.89, "class": "WR", "class_id": 14, "detection_id": "0c6314d0-0b72-4693-af2b-7c0b42f0093a"},
+        {"x": 1232.5, "y": 604.5, "width": 45, "height": 105, "confidence": 0.881, "class": "DB", "class_id": 1, "detection_id": "6041b8c8-b060-460e-b0b0-e9367813005a"},
+        {"x": 586.5, "y": 685, "width": 61, "height": 94, "confidence": 0.881, "class": "DB", "class_id": 1, "detection_id": "58a9637a-6b46-4239-8728-63b4dac93e27"},
+        {"x": 591, "y": 310.5, "width": 50, "height": 69, "confidence": 0.879, "class": "WING", "class_id": 13, "detection_id": "fc08806b-ae57-406b-82ce-8651ba0fd75b"},
+        {"x": 695.5, "y": 392, "width": 51, "height": 64, "confidence": 0.87, "class": "DT", "class_id": 3, "detection_id": "84cce67d-06aa-465a-967d-528665e46b9e"},
+        {"x": 542.5, "y": 438, "width": 57, "height": 86, "confidence": 0.856, "class": "OT", "class_id": 7, "detection_id": "5c6110c5-d367-4387-b69c-773b8d7454d8"},
+        {"x": 851, "y": 411.5, "width": 50, "height": 87, "confidence": 0.852, "class": "LB", "class_id": 5, "detection_id": "8a4cf2e5-f7e1-471f-90b2-1793e030a6ab"},
+        {"x": 674.5, "y": 441.5, "width": 57, "height": 71, "confidence": 0.83, "class": "DE", "class_id": 2, "detection_id": "b8a022a0-7f33-431a-bacc-f476b40de890"},
+        {"x": 839, "y": 350, "width": 46, "height": 72, "confidence": 0.824, "class": "LB", "class_id": 5, "detection_id": "0b8c98f9-2d1b-4d36-ba32-18460b9a3e0d"},
+        {"x": 384.5, "y": 363, "width": 35, "height": 98, "confidence": 0.814, "class": "QB", "class_id": 8, "detection_id": "1e36a048-c4b2-453e-a102-a9d884fe375d"},
+        {"x": 578.5, "y": 411.5, "width": 53, "height": 61, "confidence": 0.807, "class": "OG", "class_id": 6, "detection_id": "9823ab7c-e5a6-43d5-81bd-7140e5d6f5cf"},
+        {"x": 613.5, "y": 356, "width": 51, "height": 44, "confidence": 0.805, "class": "OG", "class_id": 6, "detection_id": "b5d6fb3f-25a8-4fa1-b3ca-f7656fa680d1"},
+        {"x": 621, "y": 384.5, "width": 52, "height": 67, "confidence": 0.769, "class": "C", "class_id": 0, "detection_id": "2af611be-c883-4230-91be-912b4b15bc22"},
+        {"x": 626, "y": 327, "width": 56, "height": 46, "confidence": 0.764, "class": "OT", "class_id": 7, "detection_id": "469ffaec-bda3-411d-b60b-e7fecaf99432"},
+        {"x": 728.5, "y": 354, "width": 57, "height": 66, "confidence": 0.746, "class": "DT", "class_id": 3, "detection_id": "1a6b81c7-e6fd-4b9f-8aa3-6e263f6374ff"},
+        {"x": 1213.5, "y": 262.5, "width": 37, "height": 91, "confidence": 0.696, "class": "S", "class_id": 11, "detection_id": "06e61547-602e-4853-9925-d0eae433f8c8"},
+        {"x": 1203.5, "y": 138, "width": 39, "height": 82, "confidence": 0.665, "class": "DB", "class_id": 1, "detection_id": "b560ea3e-c3bb-4dd2-a359-b0b79dd1d9c8"},
+        {"x": 728.5, "y": 353.5, "width": 57, "height": 65, "confidence": 0.649, "class": "DE", "class_id": 2, "detection_id": "64389ec2-490b-4cd9-824e-6b30c01270df"}
+    ]
 }
 
 def classify_offense_defense(players, line_of_scrimmage_x=None):
@@ -451,7 +254,7 @@ def add_yard_markings(ax, field_dims, line_of_scrimmage_x, x_min, x_max, y_min, 
     ax.axhline(y=y_min, color='white', linewidth=4, alpha=0.9, label='Sideline')
     ax.axhline(y=y_max, color='white', linewidth=4, alpha=0.9)
 
-def create_football_diagram():
+def create_football_diagram(detection_data):
     """
     Create a 2D American football play diagram with correct field orientation and proper yard markings
     """
@@ -738,6 +541,7 @@ def map_coordinates(detection_data, line_of_scrimmage_x, field_dims):
     
     return mapped_data
 
+# Main execution block
 if __name__ == "__main__":
     # Print summary
     print_detection_summary()
@@ -773,10 +577,9 @@ if __name__ == "__main__":
     except Exception as e:
         print(f"Warning: could not import/run classify_coverage_v2: {e}")
     
-    # Create the diagram
-    fig, ax = create_football_diagram()
-    
-    plt.savefig('american_football_play_diagram.png', dpi=300, bbox_inches='tight')
+    # Create and save the diagram
+    fig, ax = create_football_diagram(detection_data)
+    fig.savefig('american_football_play_diagram.png', dpi=300, bbox_inches='tight')
     # Show the plot
     plt.show()
     

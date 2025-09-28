@@ -1,0 +1,11 @@
+{
+  "primary_guess": "Cover 0 (Man Blitz)",
+  "secondary_guess": "Cover 1 Robber (with a lurking LB/S)",
+  "shell": "Zero-High",
+  "analysis": {
+    "deep_safeties_found": 0,
+    "man_coverage_signals": 5,
+    "zone_coverage_signals": 1,
+    "avg_linebacker_depth_yards": -2.67
+  }
+}

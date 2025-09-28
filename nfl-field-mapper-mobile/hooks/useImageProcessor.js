@@ -8,7 +8,7 @@ const useImageProcessor = (onDetectionsReceived) => {
   const [processingMessage, setProcessingMessage] = useState('');
 
   // API Configuration
-  const API_KEY = "Imm66rNLdtpVKJSwH4Cl";
+  const API_KEY = "yZbcFKL4HirN2zbDStgm";
   const API_URL = "https://serverless.roboflow.com/football-players-fom0k/11";
 
   // Handle image file upload
