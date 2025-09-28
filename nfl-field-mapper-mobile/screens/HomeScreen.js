@@ -182,7 +182,7 @@ const HomeScreen = ({ onNavigate, onViewSavedPlay }) => {
             <View style={styles.headerButtons}>
               {!loading && !isCollapsed && (
                 <TouchableOpacity onPress={loadSavedPlays} style={styles.refreshButton}>
-                  <Text style={styles.refreshButtonText}>🔄</Text>
+                  {/* <Text style={styles.refreshButtonText}>🔄</Text> */}
                 </TouchableOpacity>
               )}
               <Text style={styles.collapseIcon}>
