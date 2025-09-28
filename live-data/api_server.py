@@ -71,6 +71,116 @@ class NextGenChatSession:
         # Fallback to original data if filtering didn't work
         return scraped_data
     
+    def get_defensive_coaching_response(self, user_input: str, player_coordinates: dict) -> dict:
+        """Get AI response for defensive coaching with player coordinates"""
+        try:
+            total_start_time = time.time()
+            print(f"🏈 DEBUG: Processing defensive coaching query: '{user_input}'")
+            print(f"🏈 DEBUG: Player coordinates data size: {len(str(player_coordinates))} chars")
+            
+            # Create system message for defensive coaching
+            system_message = """You are an elite American football defensive coach with decades of experience analyzing defensive coverage and player positioning. You have access to real-time player coordinates with x,y coordinates and yards relative to the line of scrimmage.
+
+EXPERTISE AREAS:
+- Defensive coverage schemes (Cover 1, Cover 2, Cover 3, Cover 4, Cover 6, etc.)
+- Zone vs Man coverage identification
+- Blitz packages and pass rush schemes
+- Run defense alignments and gap responsibilities
+- Player positioning and leverage analysis
+- Coverage weaknesses and exploitable areas
+- Defensive adjustments and audibles
+
+DATA YOU HAVE ACCESS TO:
+- Player coordinates: x,y positions on the field
+- Yard markers relative to line of scrimmage
+- Player positioning and alignment data
+- Field positioning context
+
+RESPONSE GUIDELINES:
+- Analyze defensive formations and coverage based on player positions
+- Identify potential weaknesses or strengths in the alignment
+- Suggest coaching adjustments or strategic insights
+- Use proper football terminology and concepts
+- Be specific about player positioning and responsibilities
+- Provide actionable defensive coaching advice
+- Consider down and distance context when available"""
+
+            user_message = f"""
+Player Coordinate Data:
+{json.dumps(player_coordinates, indent=2)}
+
+Coaching Question: {user_input}
+
+Please analyze the defensive positioning and provide expert coaching insights based on the player coordinates and formation shown.
+"""
+
+            # Create messages for OpenAI API
+            messages = [
+                {"role": "system", "content": system_message},
+                {"role": "user", "content": user_message}
+            ]
+            
+            # Calculate input sizes for tracking
+            total_input_size = len(system_message) + len(user_message)
+            coordinates_size = len(str(player_coordinates))
+            
+            print(f"🏈 DEBUG: OpenAI API Call Details:")
+            print(f"🏈 DEBUG: - Model: {self.model}")
+            print(f"🏈 DEBUG: - System message: {len(system_message):,} chars")
+            print(f"🏈 DEBUG: - User message: {len(user_message):,} chars")
+            print(f"🏈 DEBUG: - Coordinates data: {coordinates_size:,} chars")
+            print(f"🏈 DEBUG: - Total input size: {total_input_size:,} chars ({total_input_size/1024:.1f} KB)")
+            
+            print(f"🏈 DEBUG: Making OpenAI API call for defensive coaching...")
+            openai_start_time = time.time()
+            response = self.client.chat.completions.create(
+                model=self.model,
+                messages=messages,
+                max_completion_tokens=1000
+            )
+            openai_duration = time.time() - openai_start_time
+            
+            print(f"🏈 DEBUG: OpenAI response received in {openai_duration:.2f}s")
+            
+            if response.choices and len(response.choices) > 0:
+                content = response.choices[0].message.content
+                print(f"🏈 DEBUG: Response content length: {len(content) if content else 0} chars")
+            else:
+                print(f"🏈 DEBUG: No response choices found!")
+                return {
+                    'success': False,
+                    'error': 'No response received from AI',
+                    'timestamp': datetime.now().isoformat()
+                }
+            
+            final_response = response.choices[0].message.content
+            total_duration = time.time() - total_start_time
+            
+            print(f"🏈 DEBUG: Defensive coaching response completed in {total_duration:.2f}s")
+            
+            return {
+                'success': True,
+                'response': final_response,
+                'stats': {
+                    'coordinates_processed': len(player_coordinates.get('players', [])) if isinstance(player_coordinates.get('players'), list) else 0,
+                    'timing': {
+                        'total_duration': round(total_duration, 2),
+                        'openai_duration': round(openai_duration, 2)
+                    }
+                },
+                'timestamp': datetime.now().isoformat()
+            }
+            
+        except Exception as e:
+            print(f"🏈 DEBUG: Exception in defensive coaching: {str(e)}")
+            import traceback
+            traceback.print_exc()
+            return {
+                'success': False,
+                'error': f"Defensive coaching error: {str(e)}",
+                'timestamp': datetime.now().isoformat()
+            }
+
     def get_response(self, user_input: str, sport: str = None) -> dict:
         """Get AI response for user input with sport selection"""
         try:
@@ -440,6 +550,72 @@ def clear_cache():
             'error': f'Cache clear error: {str(e)}'
         }), 500
 
+@app.route('/api/defensive-coach', methods=['POST'])
+def defensive_coach():
+    """Defensive coaching endpoint with player coordinates analysis"""
+    global chat_session
+    
+    print(f"🏈 DEBUG: /api/defensive-coach endpoint called")
+    print(f"🏈 DEBUG: Request method: {request.method}")
+    print(f"🏈 DEBUG: Request headers: {dict(request.headers)}")
+    
+    if not chat_session:
+        print(f"🏈 DEBUG: Chat session not initialized!")
+        return jsonify({
+            'success': False,
+            'error': 'AI chat session not initialized'
+        }), 500
+    
+    try:
+        data = request.json
+        print(f"🏈 DEBUG: Request JSON data keys: {list(data.keys()) if data else 'None'}")
+        
+        if not data:
+            print(f"🏈 DEBUG: No JSON data provided in request")
+            return jsonify({
+                'success': False,
+                'error': 'No JSON data provided'
+            }), 400
+        
+        message = data.get('message', '').strip()
+        player_coordinates = data.get('coordinates', {})
+        
+        print(f"🏈 DEBUG: Extracted message: '{message}'")
+        print(f"🏈 DEBUG: Coordinates data size: {len(str(player_coordinates))} chars")
+        
+        if not message:
+            print(f"🏈 DEBUG: Empty message provided")
+            return jsonify({
+                'success': False,
+                'error': 'No message provided'
+            }), 400
+        
+        if not player_coordinates:
+            print(f"🏈 DEBUG: No player coordinates provided")
+            return jsonify({
+                'success': False,
+                'error': 'No player coordinates provided'
+            }), 400
+        
+        print(f"🏈 DEBUG: Calling defensive coaching analysis...")
+        response = chat_session.get_defensive_coaching_response(message, player_coordinates)
+        
+        print(f"🏈 DEBUG: Defensive coaching response received")
+        print(f"🏈 DEBUG: Response success: {response.get('success', False)}")
+        print(f"🏈 DEBUG: Response length: {len(response.get('response', '')) if response.get('response') else 0} chars")
+        
+        return jsonify(response)
+        
+    except Exception as e:
+        print(f"🏈 DEBUG: Exception in /api/defensive-coach endpoint: {str(e)}")
+        import traceback
+        print(f"🏈 DEBUG: Full traceback:")
+        traceback.print_exc()
+        return jsonify({
+            'success': False,
+            'error': f'Server error: {str(e)}'
+        }), 500
+
 # API-only root route
 @app.route('/')
 def api_info():
@@ -454,6 +630,7 @@ def api_info():
         'endpoints': {
             'health': '/api/health',
             'chat': '/api/chat (POST)',
+            'defensive_coach': '/api/defensive-coach (POST)',
             'stats': '/api/stats',
             'cache_clear': '/api/cache/clear (POST)'
         },
@@ -473,6 +650,7 @@ def not_found(error):
             '/',
             '/api/health',
             '/api/chat',
+            '/api/defensive-coach',
             '/api/stats',
             '/api/cache/clear'
         ]
@@ -511,10 +689,11 @@ def main():
     print("   🏈 Supports both NFL and College Football")
     print("   API available at: http://localhost:5001")
     print("   Endpoints:")
-    print("     GET  /api/health      - Health check")
-    print("     POST /api/chat        - Chat with AI (supports sport parameter)")
-    print("     GET  /api/stats       - System statistics")
-    print("     POST /api/cache/clear - Clear cache")
+    print("     GET  /api/health         - Health check")
+    print("     POST /api/chat           - Chat with AI (supports sport parameter)")
+    print("     POST /api/defensive-coach - Defensive coaching analysis with coordinates")
+    print("     GET  /api/stats          - System statistics")
+    print("     POST /api/cache/clear    - Clear cache")
     
     # Use PORT environment variable for deployment platforms
     port = int(os.getenv('PORT', 5001))
