@@ -10,37 +10,183 @@ import {
   Platform,
   SafeAreaView,
   ActivityIndicator,
+  Alert,
 } from 'react-native';
+import liveDataApiClient from '../services/LiveDataApiClient';
 
 const ChatScreen = ({ route, onNavigate }) => {
   const [messages, setMessages] = useState([]);
   const [inputText, setInputText] = useState('');
   const [isTyping, setIsTyping] = useState(false);
+  const [selectedSport, setSelectedSport] = useState(null); // null = both, 'college', 'nfl'
   const flatListRef = useRef();
+  const [isLive, setIsLive] = useState(false);
 
   // Extract preloaded message from navigation params
   const preloadedMessage = route?.params?.preloadedMessage;
 
   useEffect(() => {
+    console.log(`🚀 ChatScreen: Initializing with preloadedMessage:`, preloadedMessage ? `"${preloadedMessage.substring(0, 50)}..."` : 'none');
+    
     // Add welcome message
     const welcomeMessage = {
       id: Date.now().toString(),
-      text: "Hi! I'm your football companion. Ask me about games, scores, stats, or anything football-related!",
+      text: "Hi! I'm your football companion powered by real-time data. Ask me about games, scores, stats, or anything football-related!",
       isBot: true,
       timestamp: new Date(),
     };
-    setMessages([welcomeMessage]);
-
-    // Add preloaded message if provided
+    
+    // If there's a preloaded message, add it immediately as a user message
     if (preloadedMessage) {
+      console.log(`📝 ChatScreen: Processing preloaded message: "${preloadedMessage}"`);
+      
+      const userMessage = {
+        id: (Date.now() + 1).toString(),
+        text: preloadedMessage.trim(),
+        isBot: false,
+        timestamp: new Date(),
+      };
+      setMessages([welcomeMessage, userMessage]);
+      
+      // Then trigger bot response after a short delay
       setTimeout(() => {
-        sendMessage(preloadedMessage, false); // Don't show user message immediately
-      }, 1000);
+        console.log(`⏱️ ChatScreen: Triggering delayed response for preloaded message`);
+        handleApiMessage(preloadedMessage.trim(), false);
+      }, 500);
+    } else {
+      console.log(`💬 ChatScreen: No preloaded message, showing welcome message only`);
+      setMessages([welcomeMessage]);
     }
   }, [preloadedMessage]);
 
-  const sendMessage = async (messageText = inputText, showUserMessage = true) => {
+  // Health check/poll to control LIVE indicator
+  useEffect(() => {
+    let isMounted = true;
+
+    const checkHealth = async () => {
+      try {
+        const healthy = await liveDataApiClient.testConnectivity();
+        if (isMounted) setIsLive(healthy);
+      } catch (e) {
+        if (isMounted) setIsLive(false);
+      }
+    };
+
+    checkHealth();
+    const intervalId = setInterval(checkHealth, 60000); // poll every 60s
+
+    return () => {
+      isMounted = false;
+      clearInterval(intervalId);
+    };
+  }, []);
+
+  const handleApiMessage = async (messageText, addUserMessage = true) => {
     if (!messageText.trim()) return;
+
+    console.log(`🎬 ChatScreen: Starting message handling for: "${messageText.substring(0, 50)}..."`);
+    setIsTyping(true);
+
+    try {
+      // Use the service to send the chat message
+      const data = await liveDataApiClient.sendChatMessage(messageText.trim(), selectedSport);
+
+      if (data.success) {
+        console.log(`✅ ChatScreen: Received successful response from service`);
+        
+        const botMessage = {
+          id: Date.now().toString(),
+          text: data.response,
+          isBot: true,
+          timestamp: new Date(),
+          sportContext: data.sport_context,
+          dataFreshness: data.data_freshness,
+        };
+
+        setMessages(prev => {
+          if (addUserMessage) {
+            const userMessage = {
+              id: (Date.now() - 1).toString(),
+              text: messageText.trim(),
+              isBot: false,
+              timestamp: new Date(),
+            };
+            console.log(`📱 ChatScreen: Adding user message and bot response to UI`);
+            return [...prev, userMessage, botMessage];
+          } else {
+            console.log(`📱 ChatScreen: Adding bot response to UI (no user message)`);
+            return [...prev, botMessage];
+          }
+        });
+      } else {
+        console.error(`❌ ChatScreen: Service returned error response:`, data.error);
+        
+        // Handle API error response
+        const errorMessage = {
+          id: Date.now().toString(),
+          text: `❌ Sorry, I encountered an error: ${data.error || 'Unknown error'}`,
+          isBot: true,
+          timestamp: new Date(),
+          isError: true,
+        };
+
+        setMessages(prev => {
+          if (addUserMessage) {
+            const userMessage = {
+              id: (Date.now() - 1).toString(),
+              text: messageText.trim(),
+              isBot: false,
+              timestamp: new Date(),
+            };
+            return [...prev, userMessage, errorMessage];
+          } else {
+            return [...prev, errorMessage];
+          }
+        });
+      }
+    } catch (error) {
+      console.error(`❌ ChatScreen: Service call failed:`, error.message);
+      
+      // Handle network/connection errors
+      const errorMessage = {
+        id: Date.now().toString(),
+        text: `🔌 Connection error: ${error.message}. Please check your internet connection and try again.`,
+        isBot: true,
+        timestamp: new Date(),
+        isError: true,
+      };
+
+      setMessages(prev => {
+        if (addUserMessage) {
+          const userMessage = {
+            id: (Date.now() - 1).toString(),
+            text: messageText.trim(),
+            isBot: false,
+            timestamp: new Date(),
+          };
+          return [...prev, userMessage, errorMessage];
+        } else {
+          return [...prev, errorMessage];
+        }
+      });
+    } finally {
+      console.log(`🏁 ChatScreen: Message handling completed`);
+      setIsTyping(false);
+    }
+  };
+
+  const sendMessage = async (messageText = inputText, showUserMessage = true) => {
+    if (!messageText.trim() || isTyping) {
+      console.log(`⏹️ ChatScreen: sendMessage blocked - empty message or typing in progress`);
+      return;
+    }
+
+    console.log(`📤 ChatScreen: sendMessage called with:`, {
+      message: messageText.substring(0, 50) + (messageText.length > 50 ? '...' : ''),
+      showUserMessage,
+      selectedSport,
+      timestamp: new Date().toISOString()
+    });
 
     const userMessage = {
       id: Date.now().toString(),
@@ -51,61 +197,38 @@ const ChatScreen = ({ route, onNavigate }) => {
 
     // Add user message if we should show it
     if (showUserMessage) {
+      console.log(`📱 ChatScreen: Adding user message to UI immediately`);
       setMessages(prev => [...prev, userMessage]);
     }
     setInputText('');
-    setIsTyping(true);
-
-    // Simulate API response delay
-    setTimeout(() => {
-      const botResponse = generateBotResponse(messageText);
-      const botMessage = {
-        id: (Date.now() + 1).toString(),
-        text: botResponse,
-        isBot: true,
-        timestamp: new Date(),
-      };
-
-      setMessages(prev => {
-        const newMessages = showUserMessage ? [...prev, botMessage] : [...prev, userMessage, botMessage];
-        return newMessages;
-      });
-      setIsTyping(false);
-    }, 1500);
+    
+    // Call the API
+    await handleApiMessage(messageText, !showUserMessage);
   };
 
-  const generateBotResponse = (userMessage) => {
-    const message = userMessage.toLowerCase();
+  // Sport selection methods
+  const selectSport = (sport) => {
+    console.log(`🏈 ChatScreen: Sport selection changed from "${selectedSport}" to "${sport}"`);
+    setSelectedSport(sport);
     
-    if (message.includes('exciting games') || message.includes('top games')) {
-      return "🏈 Here are the most exciting games happening right now:\n\n• Georgia vs Alabama - 4th Quarter, 21-17\n• Ohio State vs Michigan - 3rd Quarter, 14-10\n• Texas vs Oklahoma - 2nd Quarter, 7-3\n• Notre Dame vs USC - 1st Quarter, 0-0\n\nThe Georgia vs Alabama game is particularly thrilling with a close score in the final quarter!";
-    }
+    // Show feedback to user
+    let sportText = 'all sports';
+    if (sport === 'nfl') sportText = 'NFL';
+    else if (sport === 'college') sportText = 'College Football';
     
-    if (message.includes('live scores') || message.includes('current scores')) {
-      return "⚡ Current Live Scores:\n\n🏈 College Football:\n• Georgia 21 - Alabama 17 (Q4 8:45)\n• Ohio State 14 - Michigan 10 (Q3 2:13)\n• Texas 7 - Oklahoma 3 (Q2 11:22)\n• Notre Dame 0 - USC 0 (Q1 14:56)\n\n🏈 NFL:\n• Chiefs 28 - Bills 21 (Q4 5:30)\n• Cowboys 14 - Eagles 10 (Q3 9:15)\n• 49ers 17 - Rams 14 (Q2 3:45)";
-    }
+    console.log(`📢 ChatScreen: Showing sport selection feedback to user: ${sportText}`);
+    const systemMessage = {
+      id: Date.now().toString(),
+      text: `🏈 Now focusing on ${sportText}. Your next questions will be answered with this context.`,
+      isBot: true,
+      timestamp: new Date(),
+      isSystem: true,
+    };
     
-    if (message.includes('stats') || message.includes('statistics')) {
-      return "📊 Here are some key stats from today's games:\n\n🔥 Top Performers:\n• QB: Lamar Jackson - 285 yards, 3 TDs\n• RB: Derrick Henry - 156 yards, 2 TDs\n• WR: Tyreek Hill - 8 catches, 142 yards\n\n⚡ Game Highlights:\n• Longest TD: 67-yard pass\n• Most yards: 445 (Chiefs)\n• Biggest upset: Underdog won by 14";
-    }
-    
-    if (message.includes('hello') || message.includes('hi')) {
-      return "Hello! 👋 I'm here to help with all your football needs. You can ask me about:\n\n• Live scores and games\n• Player stats and highlights\n• Game analysis and predictions\n• Team information\n• Historical data\n\nWhat would you like to know?";
-    }
-    
-    if (message.includes('help')) {
-      return "🤖 I can help you with:\n\n📊 **Live Data:**\n• Current game scores\n• Player statistics\n• Team standings\n\n🏈 **Game Info:**\n• Schedule and matchups\n• Game highlights\n• Analysis and insights\n\n📱 **App Features:**\n• Play analysis from photos\n• Saved play history\n• Real-time updates\n\nJust ask me anything football-related!";
-    }
-    
-    // Default responses
-    const defaultResponses = [
-      "That's a great question! While I don't have specific data on that right now, I can help you with live scores, game stats, and play analysis. What specific information are you looking for?",
-      "Interesting! I'd love to help you with that. Could you be more specific about what football information you're looking for?",
-      "I'm constantly learning about football! Right now I can provide live scores, game highlights, and player stats. What would you like to know more about?",
-    ];
-    
-    return defaultResponses[Math.floor(Math.random() * defaultResponses.length)];
+    setMessages(prev => [...prev, systemMessage]);
   };
+
+  
 
   const renderMessage = ({ item }) => (
     <View style={[
@@ -114,14 +237,23 @@ const ChatScreen = ({ route, onNavigate }) => {
     ]}>
       <View style={[
         styles.messageBubble,
-        item.isBot ? styles.botBubble : styles.userBubble
+        item.isBot ? styles.botBubble : styles.userBubble,
+        item.isError && styles.errorBubble,
+        item.isSystem && styles.systemBubble
       ]}>
         <Text style={[
           styles.messageText,
-          item.isBot ? styles.botText : styles.userText
+          item.isBot ? styles.botText : styles.userText,
+          item.isError && styles.errorText,
+          item.isSystem && styles.systemText
         ]}>
           {item.text}
         </Text>
+        {item.dataFreshness && (
+          <Text style={styles.dataFreshness}>
+            📊 {item.dataFreshness}
+          </Text>
+        )}
         <Text style={[
           styles.timestamp,
           item.isBot ? styles.botTimestamp : styles.userTimestamp
@@ -149,8 +281,57 @@ const ChatScreen = ({ route, onNavigate }) => {
           <Text style={styles.backButtonText}>← Back</Text>
         </TouchableOpacity>
         <Text style={styles.headerTitle}>Football Chat</Text>
-        <View style={styles.headerRight} />
+        <View style={styles.headerRight}>
+          {isLive && (
+            <Text style={styles.liveText}>LIVE</Text>
+          )}
+        </View>
       </View>
+
+      {/* Sport Selection */}
+      <View style={styles.sportSelector}>
+        <Text style={styles.sportLabel}>Focus on:</Text>
+        <View style={styles.sportButtons}>
+          <TouchableOpacity 
+            style={[
+              styles.sportButton, 
+              selectedSport === null && styles.sportButtonActive
+            ]}
+            onPress={() => selectSport(null)}
+          >
+            <Text style={[
+              styles.sportButtonText,
+              selectedSport === null && styles.sportButtonTextActive
+            ]}>Both</Text>
+          </TouchableOpacity>
+          <TouchableOpacity 
+            style={[
+              styles.sportButton, 
+              selectedSport === 'college' && styles.sportButtonActive
+            ]}
+            onPress={() => selectSport('college')}
+          >
+            <Text style={[
+              styles.sportButtonText,
+              selectedSport === 'college' && styles.sportButtonTextActive
+            ]}>College</Text>
+          </TouchableOpacity>
+          <TouchableOpacity 
+            style={[
+              styles.sportButton, 
+              selectedSport === 'nfl' && styles.sportButtonActive
+            ]}
+            onPress={() => selectSport('nfl')}
+          >
+            <Text style={[
+              styles.sportButtonText,
+              selectedSport === 'nfl' && styles.sportButtonTextActive
+            ]}>NFL</Text>
+          </TouchableOpacity>
+        </View>
+      </View>
+
+
 
       {/* Messages */}
       <KeyboardAvoidingView 
@@ -232,6 +413,12 @@ const styles = StyleSheet.create({
   },
   headerRight: {
     width: 60, // Balance the header
+    alignItems: 'flex-end',
+  },
+  liveText: {
+    color: '#10b981',
+    fontSize: 14,
+    fontWeight: '700',
   },
   chatContainer: {
     flex: 1,
@@ -351,6 +538,69 @@ const styles = StyleSheet.create({
     color: '#ffffff',
     fontSize: 16,
     fontWeight: '600',
+  },
+  sportSelector: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    paddingHorizontal: 20,
+    paddingVertical: 12,
+    backgroundColor: '#ffffff',
+    borderBottomWidth: 1,
+    borderBottomColor: '#e5e7eb',
+  },
+  sportLabel: {
+    fontSize: 14,
+    color: '#6b7280',
+    marginRight: 12,
+    fontWeight: '500',
+  },
+  sportButtons: {
+    flexDirection: 'row',
+    flex: 1,
+  },
+  sportButton: {
+    paddingHorizontal: 16,
+    paddingVertical: 6,
+    borderRadius: 16,
+    marginRight: 8,
+    backgroundColor: '#f3f4f6',
+    borderWidth: 1,
+    borderColor: '#e5e7eb',
+  },
+  sportButtonActive: {
+    backgroundColor: '#3b82f6',
+    borderColor: '#3b82f6',
+  },
+  sportButtonText: {
+    fontSize: 13,
+    fontWeight: '600',
+    color: '#6b7280',
+  },
+  sportButtonTextActive: {
+    color: '#ffffff',
+  },
+  errorBubble: {
+    backgroundColor: '#fef2f2',
+    borderColor: '#fecaca',
+    borderWidth: 1,
+  },
+  errorText: {
+    color: '#dc2626',
+  },
+  systemBubble: {
+    backgroundColor: '#f0f9ff',
+    borderColor: '#bae6fd',
+    borderWidth: 1,
+  },
+  systemText: {
+    color: '#0369a1',
+    fontStyle: 'italic',
+  },
+  dataFreshness: {
+    fontSize: 10,
+    color: '#10b981',
+    marginTop: 4,
+    fontWeight: '500',
   },
 });
 

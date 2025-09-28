@@ -1,19 +1,44 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { View, Text, TouchableOpacity, StyleSheet, Alert } from 'react-native';
-import { CameraView, CameraType, useCameraPermissions } from 'expo-camera';
+import { CameraView, useCameraPermissions } from 'expo-camera';
 import * as ImageManipulator from 'expo-image-manipulator';
+import { PinchGestureHandler, State } from 'react-native-gesture-handler';
 
 const CameraScreen = ({ onNavigate, onPhotoTaken }) => {
   const [permission, requestPermission] = useCameraPermissions();
-  const [facing, setFacing] = useState('back');
   const [isReady, setIsReady] = useState(false);
+  const [zoom, setZoom] = useState(0); // 0..1
   const cameraRef = useRef(null);
+  const baseZoomRef = useRef(0);
 
   useEffect(() => {
     if (!permission) {
       requestPermission();
     }
   }, [permission, requestPermission]);
+
+  const clamp = (value, min, max) => Math.min(Math.max(value, min), max);
+
+  const onPinchGestureEvent = (event) => {
+    const scale = event.nativeEvent.scale || 1;
+    // Adjust sensitivity: larger divisor = slower zoom
+    const sensitivity = 2.5;
+    const nextZoom = clamp(baseZoomRef.current + (scale - 1) / sensitivity, 0, 1);
+    setZoom(nextZoom);
+  };
+
+  const onPinchHandlerStateChange = (event) => {
+    if (event.nativeEvent.state === State.BEGAN) {
+      baseZoomRef.current = zoom;
+    }
+    if (
+      event.nativeEvent.state === State.END ||
+      event.nativeEvent.state === State.CANCELLED ||
+      event.nativeEvent.state === State.FAILED
+    ) {
+      baseZoomRef.current = zoom;
+    }
+  };
 
   const takePicture = async () => {
     if (!cameraRef.current || !isReady) return;
@@ -81,10 +106,6 @@ const CameraScreen = ({ onNavigate, onPhotoTaken }) => {
     }
   };
 
-  const flipCamera = () => {
-    setFacing(current => (current === 'back' ? 'front' : 'back'));
-  };
-
   if (!permission) {
     return (
       <View style={styles.container}>
@@ -109,46 +130,51 @@ const CameraScreen = ({ onNavigate, onPhotoTaken }) => {
 
   return (
     <View style={styles.container}>
-      <CameraView
-        ref={cameraRef}
-        style={styles.camera}
-        facing={facing}
-        onCameraReady={() => setIsReady(true)}
+      <PinchGestureHandler
+        onGestureEvent={onPinchGestureEvent}
+        onHandlerStateChange={onPinchHandlerStateChange}
       >
-        <View style={styles.overlay}>
-          {/* Top controls */}
-          <View style={styles.topControls}>
-            <TouchableOpacity 
-              style={styles.backButton} 
-              onPress={() => onNavigate('home')}
-            >
-              <Text style={styles.backButtonText}>← Back</Text>
-            </TouchableOpacity>
-            <TouchableOpacity style={styles.flipButton} onPress={flipCamera}>
-              <Text style={styles.flipButtonText}>🔄</Text>
-            </TouchableOpacity>
-          </View>
+        <View style={{ flex: 1 }}>
+          <CameraView
+            ref={cameraRef}
+            style={styles.camera}
+            facing="back"
+            zoom={zoom}
+            onCameraReady={() => setIsReady(true)}
+          >
+            <View style={styles.overlay}>
+              {/* Top controls */}
+              <View style={styles.topControls}>
+                <TouchableOpacity 
+                  style={styles.backButton} 
+                  onPress={() => onNavigate('home')}
+                >
+                  <Text style={styles.backButtonText}>← Back</Text>
+                </TouchableOpacity>
+              </View>
 
-          {/* Center guide */}
-          <View style={styles.centerGuide}>
-            <View style={styles.guideContainer}>
-              <View style={styles.guideBorder} />
-              <Text style={styles.guideLabel}>Top of TV</Text>
+              {/* Center guide */}
+              <View style={styles.centerGuide}>
+                <View style={styles.guideContainer}>
+                  <View style={styles.guideBorder} />
+                  <Text style={styles.guideLabel}>Top of TV</Text>
+                </View>
+              </View>
+
+              {/* Bottom controls */}
+              <View style={styles.bottomControls}>
+                <TouchableOpacity 
+                  style={[styles.captureButton, !isReady && styles.captureButtonDisabled]} 
+                  onPress={takePicture}
+                  disabled={!isReady}
+                >
+                  <View style={styles.captureButtonInner} />
+                </TouchableOpacity>
+              </View>
             </View>
-          </View>
-
-          {/* Bottom controls */}
-          <View style={styles.bottomControls}>
-            <TouchableOpacity 
-              style={[styles.captureButton, !isReady && styles.captureButtonDisabled]} 
-              onPress={takePicture}
-              disabled={!isReady}
-            >
-              <View style={styles.captureButtonInner} />
-            </TouchableOpacity>
-          </View>
+          </CameraView>
         </View>
-      </CameraView>
+      </PinchGestureHandler>
     </View>
   );
 };
@@ -198,17 +224,6 @@ const styles = StyleSheet.create({
     color: '#fff',
     fontSize: 16,
     fontWeight: '500',
-  },
-  flipButton: {
-    backgroundColor: 'rgba(0,0,0,0.6)',
-    width: 44,
-    height: 44,
-    borderRadius: 22,
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-  flipButtonText: {
-    fontSize: 20,
   },
   centerGuide: {
     flex: 1,
