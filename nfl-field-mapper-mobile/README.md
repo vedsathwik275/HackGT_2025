@@ -1,3 +1,30 @@
+# NFL Field Mapper Mobile
+
+## 🆕 Streamlined Camera Workflow
+
+The app has been completely redesigned for a simple, camera-focused user experience:
+
+### User Flow:
+1. **Home Screen**: Shows capture button and previous play history
+2. **Camera Screen**: Take photo of NFL field with guided frame
+3. **Photo Review**: Choose to Analyze or Retake the photo  
+4. **Analysis Screen**: View player positions with field visualization and save plays
+
+### Key Features:
+- **Floating Capture Button**: Always accessible from any screen (except camera/review)
+- **AI Integration**: Automatic player detection using Roboflow API
+- **Backend Mapping**: Real-time coordinate mapping via backend service
+- **Play Saving**: Save and log play analysis data (JSON format)
+- **Clean Navigation**: Simple state-based screen navigation
+
+### Technical Implementation:
+- **Screens**: Home, Camera, PhotoReview, Analyze
+- **Components**: FloatingCaptureButton, existing visualization components
+- **Hooks**: useDetectionData, useImageProcessor (integrated with new workflow)
+- **Camera**: Expo Camera with permissions handling
+
+---
+
 # 🏈 NFL Field Detection Mapper (React Native)
 
 A React Native mobile application for detecting NFL players and referees in football images, with automatic coordinate mapping to field positions and team classification.

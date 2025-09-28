@@ -31,7 +31,8 @@
       "permissions": [
         "android.permission.CAMERA",
         "android.permission.READ_EXTERNAL_STORAGE",
-        "android.permission.WRITE_EXTERNAL_STORAGE"
+        "android.permission.WRITE_EXTERNAL_STORAGE",
+        "android.permission.RECORD_AUDIO"
       ]
     },
     "web": {
@@ -48,6 +49,11 @@
       [
         "expo-document-picker"
       ]
-    ]
+    ],
+    "extra": {
+      "eas": {
+        "projectId": "cffc2b69-9074-404d-ab29-8a1a328674f7"
+      }
+    }
   }
 }

@@ -9,7 +9,7 @@ import { Platform } from 'react-native';
 class CoordinateMapperApiClient {
   constructor(baseURL = null) {
     // Auto-detect the best URL for the current platform
-    this.baseURL = baseURL || this.getDefaultBaseURL();
+    this.baseURL = this.normalizeBaseURL(baseURL || this.getDefaultBaseURL());
     this.apiURL = `${this.baseURL}/api/coordinates`;
     this.timeout = 30000; // 30 seconds timeout
     
@@ -17,9 +17,22 @@ class CoordinateMapperApiClient {
   }
 
   /**
+   * Normalize base URL by trimming trailing slashes
+   */
+  normalizeBaseURL(url) {
+    return (url || '').replace(/\/+$/, '');
+  }
+
+  /**
    * Get the default base URL based on the platform
    */
   getDefaultBaseURL() {
+
+    return 'https://football-next-gen-backend.vercel.app';
+
+    // Use your machine's IP address as the default for better device connectivity
+    // return 'https://5f8c933e939a.ngrok-free.app/';
+
     if (Platform.OS === 'android') {
       // Android emulator uses 10.0.2.2 to reach host machine
       return 'http://10.0.2.2:3000';
@@ -103,7 +116,8 @@ class CoordinateMapperApiClient {
     for (const baseURL of alternativeURLs) {
       if (baseURL === this.baseURL) continue; // Skip the one we already tried
       
-      const alternativeURL = `${baseURL}/api/coordinates${endpoint}`;
+      const sanitizedBase = this.normalizeBaseURL(baseURL);
+      const alternativeURL = `${sanitizedBase}/api/coordinates${endpoint}`;
       
       try {
         console.log(`🔄 Trying: ${alternativeURL}`);
@@ -114,7 +128,7 @@ class CoordinateMapperApiClient {
           if (data.success) {
             console.log(`✅ Alternative URL successful: ${alternativeURL}`);
             // Update our base URL to the working one
-            this.setBaseURL(baseURL);
+            this.setBaseURL(sanitizedBase);
             return data.data;
           }
         }
@@ -312,8 +326,8 @@ class CoordinateMapperApiClient {
    * Configure backend URL (for different environments)
    */
   setBaseURL(newBaseURL) {
-    this.baseURL = newBaseURL;
-    this.apiURL = `${newBaseURL}/api/coordinates`;
+    this.baseURL = this.normalizeBaseURL(newBaseURL);
+    this.apiURL = `${this.baseURL}/api/coordinates`;
   }
 
   /**

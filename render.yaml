@@ -1,0 +1,15 @@
+services:
+  - type: web
+    name: nextgen-football-stats
+    env: python
+    rootDir: live-data
+    buildCommand: pip install -r requirements.txt
+    startCommand: python api_server.py
+    envVars:
+      - key: GEMINI_API_KEY
+        sync: false
+      - key: FLASK_ENV
+        value: production
+      - key: PORT
+        value: 10000
+    healthCheckPath: /api/health
