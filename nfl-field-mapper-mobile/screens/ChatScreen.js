@@ -24,9 +24,11 @@ const ChatScreen = ({ route, onNavigate }) => {
 
   // Extract preloaded message from navigation params
   const preloadedMessage = route?.params?.preloadedMessage;
+  const preloadedDefensiveCoach = route?.params?.preloadedDefensiveCoach;
 
   useEffect(() => {
     console.log(`🚀 ChatScreen: Initializing with preloadedMessage:`, preloadedMessage ? `"${preloadedMessage.substring(0, 50)}..."` : 'none');
+    console.log(`🛡️ ChatScreen: preloadedDefensiveCoach present:`, !!preloadedDefensiveCoach);
     
     // Add welcome message
     const welcomeMessage = {
@@ -36,7 +38,27 @@ const ChatScreen = ({ route, onNavigate }) => {
       timestamp: new Date(),
     };
     
-    // If there's a preloaded message, add it immediately as a user message
+    // If there's a defensive coaching preload, prioritize it
+    if (preloadedDefensiveCoach && preloadedDefensiveCoach.message) {
+      const { message, coordinates } = preloadedDefensiveCoach;
+      console.log(`🛡️ ChatScreen: Processing preloaded defensive coaching request`);
+
+      const userMessage = {
+        id: (Date.now() + 1).toString(),
+        text: message.trim(),
+        isBot: false,
+        timestamp: new Date(),
+      };
+
+      setMessages([welcomeMessage, userMessage]);
+
+      setTimeout(() => {
+        handleDefensiveCoach(message.trim(), coordinates, false);
+      }, 300);
+      return;
+    }
+
+    // If there's a preloaded simple chat message, add it
     if (preloadedMessage) {
       console.log(`📝 ChatScreen: Processing preloaded message: "${preloadedMessage}"`);
       
@@ -57,7 +79,7 @@ const ChatScreen = ({ route, onNavigate }) => {
       console.log(`💬 ChatScreen: No preloaded message, showing welcome message only`);
       setMessages([welcomeMessage]);
     }
-  }, [preloadedMessage]);
+  }, [preloadedMessage, preloadedDefensiveCoach]);
 
   // Health check/poll to control LIVE indicator
   useEffect(() => {
@@ -90,7 +112,6 @@ const ChatScreen = ({ route, onNavigate }) => {
     try {
       // Use the service to send the chat message
       const data = await liveDataApiClient.sendChatMessage(messageText.trim(), selectedSport);
-
       if (data.success) {
         console.log(`✅ ChatScreen: Received successful response from service`);
         
@@ -171,6 +192,62 @@ const ChatScreen = ({ route, onNavigate }) => {
       });
     } finally {
       console.log(`🏁 ChatScreen: Message handling completed`);
+      setIsTyping(false);
+    }
+  };
+
+  const handleDefensiveCoach = async (messageText, coordinates, addUserMessage = true) => {
+    if (!messageText?.trim()) return;
+
+    console.log(`🛡️ ChatScreen: Starting defensive coach handling for: "${messageText.substring(0, 50)}..."`);
+    setIsTyping(true);
+
+    try {
+      const data = await liveDataApiClient.sendDefensiveCoach(messageText.trim(), coordinates);
+
+      if (data.success) {
+        const botMessage = {
+          id: Date.now().toString(),
+          text: data.response,
+          isBot: true,
+          timestamp: new Date(),
+          dataFreshness: data.data_freshness,
+        };
+
+        setMessages(prev => {
+          if (addUserMessage) {
+            const userMessage = {
+              id: (Date.now() - 1).toString(),
+              text: messageText.trim(),
+              isBot: false,
+              timestamp: new Date(),
+            };
+            return [...prev, userMessage, botMessage];
+          } else {
+            return [...prev, botMessage];
+          }
+        });
+      } else {
+        const errorMessage = {
+          id: Date.now().toString(),
+          text: `❌ Sorry, defensive coaching request failed: ${data.error || 'Unknown error'}`,
+          isBot: true,
+          timestamp: new Date(),
+          isError: true,
+        };
+        setMessages(prev => [...prev, errorMessage]);
+      }
+    } catch (error) {
+      console.error(`❌ ChatScreen: Defensive coach service call failed:`, error.message);
+      const errorMessage = {
+        id: Date.now().toString(),
+        text: `🔌 Connection error: ${error.message}. Please check your internet connection and try again.`,
+        isBot: true,
+        timestamp: new Date(),
+        isError: true,
+      };
+      setMessages(prev => [...prev, errorMessage]);
+    } finally {
       setIsTyping(false);
     }
   };

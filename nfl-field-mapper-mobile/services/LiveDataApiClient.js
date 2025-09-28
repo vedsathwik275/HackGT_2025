@@ -14,7 +14,10 @@ class LiveDataApiClient {
     this.healthURL = `${this.baseURL}/health`;
     this.statsURL = `${this.baseURL}/stats`;
     this.cacheURL = `${this.baseURL}/cache/clear`;
-    this.timeout = 30000; // 30 seconds timeout
+    this.timeout = 60000; // 60 seconds timeout
+    
+    // Defensive coaching endpoint
+    this.defensiveCoachURL = `${this.baseURL}/defensive-coach`;
     
     console.log(`🏈 LiveDataApiClient initialized with baseURL: ${this.baseURL}`);
     this.logSystemInfo();
@@ -42,6 +45,7 @@ class LiveDataApiClient {
    * Get the default base URL for the Live Data API
    */
   getDefaultBaseURL() {
+    // return 'https://b6debd47f4c3.ngrok-free.app/api'
     return 'https://nextgen-live-data-api.onrender.com/api';
   }
 
@@ -163,6 +167,48 @@ class LiveDataApiClient {
       console.error(`❌ Chat Message Failed:`, {
         message: message.substring(0, 50),
         sport,
+        error: error.message,
+        timestamp: new Date().toISOString()
+      });
+      throw error;
+    }
+  }
+
+  /**
+   * Send a defensive coaching request with player coordinates
+   * @param {string} message - Coaching prompt
+   * @param {object} coordinates - Player coordinate data (mappedData or players structure)
+   * @returns {Promise<Object>} AI response data
+   */
+  async sendDefensiveCoach(message, coordinates) {
+    console.log(`🛡️ Sending Defensive Coach Request:`, {
+      message: message.substring(0, 100) + (message.length > 100 ? '...' : ''),
+      hasCoordinates: !!coordinates,
+      timestamp: new Date().toISOString()
+    });
+
+    try {
+      const requestBody = {
+        message: message.trim(),
+        coordinates,
+      };
+
+      const config = this.createRequestConfig('POST', requestBody);
+      const response = await this.fetchWithTimeout(this.defensiveCoachURL, config);
+      const data = await response.json();
+
+      console.log(response);
+      console.log(data);
+
+      console.log(`🛡️ Defensive Coach Response:`, {
+        success: data.success,
+        responseLength: data.response ? data.response.length : 0,
+        timestamp: new Date().toISOString()
+      });
+
+      return data;
+    } catch (error) {
+      console.error(`❌ Defensive Coach Request Failed:`, {
         error: error.message,
         timestamp: new Date().toISOString()
       });

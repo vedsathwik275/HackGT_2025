@@ -81,6 +81,35 @@ const AnalyzeScreen = ({
     console.log('Player clicked:', currentDetections[index]);
   };
 
+  const handleCoverageChat = () => {
+    try {
+      if (!currentCoverageAnalysis?.coverage_call) {
+        Alert.alert('Coverage Info Missing', 'No coverage analysis available.');
+        return;
+      }
+      if (!currentMappedData) {
+        Alert.alert('Coordinates Missing', 'No mapped coordinates available to analyze.');
+        return;
+      }
+
+      const coverageText = currentCoverageAnalysis.coverage_call;
+      const prompt = `Analyze this ${coverageText} defensive coverage and how it should perform against the offense in 2-3 sentences.`;
+
+      // Use mappedData as the coordinates payload expected by the API
+      const coordinatesPayload = currentMappedData;
+
+      console.log('🛡️ Navigating to Chat with defensive coaching preload');
+      onNavigate('chat', {
+        preloadedDefensiveCoach: {
+          message: prompt,
+          coordinates: coordinatesPayload,
+        }
+      });
+    } catch (e) {
+      console.error('Error preparing coverage chat:', e);
+    }
+  };
+
   const handleSavePlay = async () => {
     if (!playName.trim()) {
       Alert.alert('Error', 'Play name is required');
@@ -283,7 +312,10 @@ const AnalyzeScreen = ({
         {currentCoverageAnalysis?.coverage_call && (
           <View style={styles.coverageContainer}>
             <Text style={styles.coverageTitle}>Coverage Call</Text>
-            <Text style={styles.coverageText}>{currentCoverageAnalysis.coverage_call}</Text>
+            <TouchableOpacity onPress={handleCoverageChat} activeOpacity={0.8}>
+              <Text style={styles.coverageText}>{currentCoverageAnalysis.coverage_call}</Text>
+              <Text style={styles.coverageHint}>Tap to open coaching analysis</Text>
+            </TouchableOpacity>
           </View>
         )}
 
@@ -488,6 +520,12 @@ const styles = StyleSheet.create({
     fontSize: 16,
     color: '#111827',
     textAlign: 'center',
+  },
+  coverageHint: {
+    fontSize: 12,
+    color: '#6b7280',
+    textAlign: 'center',
+    marginTop: 6,
   },
   statsContainer: {
     backgroundColor: '#fff',
