@@ -5,6 +5,7 @@ import useDetectionData from './hooks/useDetectionData';
 import useImageProcessor from './hooks/useImageProcessor';
 import NotificationManager from './components/NotificationManager';
 import FloatingCaptureButton from './components/FloatingCaptureButton';
+import { GestureHandlerRootView } from 'react-native-gesture-handler';
 
 // Screen imports
 import { HomeScreen, CameraScreen, PhotoReviewScreen, AnalyzeScreen, ChatScreen } from './screens';
@@ -165,7 +166,7 @@ export default function App() {
   }, []);
 
   return (
-    <View style={styles.container}>
+    <GestureHandlerRootView style={styles.container}>
       <StatusBar style="dark" />
       
       {/* Current Screen */}
@@ -179,7 +180,7 @@ export default function App() {
       
       {/* Notification Manager */}
       <NotificationManager />
-    </View>
+    </GestureHandlerRootView>
   );
 }
 

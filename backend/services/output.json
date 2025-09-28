@@ -1,0 +1,12 @@
+{
+  "coverage_call": "Cover 2 Man",
+  "analysis": {
+    "deep_safeties": 2,
+    "deep_corners": 0,
+    "man_signals": 3,
+    "zone_signals": 0,
+    "press_corners": 0,
+    "shallow_corners": 0,
+    "avg_lb_depth": 1.49
+  }
+}
