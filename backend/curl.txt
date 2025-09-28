@@ -17,3 +17,9 @@ curl https://football-next-gen-backend.vercel.app/api/plays
 
 Get:
 curl https://football-next-gen-backend.vercel.app/api/plays/play_123
+
+
+Request to test endpoint;
+curl -X POST http://localhost:3000/api/coordinates/process \
+  -H "Content-Type: application/json" \
+  --data-binary @/Users/jaidesai/hackgt/HackGT_2025/backend/test-payload.json
