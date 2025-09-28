@@ -1,5 +1,5 @@
 import { useState, useCallback, useMemo } from 'react';
-import CoordinateMapperService from '../services/CoordinateMapperService';
+import CoordinateMapperApiClient from '../services/CoordinateMapperApiClient';
 
 const useDetectionData = () => {
   const [detections, setDetections] = useState([]);
@@ -10,8 +10,8 @@ const useDetectionData = () => {
   const [isProcessing, setIsProcessing] = useState(false);
   const [highlightedIndex, setHighlightedIndex] = useState(null);
 
-  // Initialize coordinate mapper service
-  const coordinateMapper = useMemo(() => new CoordinateMapperService(), []);
+  // Initialize API client
+  const apiClient = useMemo(() => new CoordinateMapperApiClient(), []);
 
   // Process new detections and map coordinates
   const processDetections = useCallback(async (newDetections, imgDimensions = null) => {
@@ -23,28 +23,52 @@ const useDetectionData = () => {
         setImageDimensions(imgDimensions);
       }
 
+      console.log('📊 Raw Roboflow Predictions:', JSON.stringify(newDetections, null, 2));
+
       // Map coordinates if we have detections
       if (newDetections && newDetections.length > 0) {
         const detectionData = { predictions: newDetections };
-        const coordinateResults = coordinateMapper.processDetections(detectionData);
         
-        setMappedData(coordinateResults.mappedData);
-        setLineOfScrimmage(coordinateResults.lineOfScrimmageX);
-        setFieldDimensions(coordinateResults.fieldDims);
+        console.log('➡️ Calling backend to process detections...');
+        const coordinateResults = await apiClient.processDetections(detectionData);
+        console.log('✅ Backend processed detections:', coordinateResults);
+        
+        // Expected fields: mappedData, lineOfScrimmageX, fieldDims
+        setMappedData(coordinateResults.mappedData || null);
+        setLineOfScrimmage(coordinateResults.lineOfScrimmageX ?? null);
+        setFieldDimensions(coordinateResults.fieldDims || null);
+        
+        if (global.showNotification) {
+          global.showNotification('✅ Coordinates processed successfully!', 'success');
+        }
       } else {
         setMappedData(null);
         setLineOfScrimmage(null);
         setFieldDimensions(null);
+        
+        if (global.showNotification) {
+          global.showNotification('❌ No players detected in image', 'error');
+        }
       }
     } catch (error) {
       console.error('Error processing detections:', error);
+      
+      let errorMessage = 'Error processing detections';
+      if (error.message.includes('Unable to connect')) {
+        errorMessage = '🔌 Backend server offline. Please start the server.';
+      } else if (error.message.includes('Network request failed')) {
+        errorMessage = '📡 Network error. Check your connection.';
+      } else {
+        errorMessage = `❌ ${error.message}`;
+      }
+      
       if (global.showNotification) {
-        global.showNotification(`Error processing detections: ${error.message}`, 'error');
+        global.showNotification(errorMessage, 'error');
       }
     } finally {
       setIsProcessing(false);
     }
-  }, [coordinateMapper]);
+  }, [apiClient]);
 
   // Clear all data
   const clearAll = useCallback(() => {
@@ -67,19 +91,52 @@ const useDetectionData = () => {
   }, []);
 
   // Export mapped data
-  const exportMappedData = useCallback(() => {
+  const exportMappedData = useCallback(async () => {
     if (!mappedData) {
-      throw new Error('No mapped data available');
+      if (global.showNotification) {
+        global.showNotification('❌ No mapped data available to export', 'error');
+      }
+      return;
     }
-    
-    const timestamp = new Date().toISOString().replace(/[:.]/g, '-');
-    const filename = `football_coordinates_${timestamp}.json`;
-    coordinateMapper.exportToJSON(mappedData, filename);
-    
-    if (global.showNotification) {
-      global.showNotification('Data exported successfully!', 'success');
+
+    try {
+      const timestamp = new Date().toISOString().replace(/[:.]/g, '-');
+      const filename = `football_coordinates_${timestamp}.json`;
+      
+      // Make API call to export data
+      const result = await apiClient.exportToJSON(mappedData, filename);
+      
+      if (global.showNotification) {
+        global.showNotification(`📁 Data exported: ${result.filename}`, 'success');
+      }
+      
+      // Return the result for potential sharing
+      return {
+        success: true,
+        filename: result.filename,
+        downloadUrl: apiClient.getDownloadUrl(result.filename),
+        size: result.size
+      };
+    } catch (error) {
+      console.error('Export error:', error);
+      
+      let errorMessage = 'Export failed';
+      if (error.message.includes('Unable to connect')) {
+        errorMessage = '🔌 Backend server offline. Cannot export data.';
+      } else {
+        errorMessage = `❌ Export failed: ${error.message}`;
+      }
+      
+      if (global.showNotification) {
+        global.showNotification(errorMessage, 'error');
+      }
+      
+      return {
+        success: false,
+        error: error.message
+      };
     }
-  }, [mappedData, coordinateMapper]);
+  }, [mappedData, apiClient]);
 
   // Calculate statistics
   const statistics = useMemo(() => {
@@ -155,7 +212,7 @@ const useDetectionData = () => {
     getMappedPlayerById,
 
     // Utils
-    coordinateMapper
+    apiClient
   };
 };
 

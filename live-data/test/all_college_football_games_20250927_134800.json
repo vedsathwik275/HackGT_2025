@@ -1,0 +1,6089 @@
+{
+  "scrape_timestamp": "2025-09-27T13:47:49.351717",
+  "total_games": 6,
+  "games": {
+    "401754546": {
+      "game_id": "401754546",
+      "game_info": {
+        "teams": [
+          {}
+        ],
+        "game_status": {
+          "time_remaining": "Halftime",
+          "quarter": ""
+        },
+        "quarter_scores": {
+          "Georgia Tech": {
+            "1": "3",
+            "2": "0",
+            "3": "",
+            "4": "",
+            "T": "3"
+          },
+          "Wake Forest": {
+            "1": "0",
+            "2": "17",
+            "3": "",
+            "4": "",
+            "T": "17"
+          }
+        }
+      },
+      "teams": {
+        "Georgia Tech": {
+          "passing": {
+            "players": [
+              {
+                "name": "Haynes King",
+                "player_url": "https://www.espn.com/college-football/player/_/id/4428993/haynes-king",
+                "player_id": "4428993",
+                "jersey": "10",
+                "stats": {
+                  "C/ATT": "13/19",
+                  "YDS": "50",
+                  "AVG": "2.6",
+                  "TD": "0",
+                  "INT": "0"
+                }
+              },
+              {
+                "name": "Marshall Nichols",
+                "player_url": "https://www.espn.com/college-football/player/_/id/4708844/marshall-nichols",
+                "player_id": "4708844",
+                "jersey": "47",
+                "stats": {
+                  "C/ATT": "1/1",
+                  "YDS": "5",
+                  "AVG": "5.0",
+                  "TD": "0",
+                  "INT": "0"
+                }
+              }
+            ],
+            "team_totals": {
+              "C/ATT": "14/20",
+              "YDS": "55",
+              "AVG": "2.8",
+              "TD": "0",
+              "INT": "0"
+            }
+          },
+          "rushing": {
+            "players": [
+              {
+                "name": "Haynes King",
+                "player_url": "https://www.espn.com/college-football/player/_/id/4428993/haynes-king",
+                "player_id": "4428993",
+                "jersey": "10",
+                "stats": {
+                  "CAR": "6",
+                  "YDS": "35",
+                  "AVG": "5.8",
+                  "TD": "0",
+                  "LONG": "22"
+                }
+              },
+              {
+                "name": "Malachi Hosley",
+                "player_url": "https://www.espn.com/college-football/player/_/id/5155366/malachi-hosley",
+                "player_id": "5155366",
+                "jersey": "0",
+                "stats": {
+                  "CAR": "5",
+                  "YDS": "28",
+                  "AVG": "5.6",
+                  "TD": "0",
+                  "LONG": "8"
+                }
+              },
+              {
+                "name": "Jamal Haynes",
+                "player_url": "https://www.espn.com/college-football/player/_/id/4611995/jamal-haynes",
+                "player_id": "4611995",
+                "jersey": "1",
+                "stats": {
+                  "CAR": "7",
+                  "YDS": "16",
+                  "AVG": "2.3",
+                  "TD": "0",
+                  "LONG": "5"
+                }
+              }
+            ],
+            "team_totals": {
+              "CAR": "18",
+              "YDS": "79",
+              "AVG": "4.4",
+              "TD": "0",
+              "LONG": "22"
+            }
+          },
+          "receiving": {
+            "players": [
+              {
+                "name": "Luke Harpring",
+                "player_url": "https://www.espn.com/college-football/player/_/id/5218907/luke-harpring",
+                "player_id": "5218907",
+                "jersey": "15",
+                "stats": {
+                  "REC": "1",
+                  "YDS": "14",
+                  "AVG": "14.0",
+                  "TD": "0",
+                  "LONG": "14"
+                }
+              },
+              {
+                "name": "Isiah Canion",
+                "player_url": "https://www.espn.com/college-football/player/_/id/5132253/isiah-canion",
+                "player_id": "5132253",
+                "jersey": "4",
+                "stats": {
+                  "REC": "2",
+                  "YDS": "11",
+                  "AVG": "5.5",
+                  "TD": "0",
+                  "LONG": "7"
+                }
+              },
+              {
+                "name": "Malik Rutherford",
+                "player_url": "https://www.espn.com/college-football/player/_/id/4603746/malik-rutherford",
+                "player_id": "4603746",
+                "jersey": "8",
+                "stats": {
+                  "REC": "2",
+                  "YDS": "10",
+                  "AVG": "5.0",
+                  "TD": "0",
+                  "LONG": "6"
+                }
+              },
+              {
+                "name": "Malachi Hosley",
+                "player_url": "https://www.espn.com/college-football/player/_/id/5155366/malachi-hosley",
+                "player_id": "5155366",
+                "jersey": "0",
+                "stats": {
+                  "REC": "2",
+                  "YDS": "7",
+                  "AVG": "3.5",
+                  "TD": "0",
+                  "LONG": "4"
+                }
+              },
+              {
+                "name": "Will Kiker",
+                "player_url": "https://www.espn.com/college-football/player/_/id/5159878/will-kiker",
+                "player_id": "5159878",
+                "jersey": "39",
+                "stats": {
+                  "REC": "1",
+                  "YDS": "5",
+                  "AVG": "5.0",
+                  "TD": "0",
+                  "LONG": "5"
+                }
+              },
+              {
+                "name": "Jamal Haynes",
+                "player_url": "https://www.espn.com/college-football/player/_/id/4611995/jamal-haynes",
+                "player_id": "4611995",
+                "jersey": "1",
+                "stats": {
+                  "REC": "4",
+                  "YDS": "5",
+                  "AVG": "1.3",
+                  "TD": "0",
+                  "LONG": "2"
+                }
+              },
+              {
+                "name": "Bailey Stockton",
+                "player_url": "https://www.espn.com/college-football/player/_/id/5125593/bailey-stockton",
+                "player_id": "5125593",
+                "jersey": "7",
+                "stats": {
+                  "REC": "1",
+                  "YDS": "2",
+                  "AVG": "2.0",
+                  "TD": "0",
+                  "LONG": "2"
+                }
+              },
+              {
+                "name": "Eric Rivers",
+                "player_url": "https://www.espn.com/college-football/player/_/id/4713277/eric-rivers",
+                "player_id": "4713277",
+                "jersey": "3",
+                "stats": {
+                  "REC": "1",
+                  "YDS": "1",
+                  "AVG": "1.0",
+                  "TD": "0",
+                  "LONG": "1"
+                }
+              }
+            ],
+            "team_totals": {
+              "REC": "14",
+              "YDS": "55",
+              "AVG": "3.9",
+              "TD": "0",
+              "LONG": "14"
+            }
+          },
+          "fumbles": {
+            "players": [],
+            "team_totals": {}
+          },
+          "defense": {
+            "players": [
+              {
+                "name": "Kyle Efford",
+                "player_url": "https://www.espn.com/college-football/player/_/id/4838514/kyle-efford",
+                "player_id": "4838514",
+                "jersey": "44",
+                "stats": {
+                  "TOT": "5",
+                  "SOLO": "2",
+                  "SACKS": "1",
+                  "TFL": "1",
+                  "PD": "0"
+                }
+              },
+              {
+                "name": "Jy Gilmore",
+                "player_url": "https://www.espn.com/college-football/player/_/id/4695007/jy-gilmore",
+                "player_id": "4695007",
+                "jersey": "14",
+                "stats": {
+                  "TOT": "4",
+                  "SOLO": "4",
+                  "SACKS": "0",
+                  "TFL": "0",
+                  "PD": "0"
+                }
+              },
+              {
+                "name": "E.J. Lightsey",
+                "player_url": "https://www.espn.com/college-football/player/_/id/4837472/ej-lightsey",
+                "player_id": "4837472",
+                "jersey": "2",
+                "stats": {
+                  "TOT": "4",
+                  "SOLO": "3",
+                  "SACKS": "0",
+                  "TFL": "0",
+                  "PD": "0"
+                }
+              },
+              {
+                "name": "Ahmari Harvey",
+                "player_url": "https://www.espn.com/college-football/player/_/id/4432709/ahmari-harvey",
+                "player_id": "4432709",
+                "jersey": "3",
+                "stats": {
+                  "TOT": "3",
+                  "SOLO": "2",
+                  "SACKS": "0",
+                  "TFL": "1",
+                  "PD": "0"
+                }
+              },
+              {
+                "name": "Daiquan White",
+                "player_url": "https://www.espn.com/college-football/player/_/id/4921457/daiquan-white",
+                "player_id": "4921457",
+                "jersey": "4",
+                "stats": {
+                  "TOT": "2",
+                  "SOLO": "1",
+                  "SACKS": "0",
+                  "TFL": "0",
+                  "PD": "0"
+                }
+              },
+              {
+                "name": "Amontrae Bradford",
+                "player_url": "https://www.espn.com/college-football/player/_/id/5146880/amontrae-bradford",
+                "player_id": "5146880",
+                "jersey": "98",
+                "stats": {
+                  "TOT": "2",
+                  "SOLO": "1",
+                  "SACKS": "0",
+                  "TFL": "0",
+                  "PD": "0"
+                }
+              },
+              {
+                "name": "Tae Harris",
+                "player_url": "https://www.espn.com/college-football/player/_/id/5147934/tae-harris",
+                "player_id": "5147934",
+                "jersey": "27",
+                "stats": {
+                  "TOT": "2",
+                  "SOLO": "1",
+                  "SACKS": "0",
+                  "TFL": "0",
+                  "PD": "0"
+                }
+              },
+              {
+                "name": "Akelo Stone",
+                "player_url": "https://www.espn.com/college-football/player/_/id/4432575/akelo-stone",
+                "player_id": "4432575",
+                "jersey": "7",
+                "stats": {
+                  "TOT": "1",
+                  "SOLO": "1",
+                  "SACKS": "0",
+                  "TFL": "0",
+                  "PD": "0"
+                }
+              },
+              {
+                "name": "Omar Daniels",
+                "player_url": "https://www.espn.com/college-football/player/_/id/4683310/omar-daniels",
+                "player_id": "4683310",
+                "jersey": "9",
+                "stats": {
+                  "TOT": "1",
+                  "SOLO": "1",
+                  "SACKS": "0",
+                  "TFL": "0",
+                  "PD": "0"
+                }
+              },
+              {
+                "name": "Zachary Tobe",
+                "player_url": "https://www.espn.com/college-football/player/_/id/4954446/zachary-tobe",
+                "player_id": "4954446",
+                "jersey": "23",
+                "stats": {
+                  "TOT": "1",
+                  "SOLO": "1",
+                  "SACKS": "0",
+                  "TFL": "0",
+                  "PD": "0"
+                }
+              },
+              {
+                "name": "Brayden Manley",
+                "player_url": "https://www.espn.com/college-football/player/_/id/5153412/brayden-manley",
+                "player_id": "5153412",
+                "jersey": "11",
+                "stats": {
+                  "TOT": "1",
+                  "SOLO": "1",
+                  "SACKS": "0",
+                  "TFL": "0",
+                  "PD": "0"
+                }
+              },
+              {
+                "name": "Clayton Powell-Lee",
+                "player_url": "https://www.espn.com/college-football/player/_/id/4837474/clayton-powell-lee",
+                "player_id": "4837474",
+                "jersey": "5",
+                "stats": {
+                  "TOT": "1",
+                  "SOLO": "0",
+                  "SACKS": "0",
+                  "TFL": "0",
+                  "PD": "0"
+                }
+              },
+              {
+                "name": "A.J. Hoffler",
+                "player_url": "https://www.espn.com/college-football/player/_/id/4870781/aj-hoffler",
+                "player_id": "4870781",
+                "jersey": "88",
+                "stats": {
+                  "TOT": "1",
+                  "SOLO": "0",
+                  "SACKS": "0",
+                  "TFL": "0",
+                  "PD": "0"
+                }
+              }
+            ],
+            "team_totals": {
+              "TOT": "28",
+              "SOLO": "18",
+              "SACKS": "1",
+              "TFL": "1",
+              "PD": "0",
+              "TD": ""
+            }
+          },
+          "interceptions": {
+            "players": [],
+            "team_totals": {}
+          },
+          "kicking": {
+            "players": [
+              {
+                "name": "Aidan Birr",
+                "player_url": "https://www.espn.com/college-football/player/_/id/4876720/aidan-birr",
+                "player_id": "4876720",
+                "jersey": "33",
+                "stats": {
+                  "FG": "1/1",
+                  "PCT": "100.0",
+                  "LONG": "35",
+                  "XP": "0/0",
+                  "PTS": "3"
+                }
+              }
+            ],
+            "team_totals": {
+              "FG": "1/1",
+              "PCT": "100.0",
+              "LONG": "35",
+              "XP": "0/0",
+              "PTS": "3"
+            }
+          },
+          "punting": {
+            "players": [
+              {
+                "name": "Marshall Nichols",
+                "player_url": "https://www.espn.com/college-football/player/_/id/4708844/marshall-nichols",
+                "player_id": "4708844",
+                "jersey": "47",
+                "stats": {
+                  "NO": "3",
+                  "YDS": "136",
+                  "AVG": "45.3",
+                  "TB": "0",
+                  "In 20": "3",
+                  "LONG": "47"
+                }
+              }
+            ],
+            "team_totals": {
+              "NO": "3",
+              "YDS": "136",
+              "AVG": "45.3",
+              "TB": "0",
+              "In 20": "3",
+              "LONG": "47"
+            }
+          }
+        },
+        "Wake Forest": {
+          "passing": {
+            "players": [
+              {
+                "name": "Robby Ashford",
+                "player_url": "https://www.espn.com/college-football/player/_/id/4697512/robby-ashford",
+                "player_id": "4697512",
+                "jersey": "2",
+                "stats": {
+                  "C/ATT": "7/14",
+                  "YDS": "139",
+                  "AVG": "9.9",
+                  "TD": "0",
+                  "INT": "0"
+                }
+              }
+            ],
+            "team_totals": {
+              "C/ATT": "7/14",
+              "YDS": "139",
+              "AVG": "9.9",
+              "TD": "0",
+              "INT": "0"
+            }
+          },
+          "rushing": {
+            "players": [
+              {
+                "name": "Demond Claiborne",
+                "player_url": "https://www.espn.com/college-football/player/_/id/4832846/demond-claiborne",
+                "player_id": "4832846",
+                "jersey": "1",
+                "stats": {
+                  "CAR": "10",
+                  "YDS": "73",
+                  "AVG": "7.3",
+                  "TD": "1",
+                  "LONG": "27"
+                }
+              },
+              {
+                "name": "Robby Ashford",
+                "player_url": "https://www.espn.com/college-football/player/_/id/4697512/robby-ashford",
+                "player_id": "4697512",
+                "jersey": "2",
+                "stats": {
+                  "CAR": "6",
+                  "YDS": "37",
+                  "AVG": "6.2",
+                  "TD": "1",
+                  "LONG": "24"
+                }
+              },
+              {
+                "name": "Ty Clark III",
+                "player_url": "https://www.espn.com/college-football/player/_/id/5186586/ty-clark-iii",
+                "player_id": "5186586",
+                "jersey": "23",
+                "stats": {
+                  "CAR": "2",
+                  "YDS": "4",
+                  "AVG": "2.0",
+                  "TD": "0",
+                  "LONG": "3"
+                }
+              },
+              {
+                "name": "Chris Barnes",
+                "player_url": "https://www.espn.com/college-football/player/_/id/5148822/chris-barnes",
+                "player_id": "5148822",
+                "jersey": "10",
+                "stats": {
+                  "CAR": "1",
+                  "YDS": "2",
+                  "AVG": "2.0",
+                  "TD": "0",
+                  "LONG": "2"
+                }
+              }
+            ],
+            "team_totals": {
+              "CAR": "19",
+              "YDS": "116",
+              "AVG": "6.1",
+              "TD": "2",
+              "LONG": "27"
+            }
+          },
+          "receiving": {
+            "players": [
+              {
+                "name": "Sterling Berkhalter",
+                "player_url": "https://www.espn.com/college-football/player/_/id/4882122/sterling-berkhalter",
+                "player_id": "4882122",
+                "jersey": "4",
+                "stats": {
+                  "REC": "1",
+                  "YDS": "39",
+                  "AVG": "39.0",
+                  "TD": "0",
+                  "LONG": "39"
+                }
+              },
+              {
+                "name": "Chris Barnes",
+                "player_url": "https://www.espn.com/college-football/player/_/id/5148822/chris-barnes",
+                "player_id": "5148822",
+                "jersey": "10",
+                "stats": {
+                  "REC": "3",
+                  "YDS": "39",
+                  "AVG": "13.0",
+                  "TD": "0",
+                  "LONG": "35"
+                }
+              },
+              {
+                "name": "Micah Mays Jr.",
+                "player_url": "https://www.espn.com/college-football/player/_/id/4870826/micah-mays-jr",
+                "player_id": "4870826",
+                "jersey": "7",
+                "stats": {
+                  "REC": "1",
+                  "YDS": "37",
+                  "AVG": "37.0",
+                  "TD": "0",
+                  "LONG": "37"
+                }
+              },
+              {
+                "name": "Eni Falayi",
+                "player_url": "https://www.espn.com/college-football/player/_/id/4683571/eni-falayi",
+                "player_id": "4683571",
+                "stats": {
+                  "REC": "1",
+                  "YDS": "14",
+                  "AVG": "14.0",
+                  "TD": "0",
+                  "LONG": "14"
+                }
+              },
+              {
+                "name": "Demond Claiborne",
+                "player_url": "https://www.espn.com/college-football/player/_/id/4832846/demond-claiborne",
+                "player_id": "4832846",
+                "jersey": "1",
+                "stats": {
+                  "REC": "1",
+                  "YDS": "10",
+                  "AVG": "10.0",
+                  "TD": "0",
+                  "LONG": "10"
+                }
+              }
+            ],
+            "team_totals": {
+              "REC": "7",
+              "YDS": "139",
+              "AVG": "19.9",
+              "TD": "0",
+              "LONG": "39"
+            }
+          },
+          "fumbles": {
+            "players": [
+              {
+                "name": "Demond Claiborne",
+                "player_url": "https://www.espn.com/college-football/player/_/id/4832846/demond-claiborne",
+                "player_id": "4832846",
+                "jersey": "1",
+                "stats": {
+                  "FUM": "1",
+                  "LOST": "0",
+                  "REC": "0"
+                }
+              }
+            ],
+            "team_totals": {
+              "FUM": "1",
+              "LOST": "0",
+              "REC": "0"
+            }
+          },
+          "defense": {
+            "players": [
+              {
+                "name": "Quincy Bryant",
+                "player_url": "https://www.espn.com/college-football/player/_/id/4683205/quincy-bryant",
+                "player_id": "4683205",
+                "jersey": "9",
+                "stats": {
+                  "TOT": "7",
+                  "SOLO": "3",
+                  "SACKS": "0",
+                  "TFL": "1",
+                  "PD": "0"
+                }
+              },
+              {
+                "name": "Davaughn Patterson",
+                "player_url": "https://www.espn.com/college-football/player/_/id/5054378/davaughn-patterson",
+                "player_id": "5054378",
+                "jersey": "5",
+                "stats": {
+                  "TOT": "5",
+                  "SOLO": "2",
+                  "SACKS": "0",
+                  "TFL": "0.5",
+                  "PD": "0"
+                }
+              },
+              {
+                "name": "Aiden Hall",
+                "player_url": "https://www.espn.com/college-football/player/_/id/5105335/aiden-hall",
+                "player_id": "5105335",
+                "jersey": "21",
+                "stats": {
+                  "TOT": "5",
+                  "SOLO": "1",
+                  "SACKS": "0",
+                  "TFL": "0.5",
+                  "PD": "0"
+                }
+              },
+              {
+                "name": "Nick Andersen",
+                "player_url": "https://www.espn.com/college-football/player/_/id/4690182/nick-andersen",
+                "player_id": "4690182",
+                "jersey": "45",
+                "stats": {
+                  "TOT": "4",
+                  "SOLO": "2",
+                  "SACKS": "0",
+                  "TFL": "0",
+                  "PD": "0"
+                }
+              },
+              {
+                "name": "Myles Turpin",
+                "player_url": "https://www.espn.com/college-football/player/_/id/5142237/myles-turpin",
+                "player_id": "5142237",
+                "jersey": "22",
+                "stats": {
+                  "TOT": "3",
+                  "SOLO": "3",
+                  "SACKS": "0",
+                  "TFL": "0",
+                  "PD": "0"
+                }
+              },
+              {
+                "name": "Dallas Afalava",
+                "player_url": "https://www.espn.com/college-football/player/_/id/5165145/dallas-afalava",
+                "player_id": "5165145",
+                "jersey": "52",
+                "stats": {
+                  "TOT": "3",
+                  "SOLO": "2",
+                  "SACKS": "0",
+                  "TFL": "0",
+                  "PD": "0"
+                }
+              },
+              {
+                "name": "Braylon Johnson",
+                "player_url": "https://www.espn.com/college-football/player/_/id/4921302/braylon-johnson",
+                "player_id": "4921302",
+                "stats": {
+                  "TOT": "3",
+                  "SOLO": "1",
+                  "SACKS": "0",
+                  "TFL": "0",
+                  "PD": "0"
+                }
+              },
+              {
+                "name": "Langston Hardy",
+                "player_url": "https://www.espn.com/college-football/player/_/id/4683727/langston-hardy",
+                "player_id": "4683727",
+                "jersey": "11",
+                "stats": {
+                  "TOT": "3",
+                  "SOLO": "0",
+                  "SACKS": "0",
+                  "TFL": "0",
+                  "PD": "0"
+                }
+              },
+              {
+                "name": "Nuer Gatkuoth",
+                "player_url": "https://www.espn.com/college-football/player/_/id/4917490/nuer-gatkuoth",
+                "player_id": "4917490",
+                "jersey": "7",
+                "stats": {
+                  "TOT": "2",
+                  "SOLO": "2",
+                  "SACKS": "0",
+                  "TFL": "0",
+                  "PD": "0"
+                }
+              },
+              {
+                "name": "Lardarius Webb Jr.",
+                "player_url": "https://www.espn.com/college-football/player/_/id/5151144/lardarius-webb-jr",
+                "player_id": "5151144",
+                "stats": {
+                  "TOT": "2",
+                  "SOLO": "2",
+                  "SACKS": "0",
+                  "TFL": "0",
+                  "PD": "0"
+                }
+              },
+              {
+                "name": "Dylan Hazen",
+                "player_url": "https://www.espn.com/college-football/player/_/id/4602646/dylan-hazen",
+                "player_id": "4602646",
+                "jersey": "24",
+                "stats": {
+                  "TOT": "2",
+                  "SOLO": "1",
+                  "SACKS": "0",
+                  "TFL": "0",
+                  "PD": "0"
+                }
+              },
+              {
+                "name": "Zach Lohavichan",
+                "player_url": "https://www.espn.com/college-football/player/_/id/4874358/zach-lohavichan",
+                "player_id": "4874358",
+                "jersey": "94",
+                "stats": {
+                  "TOT": "2",
+                  "SOLO": "0",
+                  "SACKS": "0",
+                  "TFL": "0",
+                  "PD": "0"
+                }
+              },
+              {
+                "name": "Tyler Walton",
+                "player_url": "https://www.espn.com/college-football/player/_/id/4954454/tyler-walton",
+                "player_id": "4954454",
+                "jersey": "42",
+                "stats": {
+                  "TOT": "1",
+                  "SOLO": "1",
+                  "SACKS": "0",
+                  "TFL": "0",
+                  "PD": "0"
+                }
+              },
+              {
+                "name": "Ty Clark III",
+                "player_url": "https://www.espn.com/college-football/player/_/id/5186586/ty-clark-iii",
+                "player_id": "5186586",
+                "jersey": "23",
+                "stats": {
+                  "TOT": "1",
+                  "SOLO": "1",
+                  "SACKS": "0",
+                  "TFL": "0",
+                  "PD": "0"
+                }
+              },
+              {
+                "name": "Travon West",
+                "player_url": "https://www.espn.com/college-football/player/_/id/4921325/travon-west",
+                "player_id": "4921325",
+                "jersey": "27",
+                "stats": {
+                  "TOT": "1",
+                  "SOLO": "0",
+                  "SACKS": "0",
+                  "TFL": "0",
+                  "PD": "0"
+                }
+              },
+              {
+                "name": "Gabe Kirschke",
+                "player_url": "https://www.espn.com/college-football/player/_/id/5089193/gabe-kirschke",
+                "player_id": "5089193",
+                "jersey": "10",
+                "stats": {
+                  "TOT": "1",
+                  "SOLO": "0",
+                  "SACKS": "0",
+                  "TFL": "0",
+                  "PD": "0"
+                }
+              }
+            ],
+            "team_totals": {
+              "TOT": "45",
+              "SOLO": "21",
+              "SACKS": "0",
+              "TFL": "2",
+              "PD": "1",
+              "TD": ""
+            }
+          },
+          "interceptions": {
+            "players": [],
+            "team_totals": {}
+          },
+          "kicking": {
+            "players": [
+              {
+                "name": "Connor Calvert",
+                "player_url": "https://www.espn.com/college-football/player/_/id/5228152/connor-calvert",
+                "player_id": "5228152",
+                "stats": {
+                  "FG": "1/1",
+                  "PCT": "100.0",
+                  "LONG": "24",
+                  "XP": "2/2",
+                  "PTS": "5"
+                }
+              }
+            ],
+            "team_totals": {
+              "FG": "1/1",
+              "PCT": "100.0",
+              "LONG": "24",
+              "XP": "2/2",
+              "PTS": "5"
+            }
+          },
+          "punting": {
+            "players": [
+              {
+                "name": "Cal Joseph",
+                "player_url": "https://www.espn.com/college-football/player/_/id/5304417/cal-joseph",
+                "player_id": "5304417",
+                "jersey": "91",
+                "stats": {
+                  "NO": "3",
+                  "YDS": "104",
+                  "AVG": "34.7",
+                  "TB": "0",
+                  "In 20": "1",
+                  "LONG": "47"
+                }
+              }
+            ],
+            "team_totals": {
+              "NO": "3",
+              "YDS": "104",
+              "AVG": "34.7",
+              "TB": "0",
+              "In 20": "1",
+              "LONG": "47"
+            }
+          }
+        },
+        "Georgia Tech Kick": {
+          "returns": {
+            "players": [
+              {
+                "name": "Shane Marshall",
+                "player_url": "https://www.espn.com/college-football/player/_/id/5209762/shane-marshall",
+                "player_id": "5209762",
+                "jersey": "24",
+                "stats": {
+                  "NO": "2",
+                  "YDS": "36",
+                  "AVG": "18.0",
+                  "LONG": "19",
+                  "TD": "0"
+                }
+              }
+            ],
+            "team_totals": {
+              "NO": "2",
+              "YDS": "36",
+              "AVG": "18.0",
+              "LONG": "19",
+              "TD": "0"
+            }
+          }
+        },
+        "Wake Forest Kick": {
+          "returns": {
+            "players": [],
+            "team_totals": {}
+          }
+        },
+        "Georgia Tech Punt": {
+          "returns": {
+            "players": [
+              {
+                "name": "Bailey Stockton",
+                "player_url": "https://www.espn.com/college-football/player/_/id/5125593/bailey-stockton",
+                "player_id": "5125593",
+                "jersey": "7",
+                "stats": {
+                  "NO": "1",
+                  "YDS": "13",
+                  "AVG": "13.0",
+                  "LONG": "13",
+                  "TD": "0"
+                }
+              }
+            ],
+            "team_totals": {
+              "NO": "1",
+              "YDS": "13",
+              "AVG": "13.0",
+              "LONG": "13",
+              "TD": "0"
+            }
+          }
+        },
+        "Wake Forest Punt": {
+          "returns": {
+            "players": [],
+            "team_totals": {}
+          }
+        }
+      }
+    },
+    "401752850": {
+      "game_id": "401752850",
+      "game_info": {
+        "teams": [
+          {}
+        ],
+        "game_status": {
+          "time_remaining": "0:19",
+          "quarter": "2nd"
+        },
+        "quarter_scores": {
+          "USC": {
+            "1": "7",
+            "2": "0",
+            "3": "",
+            "4": "",
+            "T": "7"
+          },
+          "Illinois": {
+            "1": "7",
+            "2": "7",
+            "3": "",
+            "4": "",
+            "T": "14"
+          }
+        }
+      },
+      "teams": {
+        "USC": {
+          "passing": {
+            "players": [
+              {
+                "name": "Jayden Maiava",
+                "player_url": "https://www.espn.com/college-football/player/_/id/4685454/jayden-maiava",
+                "player_id": "4685454",
+                "jersey": "14",
+                "stats": {
+                  "C/ATT": "13/20",
+                  "YDS": "181",
+                  "AVG": "9.1",
+                  "TD": "0",
+                  "INT": "0"
+                }
+              }
+            ],
+            "team_totals": {
+              "C/ATT": "13/20",
+              "YDS": "181",
+              "AVG": "9.1",
+              "TD": "0",
+              "INT": "0"
+            }
+          },
+          "rushing": {
+            "players": [
+              {
+                "name": "Waymond Jordan",
+                "player_url": "https://www.espn.com/college-football/player/_/id/5295318/waymond-jordan",
+                "player_id": "5295318",
+                "jersey": "2",
+                "stats": {
+                  "CAR": "10",
+                  "YDS": "42",
+                  "AVG": "4.2",
+                  "TD": "1",
+                  "LONG": "9"
+                }
+              },
+              {
+                "name": "Eli Sanders",
+                "player_url": "https://www.espn.com/college-football/player/_/id/4684525/eli-sanders",
+                "player_id": "4684525",
+                "jersey": "1",
+                "stats": {
+                  "CAR": "4",
+                  "YDS": "6",
+                  "AVG": "1.5",
+                  "TD": "0",
+                  "LONG": "6"
+                }
+              },
+              {
+                "name": "Jayden Maiava",
+                "player_url": "https://www.espn.com/college-football/player/_/id/4685454/jayden-maiava",
+                "player_id": "4685454",
+                "jersey": "14",
+                "stats": {
+                  "CAR": "2",
+                  "YDS": "-1",
+                  "AVG": "-0.5",
+                  "TD": "0",
+                  "LONG": "1"
+                }
+              }
+            ],
+            "team_totals": {
+              "CAR": "16",
+              "YDS": "47",
+              "AVG": "2.9",
+              "TD": "1",
+              "LONG": "9"
+            }
+          },
+          "receiving": {
+            "players": [
+              {
+                "name": "Lake McRee",
+                "player_url": "https://www.espn.com/college-football/player/_/id/4566198/lake-mcree",
+                "player_id": "4566198",
+                "jersey": "87",
+                "stats": {
+                  "REC": "3",
+                  "YDS": "59",
+                  "AVG": "19.7",
+                  "TD": "0",
+                  "LONG": "24"
+                }
+              },
+              {
+                "name": "Makai Lemon",
+                "player_url": "https://www.espn.com/college-football/player/_/id/4870795/makai-lemon",
+                "player_id": "4870795",
+                "jersey": "6",
+                "stats": {
+                  "REC": "3",
+                  "YDS": "32",
+                  "AVG": "10.7",
+                  "TD": "0",
+                  "LONG": "16"
+                }
+              },
+              {
+                "name": "Tanook Hines",
+                "player_url": "https://www.espn.com/college-football/player/_/id/5141975/tanook-hines",
+                "player_id": "5141975",
+                "jersey": "16",
+                "stats": {
+                  "REC": "1",
+                  "YDS": "30",
+                  "AVG": "30.0",
+                  "TD": "0",
+                  "LONG": "30"
+                }
+              },
+              {
+                "name": "Walker Lyons",
+                "player_url": "https://www.espn.com/college-football/player/_/id/5221043/walker-lyons",
+                "player_id": "5221043",
+                "jersey": "85",
+                "stats": {
+                  "REC": "1",
+                  "YDS": "18",
+                  "AVG": "18.0",
+                  "TD": "0",
+                  "LONG": "18"
+                }
+              },
+              {
+                "name": "Jaden Richardson",
+                "player_url": "https://www.espn.com/college-football/player/_/id/5194576/jaden-richardson",
+                "player_id": "5194576",
+                "jersey": "15",
+                "stats": {
+                  "REC": "2",
+                  "YDS": "15",
+                  "AVG": "7.5",
+                  "TD": "0",
+                  "LONG": "9"
+                }
+              },
+              {
+                "name": "Waymond Jordan",
+                "player_url": "https://www.espn.com/college-football/player/_/id/5295318/waymond-jordan",
+                "player_id": "5295318",
+                "jersey": "2",
+                "stats": {
+                  "REC": "1",
+                  "YDS": "11",
+                  "AVG": "11.0",
+                  "TD": "0",
+                  "LONG": "11"
+                }
+              },
+              {
+                "name": "Eli Sanders",
+                "player_url": "https://www.espn.com/college-football/player/_/id/4684525/eli-sanders",
+                "player_id": "4684525",
+                "jersey": "1",
+                "stats": {
+                  "REC": "1",
+                  "YDS": "10",
+                  "AVG": "10.0",
+                  "TD": "0",
+                  "LONG": "10"
+                }
+              },
+              {
+                "name": "King Miller",
+                "player_url": "https://www.espn.com/college-football/player/_/id/5233016/king-miller",
+                "player_id": "5233016",
+                "jersey": "30",
+                "stats": {
+                  "REC": "1",
+                  "YDS": "6",
+                  "AVG": "6.0",
+                  "TD": "0",
+                  "LONG": "6"
+                }
+              }
+            ],
+            "team_totals": {
+              "REC": "13",
+              "YDS": "181",
+              "AVG": "13.9",
+              "TD": "0",
+              "LONG": "30"
+            }
+          },
+          "fumbles": {
+            "players": [
+              {
+                "name": "Waymond Jordan",
+                "player_url": "https://www.espn.com/college-football/player/_/id/5295318/waymond-jordan",
+                "player_id": "5295318",
+                "jersey": "2",
+                "stats": {
+                  "FUM": "1",
+                  "LOST": "1",
+                  "REC": "0"
+                }
+              },
+              {
+                "name": "Jahkeem Stewart",
+                "player_url": "https://www.espn.com/college-football/player/_/id/5159077/jahkeem-stewart",
+                "player_id": "5159077",
+                "jersey": "4",
+                "stats": {
+                  "FUM": "0",
+                  "LOST": "0",
+                  "REC": "1"
+                }
+              }
+            ],
+            "team_totals": {
+              "FUM": "1",
+              "LOST": "1",
+              "REC": "1"
+            }
+          },
+          "defense": {
+            "players": [
+              {
+                "name": "Christian Pierce",
+                "player_url": "https://www.espn.com/college-football/player/_/id/4921312/christian-pierce",
+                "player_id": "4921312",
+                "jersey": "24",
+                "stats": {
+                  "TOT": "5",
+                  "SOLO": "4",
+                  "SACKS": "0",
+                  "TFL": "0",
+                  "PD": "0"
+                }
+              },
+              {
+                "name": "Desman Stephens II",
+                "player_url": "https://www.espn.com/college-football/player/_/id/5110498/desman-stephens-ii",
+                "player_id": "5110498",
+                "jersey": "23",
+                "stats": {
+                  "TOT": "5",
+                  "SOLO": "2",
+                  "SACKS": "0",
+                  "TFL": "0",
+                  "PD": "0"
+                }
+              },
+              {
+                "name": "Bishop Fitzgerald",
+                "player_url": "https://www.espn.com/college-football/player/_/id/5151810/bishop-fitzgerald",
+                "player_id": "5151810",
+                "jersey": "19",
+                "stats": {
+                  "TOT": "4",
+                  "SOLO": "4",
+                  "SACKS": "0",
+                  "TFL": "0",
+                  "PD": "0"
+                }
+              },
+              {
+                "name": "Kendarius Reddick",
+                "player_url": "https://www.espn.com/college-football/player/_/id/5141644/kendarius-reddick",
+                "player_id": "5141644",
+                "jersey": "41",
+                "stats": {
+                  "TOT": "2",
+                  "SOLO": "2",
+                  "SACKS": "0",
+                  "TFL": "0",
+                  "PD": "0"
+                }
+              },
+              {
+                "name": "Anthony Lucas",
+                "player_url": "https://www.espn.com/college-football/player/_/id/4685442/anthony-lucas",
+                "player_id": "4685442",
+                "jersey": "6",
+                "stats": {
+                  "TOT": "2",
+                  "SOLO": "1",
+                  "SACKS": "0",
+                  "TFL": "0",
+                  "PD": "0"
+                }
+              },
+              {
+                "name": "Devan Thompkins",
+                "player_url": "https://www.espn.com/college-football/player/_/id/4905925/devan-thompkins",
+                "player_id": "4905925",
+                "jersey": "8",
+                "stats": {
+                  "TOT": "2",
+                  "SOLO": "1",
+                  "SACKS": "0",
+                  "TFL": "0",
+                  "PD": "0"
+                }
+              },
+              {
+                "name": "Marcelles Williams",
+                "player_url": "https://www.espn.com/college-football/player/_/id/5079739/marcelles-williams",
+                "player_id": "5079739",
+                "jersey": "25",
+                "stats": {
+                  "TOT": "2",
+                  "SOLO": "1",
+                  "SACKS": "0",
+                  "TFL": "0",
+                  "PD": "0"
+                }
+              },
+              {
+                "name": "Keeshawn Silver",
+                "player_url": "https://www.espn.com/college-football/player/_/id/4432764/keeshawn-silver",
+                "player_id": "4432764",
+                "jersey": "9",
+                "stats": {
+                  "TOT": "2",
+                  "SOLO": "0",
+                  "SACKS": "0",
+                  "TFL": "0",
+                  "PD": "0"
+                }
+              },
+              {
+                "name": "Eric Gentry",
+                "player_url": "https://www.espn.com/college-football/player/_/id/4602656/eric-gentry",
+                "player_id": "4602656",
+                "jersey": "18",
+                "stats": {
+                  "TOT": "2",
+                  "SOLO": "0",
+                  "SACKS": "0",
+                  "TFL": "0",
+                  "PD": "0"
+                }
+              },
+              {
+                "name": "DeCarlos Nicholson",
+                "player_url": "https://www.espn.com/college-football/player/_/id/5081149/decarlos-nicholson",
+                "player_id": "5081149",
+                "jersey": "17",
+                "stats": {
+                  "TOT": "1",
+                  "SOLO": "1",
+                  "SACKS": "0",
+                  "TFL": "0",
+                  "PD": "0"
+                }
+              },
+              {
+                "name": "Braylon Conley",
+                "player_url": "https://www.espn.com/college-football/player/_/id/5127726/braylon-conley",
+                "player_id": "5127726",
+                "jersey": "22",
+                "stats": {
+                  "TOT": "1",
+                  "SOLO": "1",
+                  "SACKS": "0",
+                  "TFL": "1",
+                  "PD": "0"
+                }
+              },
+              {
+                "name": "Kameryn Crawford",
+                "player_url": "https://www.espn.com/college-football/player/_/id/5132218/kameryn-crawford",
+                "player_id": "5132218",
+                "jersey": "1",
+                "stats": {
+                  "TOT": "1",
+                  "SOLO": "1",
+                  "SACKS": "0",
+                  "TFL": "0",
+                  "PD": "0"
+                }
+              },
+              {
+                "name": "Kevin Longstreet",
+                "player_url": "https://www.espn.com/college-football/player/_/id/5151022/kevin-longstreet",
+                "player_id": "5151022",
+                "jersey": "34",
+                "stats": {
+                  "TOT": "1",
+                  "SOLO": "1",
+                  "SACKS": "0",
+                  "TFL": "0",
+                  "PD": "2"
+                }
+              },
+              {
+                "name": "Jahkeem Stewart",
+                "player_url": "https://www.espn.com/college-football/player/_/id/5159077/jahkeem-stewart",
+                "player_id": "5159077",
+                "jersey": "4",
+                "stats": {
+                  "TOT": "1",
+                  "SOLO": "0",
+                  "SACKS": "0",
+                  "TFL": "0",
+                  "PD": "0"
+                }
+              }
+            ],
+            "team_totals": {
+              "TOT": "31",
+              "SOLO": "19",
+              "SACKS": "0",
+              "TFL": "1",
+              "PD": "2",
+              "TD": ""
+            }
+          },
+          "interceptions": {
+            "players": [],
+            "team_totals": {}
+          },
+          "kicking": {
+            "players": [
+              {
+                "name": "Ryon Sayeri",
+                "player_url": "https://www.espn.com/college-football/player/_/id/5221037/ryon-sayeri",
+                "player_id": "5221037",
+                "jersey": "48",
+                "stats": {
+                  "FG": "0/0",
+                  "PCT": "0.0",
+                  "LONG": "0",
+                  "XP": "1/1",
+                  "PTS": "1"
+                }
+              }
+            ],
+            "team_totals": {
+              "FG": "0/0",
+              "PCT": "0.0",
+              "LONG": "0",
+              "XP": "1/1",
+              "PTS": "1"
+            }
+          },
+          "punting": {
+            "players": [],
+            "team_totals": {}
+          }
+        },
+        "Illinois": {
+          "passing": {
+            "players": [
+              {
+                "name": "Luke Altmyer",
+                "player_url": "https://www.espn.com/college-football/player/_/id/4597679/luke-altmyer",
+                "player_id": "4597679",
+                "jersey": "9",
+                "stats": {
+                  "C/ATT": "10/13",
+                  "YDS": "83",
+                  "AVG": "6.4",
+                  "TD": "0",
+                  "INT": "0"
+                }
+              },
+              {
+                "name": "Hank Beatty",
+                "player_url": "https://www.espn.com/college-football/player/_/id/4814930/hank-beatty",
+                "player_id": "4814930",
+                "jersey": "80",
+                "stats": {
+                  "C/ATT": "1/1",
+                  "YDS": "3",
+                  "AVG": "3.0",
+                  "TD": "1",
+                  "INT": "0"
+                }
+              }
+            ],
+            "team_totals": {
+              "C/ATT": "11/14",
+              "YDS": "86",
+              "AVG": "6.1",
+              "TD": "1",
+              "INT": "0"
+            }
+          },
+          "rushing": {
+            "players": [
+              {
+                "name": "Ca'Lil Valentine",
+                "player_url": "https://www.espn.com/college-football/player/_/id/5106299/calil-valentine",
+                "player_id": "5106299",
+                "jersey": "5",
+                "stats": {
+                  "CAR": "4",
+                  "YDS": "32",
+                  "AVG": "8.0",
+                  "TD": "0",
+                  "LONG": "12"
+                }
+              },
+              {
+                "name": "Kaden Feagin",
+                "player_url": "https://www.espn.com/college-football/player/_/id/4870728/kaden-feagin",
+                "player_id": "4870728",
+                "jersey": "3",
+                "stats": {
+                  "CAR": "7",
+                  "YDS": "30",
+                  "AVG": "4.3",
+                  "TD": "0",
+                  "LONG": "11"
+                }
+              },
+              {
+                "name": "Luke Altmyer",
+                "player_url": "https://www.espn.com/college-football/player/_/id/4597679/luke-altmyer",
+                "player_id": "4597679",
+                "jersey": "9",
+                "stats": {
+                  "CAR": "3",
+                  "YDS": "23",
+                  "AVG": "7.7",
+                  "TD": "1",
+                  "LONG": "12"
+                }
+              },
+              {
+                "name": "Aidan Laughery",
+                "player_url": "https://www.espn.com/college-football/player/_/id/4827047/aidan-laughery",
+                "player_id": "4827047",
+                "jersey": "21",
+                "stats": {
+                  "CAR": "3",
+                  "YDS": "8",
+                  "AVG": "2.7",
+                  "TD": "0",
+                  "LONG": "5"
+                }
+              }
+            ],
+            "team_totals": {
+              "CAR": "17",
+              "YDS": "93",
+              "AVG": "5.5",
+              "TD": "1",
+              "LONG": "12"
+            }
+          },
+          "receiving": {
+            "players": [
+              {
+                "name": "Hank Beatty",
+                "player_url": "https://www.espn.com/college-football/player/_/id/4814930/hank-beatty",
+                "player_id": "4814930",
+                "jersey": "80",
+                "stats": {
+                  "REC": "4",
+                  "YDS": "38",
+                  "AVG": "9.5",
+                  "TD": "0",
+                  "LONG": "18"
+                }
+              },
+              {
+                "name": "Hudson Clement",
+                "player_url": "https://www.espn.com/college-football/player/_/id/5100582/hudson-clement",
+                "player_id": "5100582",
+                "jersey": "13",
+                "stats": {
+                  "REC": "2",
+                  "YDS": "19",
+                  "AVG": "9.5",
+                  "TD": "0",
+                  "LONG": "11"
+                }
+              },
+              {
+                "name": "Christian Abney",
+                "player_url": "https://www.espn.com/college-football/player/_/id/5076651/christian-abney",
+                "player_id": "5076651",
+                "stats": {
+                  "REC": "1",
+                  "YDS": "12",
+                  "AVG": "12.0",
+                  "TD": "0",
+                  "LONG": "12"
+                }
+              },
+              {
+                "name": "Collin Dixon",
+                "player_url": "https://www.espn.com/college-football/player/_/id/4923226/collin-dixon",
+                "player_id": "4923226",
+                "jersey": "17",
+                "stats": {
+                  "REC": "1",
+                  "YDS": "6",
+                  "AVG": "6.0",
+                  "TD": "0",
+                  "LONG": "6"
+                }
+              },
+              {
+                "name": "Ca'Lil Valentine",
+                "player_url": "https://www.espn.com/college-football/player/_/id/5106299/calil-valentine",
+                "player_id": "5106299",
+                "jersey": "5",
+                "stats": {
+                  "REC": "1",
+                  "YDS": "5",
+                  "AVG": "5.0",
+                  "TD": "0",
+                  "LONG": "5"
+                }
+              },
+              {
+                "name": "Luke Altmyer",
+                "player_url": "https://www.espn.com/college-football/player/_/id/4597679/luke-altmyer",
+                "player_id": "4597679",
+                "jersey": "9",
+                "stats": {
+                  "REC": "1",
+                  "YDS": "3",
+                  "AVG": "3.0",
+                  "TD": "1",
+                  "LONG": "3"
+                }
+              },
+              {
+                "name": "Kaden Feagin",
+                "player_url": "https://www.espn.com/college-football/player/_/id/4870728/kaden-feagin",
+                "player_id": "4870728",
+                "jersey": "3",
+                "stats": {
+                  "REC": "1",
+                  "YDS": "3",
+                  "AVG": "3.0",
+                  "TD": "0",
+                  "LONG": "3"
+                }
+              }
+            ],
+            "team_totals": {
+              "REC": "11",
+              "YDS": "86",
+              "AVG": "7.8",
+              "TD": "1",
+              "LONG": "18"
+            }
+          },
+          "fumbles": {
+            "players": [
+              {
+                "name": "Kaden Feagin",
+                "player_url": "https://www.espn.com/college-football/player/_/id/4870728/kaden-feagin",
+                "player_id": "4870728",
+                "jersey": "3",
+                "stats": {
+                  "FUM": "1",
+                  "LOST": "1",
+                  "REC": "0"
+                }
+              },
+              {
+                "name": "Jaheim Clarke",
+                "player_url": "https://www.espn.com/college-football/player/_/id/5077284/jaheim-clarke",
+                "player_id": "5077284",
+                "jersey": "6",
+                "stats": {
+                  "FUM": "0",
+                  "LOST": "0",
+                  "REC": "1"
+                }
+              }
+            ],
+            "team_totals": {
+              "FUM": "1",
+              "LOST": "1",
+              "REC": "1"
+            }
+          },
+          "defense": {
+            "players": [
+              {
+                "name": "Miles Scott",
+                "player_url": "https://www.espn.com/college-football/player/_/id/4880014/miles-scott",
+                "player_id": "4880014",
+                "jersey": "10",
+                "stats": {
+                  "TOT": "7",
+                  "SOLO": "5",
+                  "SACKS": "0",
+                  "TFL": "1",
+                  "PD": "0"
+                }
+              },
+              {
+                "name": "Matthew Bailey",
+                "player_url": "https://www.espn.com/college-football/player/_/id/4915710/matthew-bailey",
+                "player_id": "4915710",
+                "jersey": "7",
+                "stats": {
+                  "TOT": "5",
+                  "SOLO": "4",
+                  "SACKS": "0",
+                  "TFL": "1",
+                  "PD": "0"
+                }
+              },
+              {
+                "name": "Tanner Heckel",
+                "player_url": "https://www.espn.com/college-football/player/_/id/5196972/tanner-heckel",
+                "player_id": "5196972",
+                "jersey": "16",
+                "stats": {
+                  "TOT": "4",
+                  "SOLO": "2",
+                  "SACKS": "0",
+                  "TFL": "0",
+                  "PD": "0"
+                }
+              },
+              {
+                "name": "Leon Lowery Jr.",
+                "player_url": "https://www.espn.com/college-football/player/_/id/4432357/leon-lowery-jr",
+                "player_id": "4432357",
+                "jersey": "9",
+                "stats": {
+                  "TOT": "2",
+                  "SOLO": "2",
+                  "SACKS": "0",
+                  "TFL": "0",
+                  "PD": "0"
+                }
+              },
+              {
+                "name": "Alec Bryant",
+                "player_url": "https://www.espn.com/college-football/player/_/id/4696753/alec-bryant",
+                "player_id": "4696753",
+                "jersey": "3",
+                "stats": {
+                  "TOT": "2",
+                  "SOLO": "2",
+                  "SACKS": "0",
+                  "TFL": "0",
+                  "PD": "0"
+                }
+              },
+              {
+                "name": "Dylan Rosiek",
+                "player_url": "https://www.espn.com/college-football/player/_/id/4684004/dylan-rosiek",
+                "player_id": "4684004",
+                "jersey": "28",
+                "stats": {
+                  "TOT": "2",
+                  "SOLO": "1",
+                  "SACKS": "0",
+                  "TFL": "0",
+                  "PD": "0"
+                }
+              },
+              {
+                "name": "Curt Neal",
+                "player_url": "https://www.espn.com/college-football/player/_/id/4685478/curt-neal",
+                "player_id": "4685478",
+                "jersey": "99",
+                "stats": {
+                  "TOT": "2",
+                  "SOLO": "1",
+                  "SACKS": "0",
+                  "TFL": "0",
+                  "PD": "0"
+                }
+              },
+              {
+                "name": "Gabe Jacas",
+                "player_url": "https://www.espn.com/college-football/player/_/id/4837244/gabe-jacas",
+                "player_id": "4837244",
+                "jersey": "17",
+                "stats": {
+                  "TOT": "2",
+                  "SOLO": "1",
+                  "SACKS": "0",
+                  "TFL": "0",
+                  "PD": "0"
+                }
+              },
+              {
+                "name": "Jojo Hayden",
+                "player_url": "https://www.espn.com/college-football/player/_/id/5154324/jojo-hayden",
+                "player_id": "5154324",
+                "jersey": "30",
+                "stats": {
+                  "TOT": "2",
+                  "SOLO": "1",
+                  "SACKS": "0",
+                  "TFL": "0",
+                  "PD": "0"
+                }
+              },
+              {
+                "name": "James Thompson Jr.",
+                "player_url": "https://www.espn.com/college-football/player/_/id/4693371/james-thompson-jr",
+                "player_id": "4693371",
+                "jersey": "90",
+                "stats": {
+                  "TOT": "1",
+                  "SOLO": "1",
+                  "SACKS": "0",
+                  "TFL": "0",
+                  "PD": "0"
+                }
+              },
+              {
+                "name": "Malachi Hood",
+                "player_url": "https://www.espn.com/college-football/player/_/id/4868405/malachi-hood",
+                "player_id": "4868405",
+                "jersey": "45",
+                "stats": {
+                  "TOT": "1",
+                  "SOLO": "1",
+                  "SACKS": "0",
+                  "TFL": "0",
+                  "PD": "0"
+                }
+              },
+              {
+                "name": "Collin Dixon",
+                "player_url": "https://www.espn.com/college-football/player/_/id/4923226/collin-dixon",
+                "player_id": "4923226",
+                "jersey": "17",
+                "stats": {
+                  "TOT": "1",
+                  "SOLO": "1",
+                  "SACKS": "0",
+                  "TFL": "0",
+                  "PD": "0"
+                }
+              },
+              {
+                "name": "Torrie Cox Jr.",
+                "player_url": "https://www.espn.com/college-football/player/_/id/4709783/torrie-cox-jr",
+                "player_id": "4709783",
+                "jersey": "5",
+                "stats": {
+                  "TOT": "1",
+                  "SOLO": "0",
+                  "SACKS": "0",
+                  "TFL": "0",
+                  "PD": "0"
+                }
+              },
+              {
+                "name": "Luke Zardzin",
+                "player_url": "https://www.espn.com/college-football/player/_/id/4873322/luke-zardzin",
+                "player_id": "4873322",
+                "jersey": "42",
+                "stats": {
+                  "TOT": "1",
+                  "SOLO": "0",
+                  "SACKS": "0",
+                  "TFL": "0",
+                  "PD": "0"
+                }
+              },
+              {
+                "name": "James Kreutz",
+                "player_url": "https://www.espn.com/college-football/player/_/id/4912120/james-kreutz",
+                "player_id": "4912120",
+                "jersey": "41",
+                "stats": {
+                  "TOT": "1",
+                  "SOLO": "0",
+                  "SACKS": "0",
+                  "TFL": "0",
+                  "PD": "0"
+                }
+              },
+              {
+                "name": "Saboor Karriem",
+                "player_url": "https://www.espn.com/college-football/player/_/id/4924137/saboor-karriem",
+                "player_id": "4924137",
+                "jersey": "2",
+                "stats": {
+                  "TOT": "1",
+                  "SOLO": "0",
+                  "SACKS": "0",
+                  "TFL": "0",
+                  "PD": "0"
+                }
+              },
+              {
+                "name": "Eli Coenen",
+                "player_url": "https://www.espn.com/college-football/player/_/id/5297778/eli-coenen",
+                "player_id": "5297778",
+                "jersey": "96",
+                "stats": {
+                  "TOT": "1",
+                  "SOLO": "0",
+                  "SACKS": "0",
+                  "TFL": "0",
+                  "PD": "0"
+                }
+              }
+            ],
+            "team_totals": {
+              "TOT": "36",
+              "SOLO": "22",
+              "SACKS": "0",
+              "TFL": "2",
+              "PD": "2",
+              "TD": ""
+            }
+          },
+          "interceptions": {
+            "players": [],
+            "team_totals": {}
+          },
+          "kicking": {
+            "players": [
+              {
+                "name": "David Olano",
+                "player_url": "https://www.espn.com/college-football/player/_/id/5077223/david-olano",
+                "player_id": "5077223",
+                "jersey": "24",
+                "stats": {
+                  "FG": "0/0",
+                  "PCT": "0.0",
+                  "LONG": "0",
+                  "XP": "2/2",
+                  "PTS": "2"
+                }
+              }
+            ],
+            "team_totals": {
+              "FG": "0/0",
+              "PCT": "0.0",
+              "LONG": "0",
+              "XP": "2/2",
+              "PTS": "2"
+            }
+          },
+          "punting": {
+            "players": [],
+            "team_totals": {}
+          }
+        },
+        "USC Kick": {
+          "returns": {
+            "players": [
+              {
+                "name": "Eli Sanders",
+                "player_url": "https://www.espn.com/college-football/player/_/id/4684525/eli-sanders",
+                "player_id": "4684525",
+                "jersey": "1",
+                "stats": {
+                  "NO": "1",
+                  "YDS": "9",
+                  "AVG": "9.0",
+                  "LONG": "9",
+                  "TD": "0"
+                }
+              }
+            ],
+            "team_totals": {
+              "NO": "1",
+              "YDS": "9",
+              "AVG": "9.0",
+              "LONG": "9",
+              "TD": "0"
+            }
+          }
+        },
+        "Illinois Kick": {
+          "returns": {
+            "players": [],
+            "team_totals": {}
+          }
+        },
+        "USC Punt": {
+          "returns": {
+            "players": [],
+            "team_totals": {}
+          }
+        },
+        "Illinois Punt": {
+          "returns": {
+            "players": [],
+            "team_totals": {}
+          }
+        }
+      }
+    },
+    "401752717": {
+      "game_id": "401752717",
+      "game_info": {
+        "teams": [
+          {}
+        ],
+        "game_status": {
+          "time_remaining": "0:19",
+          "quarter": "2nd"
+        },
+        "quarter_scores": {
+          "Notre Dame": {
+            "1": "14",
+            "2": "21",
+            "3": "",
+            "4": "",
+            "T": "35"
+          },
+          "Arkansas": {
+            "1": "3",
+            "2": "10",
+            "3": "",
+            "4": "",
+            "T": "13"
+          }
+        }
+      },
+      "teams": {
+        "Notre Dame": {
+          "passing": {
+            "players": [
+              {
+                "name": "CJ Carr",
+                "player_url": "https://www.espn.com/college-football/player/_/id/5079369/cj-carr",
+                "player_id": "5079369",
+                "jersey": "13",
+                "stats": {
+                  "C/ATT": "15/21",
+                  "YDS": "260",
+                  "AVG": "12.4",
+                  "TD": "3",
+                  "INT": "0"
+                }
+              }
+            ],
+            "team_totals": {
+              "C/ATT": "15/21",
+              "YDS": "260",
+              "AVG": "12.4",
+              "TD": "3",
+              "INT": "0"
+            }
+          },
+          "rushing": {
+            "players": [
+              {
+                "name": "Jadarian Price",
+                "player_url": "https://www.espn.com/college-football/player/_/id/4685512/jadarian-price",
+                "player_id": "4685512",
+                "jersey": "24",
+                "stats": {
+                  "CAR": "8",
+                  "YDS": "57",
+                  "AVG": "7.1",
+                  "TD": "0",
+                  "LONG": "20"
+                }
+              },
+              {
+                "name": "Jeremiyah Love",
+                "player_url": "https://www.espn.com/college-football/player/_/id/4870808/jeremiyah-love",
+                "player_id": "4870808",
+                "jersey": "4",
+                "stats": {
+                  "CAR": "10",
+                  "YDS": "55",
+                  "AVG": "5.5",
+                  "TD": "2",
+                  "LONG": "15"
+                }
+              },
+              {
+                "name": "CJ Carr",
+                "player_url": "https://www.espn.com/college-football/player/_/id/5079369/cj-carr",
+                "player_id": "5079369",
+                "jersey": "13",
+                "stats": {
+                  "CAR": "1",
+                  "YDS": "14",
+                  "AVG": "14.0",
+                  "TD": "0",
+                  "LONG": "14"
+                }
+              }
+            ],
+            "team_totals": {
+              "CAR": "19",
+              "YDS": "126",
+              "AVG": "6.6",
+              "TD": "2",
+              "LONG": "20"
+            }
+          },
+          "receiving": {
+            "players": [
+              {
+                "name": "Jeremiyah Love",
+                "player_url": "https://www.espn.com/college-football/player/_/id/4870808/jeremiyah-love",
+                "player_id": "4870808",
+                "jersey": "4",
+                "stats": {
+                  "REC": "4",
+                  "YDS": "71",
+                  "AVG": "17.8",
+                  "TD": "2",
+                  "LONG": "34"
+                }
+              },
+              {
+                "name": "Will Pauling",
+                "player_url": "https://www.espn.com/college-football/player/_/id/4683114/will-pauling",
+                "player_id": "4683114",
+                "jersey": "2",
+                "stats": {
+                  "REC": "3",
+                  "YDS": "53",
+                  "AVG": "17.7",
+                  "TD": "1",
+                  "LONG": "23"
+                }
+              },
+              {
+                "name": "Eli Raridon",
+                "player_url": "https://www.espn.com/college-football/player/_/id/4831959/eli-raridon",
+                "player_id": "4831959",
+                "jersey": "9",
+                "stats": {
+                  "REC": "2",
+                  "YDS": "43",
+                  "AVG": "21.5",
+                  "TD": "0",
+                  "LONG": "25"
+                }
+              },
+              {
+                "name": "Jordan Faison",
+                "player_url": "https://www.espn.com/college-football/player/_/id/5150424/jordan-faison",
+                "player_id": "5150424",
+                "jersey": "6",
+                "stats": {
+                  "REC": "3",
+                  "YDS": "40",
+                  "AVG": "13.3",
+                  "TD": "0",
+                  "LONG": "24"
+                }
+              },
+              {
+                "name": "Jaden Greathouse",
+                "player_url": "https://www.espn.com/college-football/player/_/id/4870768/jaden-greathouse",
+                "player_id": "4870768",
+                "jersey": "1",
+                "stats": {
+                  "REC": "2",
+                  "YDS": "32",
+                  "AVG": "16.0",
+                  "TD": "0",
+                  "LONG": "24"
+                }
+              },
+              {
+                "name": "Malachi Fields",
+                "player_url": "https://www.espn.com/college-football/player/_/id/4682648/malachi-fields",
+                "player_id": "4682648",
+                "jersey": "0",
+                "stats": {
+                  "REC": "1",
+                  "YDS": "21",
+                  "AVG": "21.0",
+                  "TD": "0",
+                  "LONG": "21"
+                }
+              }
+            ],
+            "team_totals": {
+              "REC": "15",
+              "YDS": "260",
+              "AVG": "17.3",
+              "TD": "3",
+              "LONG": "34"
+            }
+          },
+          "fumbles": {
+            "players": [
+              {
+                "name": "DeVonta Smith",
+                "player_url": "https://www.espn.com/college-football/player/_/id/4594449/devonta-smith",
+                "player_id": "4594449",
+                "jersey": "0",
+                "stats": {
+                  "FUM": "0",
+                  "LOST": "0",
+                  "REC": "1"
+                }
+              }
+            ],
+            "team_totals": {
+              "FUM": "0",
+              "LOST": "0",
+              "REC": "1"
+            }
+          },
+          "defense": {
+            "players": [
+              {
+                "name": "Boubacar Traore",
+                "player_url": "https://www.espn.com/college-football/player/_/id/4871079/boubacar-traore",
+                "player_id": "4871079",
+                "jersey": "5",
+                "stats": {
+                  "TOT": "1",
+                  "SOLO": "1",
+                  "SACKS": "1",
+                  "TFL": "1",
+                  "PD": "0"
+                }
+              },
+              {
+                "name": "Christian Gray",
+                "player_url": "https://www.espn.com/college-football/player/_/id/4870708/christian-gray",
+                "player_id": "4870708",
+                "jersey": "6",
+                "stats": {
+                  "TOT": "0",
+                  "SOLO": "0",
+                  "SACKS": "0",
+                  "TFL": "0",
+                  "PD": "1"
+                }
+              },
+              {
+                "name": "Adon Shuler",
+                "player_url": "https://www.espn.com/college-football/player/_/id/4880937/adon-shuler",
+                "player_id": "4880937",
+                "jersey": "8",
+                "stats": {
+                  "TOT": "0",
+                  "SOLO": "0",
+                  "SACKS": "0",
+                  "TFL": "0",
+                  "PD": "1"
+                }
+              }
+            ],
+            "team_totals": {
+              "TOT": "1",
+              "SOLO": "1",
+              "SACKS": "1",
+              "TFL": "1",
+              "PD": "2",
+              "TD": ""
+            }
+          },
+          "interceptions": {
+            "players": [],
+            "team_totals": {}
+          },
+          "kicking": {
+            "players": [
+              {
+                "name": "Noah Burnette",
+                "player_url": "https://www.espn.com/college-football/player/_/id/4688828/noah-burnette",
+                "player_id": "4688828",
+                "jersey": "98",
+                "stats": {
+                  "FG": "0/0",
+                  "PCT": "0.0",
+                  "LONG": "0",
+                  "XP": "5/5",
+                  "PTS": "5"
+                }
+              }
+            ],
+            "team_totals": {
+              "FG": "0/0",
+              "PCT": "0.0",
+              "LONG": "0",
+              "XP": "5/5",
+              "PTS": "5"
+            }
+          },
+          "punting": {
+            "players": [],
+            "team_totals": {}
+          }
+        },
+        "Arkansas": {
+          "passing": {
+            "players": [
+              {
+                "name": "Taylen Green",
+                "player_url": "https://www.espn.com/college-football/player/_/id/4431325/taylen-green",
+                "player_id": "4431325",
+                "jersey": "10",
+                "stats": {
+                  "C/ATT": "6/15",
+                  "YDS": "85",
+                  "AVG": "5.7",
+                  "TD": "0",
+                  "INT": "0"
+                }
+              }
+            ],
+            "team_totals": {
+              "C/ATT": "6/15",
+              "YDS": "85",
+              "AVG": "5.7",
+              "TD": "0",
+              "INT": "0"
+            }
+          },
+          "rushing": {
+            "players": [
+              {
+                "name": "Taylen Green",
+                "player_url": "https://www.espn.com/college-football/player/_/id/4431325/taylen-green",
+                "player_id": "4431325",
+                "jersey": "10",
+                "stats": {
+                  "CAR": "5",
+                  "YDS": "58",
+                  "AVG": "11.6",
+                  "TD": "0",
+                  "LONG": "54"
+                }
+              },
+              {
+                "name": "Mike Washington Jr.",
+                "player_url": "https://www.espn.com/college-football/player/_/id/4686658/mike-washington-jr",
+                "player_id": "4686658",
+                "jersey": "4",
+                "stats": {
+                  "CAR": "9",
+                  "YDS": "55",
+                  "AVG": "6.1",
+                  "TD": "0",
+                  "LONG": "21"
+                }
+              },
+              {
+                "name": "Braylen Russell",
+                "player_url": "https://www.espn.com/college-football/player/_/id/5079589/braylen-russell",
+                "player_id": "5079589",
+                "jersey": "0",
+                "stats": {
+                  "CAR": "2",
+                  "YDS": "10",
+                  "AVG": "5.0",
+                  "TD": "0",
+                  "LONG": "7"
+                }
+              },
+              {
+                "name": "JacQawn McRoy",
+                "player_url": "https://www.espn.com/college-football/player/_/id/5079586/jacqawn-mcroy",
+                "player_id": "5079586",
+                "jersey": "71",
+                "stats": {
+                  "CAR": "1",
+                  "YDS": "1",
+                  "AVG": "1.0",
+                  "TD": "1",
+                  "LONG": "1"
+                }
+              }
+            ],
+            "team_totals": {
+              "CAR": "17",
+              "YDS": "124",
+              "AVG": "7.3",
+              "TD": "1",
+              "LONG": "54"
+            }
+          },
+          "receiving": {
+            "players": [
+              {
+                "name": "O'Mega Blake",
+                "player_url": "https://www.espn.com/college-football/player/_/id/4684173/omega-blake",
+                "player_id": "4684173",
+                "jersey": "9",
+                "stats": {
+                  "REC": "3",
+                  "YDS": "46",
+                  "AVG": "15.3",
+                  "TD": "0",
+                  "LONG": "33"
+                }
+              },
+              {
+                "name": "Raylen Sharpe",
+                "player_url": "https://www.espn.com/college-football/player/_/id/4872957/raylen-sharpe",
+                "player_id": "4872957",
+                "jersey": "6",
+                "stats": {
+                  "REC": "1",
+                  "YDS": "20",
+                  "AVG": "20.0",
+                  "TD": "0",
+                  "LONG": "20"
+                }
+              },
+              {
+                "name": "Jalen Brown",
+                "player_url": "https://www.espn.com/college-football/player/_/id/4870619/jalen-brown",
+                "player_id": "4870619",
+                "jersey": "17",
+                "stats": {
+                  "REC": "1",
+                  "YDS": "11",
+                  "AVG": "11.0",
+                  "TD": "0",
+                  "LONG": "11"
+                }
+              },
+              {
+                "name": "Andreas Paaske",
+                "player_url": "https://www.espn.com/college-football/player/_/id/4710718/andreas-paaske",
+                "player_id": "4710718",
+                "jersey": "81",
+                "stats": {
+                  "REC": "1",
+                  "YDS": "8",
+                  "AVG": "8.0",
+                  "TD": "0",
+                  "LONG": "8"
+                }
+              }
+            ],
+            "team_totals": {
+              "REC": "6",
+              "YDS": "85",
+              "AVG": "14.2",
+              "TD": "0",
+              "LONG": "33"
+            }
+          },
+          "fumbles": {
+            "players": [
+              {
+                "name": "Raylen Sharpe",
+                "player_url": "https://www.espn.com/college-football/player/_/id/4872957/raylen-sharpe",
+                "player_id": "4872957",
+                "jersey": "6",
+                "stats": {
+                  "FUM": "1",
+                  "LOST": "1",
+                  "REC": "0"
+                }
+              }
+            ],
+            "team_totals": {
+              "FUM": "1",
+              "LOST": "1",
+              "REC": "0"
+            }
+          },
+          "defense": {
+            "players": [
+              {
+                "name": "Jordan Young",
+                "player_url": "https://www.espn.com/college-football/player/_/id/4596541/jordan-young",
+                "player_id": "4596541",
+                "jersey": "4",
+                "stats": {
+                  "TOT": "0",
+                  "SOLO": "0",
+                  "SACKS": "0",
+                  "TFL": "0",
+                  "PD": "1"
+                }
+              }
+            ],
+            "team_totals": {
+              "TOT": "0",
+              "SOLO": "0",
+              "SACKS": "0",
+              "TFL": "0",
+              "PD": "1",
+              "TD": ""
+            }
+          },
+          "interceptions": {
+            "players": [],
+            "team_totals": {}
+          },
+          "kicking": {
+            "players": [
+              {
+                "name": "Scott Starzyk",
+                "player_url": "https://www.espn.com/college-football/player/_/id/5219533/scott-starzyk",
+                "player_id": "5219533",
+                "jersey": "80",
+                "stats": {
+                  "FG": "2/2",
+                  "PCT": "100.0",
+                  "LONG": "49",
+                  "XP": "1/1",
+                  "PTS": "7"
+                }
+              }
+            ],
+            "team_totals": {
+              "FG": "2/2",
+              "PCT": "100.0",
+              "LONG": "49",
+              "XP": "1/1",
+              "PTS": "7"
+            }
+          },
+          "punting": {
+            "players": [
+              {
+                "name": "Devin Bale",
+                "player_url": "https://www.espn.com/college-football/player/_/id/4876282/devin-bale",
+                "player_id": "4876282",
+                "jersey": "37",
+                "stats": {
+                  "NO": "2",
+                  "YDS": "90",
+                  "AVG": "45.0",
+                  "TB": "0",
+                  "In 20": "0",
+                  "LONG": "47"
+                }
+              }
+            ],
+            "team_totals": {
+              "NO": "2",
+              "YDS": "90",
+              "AVG": "45.0",
+              "TB": "0",
+              "In 20": "0",
+              "LONG": "47"
+            }
+          }
+        },
+        "Notre Dame Kick": {
+          "returns": {
+            "players": [],
+            "team_totals": {}
+          }
+        },
+        "Arkansas Kick": {
+          "returns": {
+            "players": [],
+            "team_totals": {}
+          }
+        },
+        "Notre Dame Punt": {
+          "returns": {
+            "players": [
+              {
+                "name": "Jordan Faison",
+                "player_url": "https://www.espn.com/college-football/player/_/id/5150424/jordan-faison",
+                "player_id": "5150424",
+                "jersey": "6",
+                "stats": {
+                  "NO": "1",
+                  "YDS": "3",
+                  "AVG": "3.0",
+                  "LONG": "3",
+                  "TD": "0"
+                }
+              }
+            ],
+            "team_totals": {
+              "NO": "1",
+              "YDS": "3",
+              "AVG": "3.0",
+              "LONG": "3",
+              "TD": "0"
+            }
+          }
+        },
+        "Arkansas Punt": {
+          "returns": {
+            "players": [],
+            "team_totals": {}
+          }
+        }
+      }
+    },
+    "401752725": {
+      "game_id": "401752725",
+      "game_info": {
+        "teams": [
+          {}
+        ],
+        "game_status": {
+          "time_remaining": "6:14",
+          "quarter": "2nd"
+        },
+        "quarter_scores": {
+          "Utah State": {
+            "1": "7",
+            "2": "7",
+            "3": "",
+            "4": "",
+            "T": "14"
+          },
+          "Vanderbilt": {
+            "1": "7",
+            "2": "7",
+            "3": "",
+            "4": "",
+            "T": "14"
+          }
+        }
+      },
+      "teams": {
+        "Utah State": {
+          "passing": {
+            "players": [
+              {
+                "name": "Bryson Barnes",
+                "player_url": "https://www.espn.com/college-football/player/_/id/4695600/bryson-barnes",
+                "player_id": "4695600",
+                "jersey": "16",
+                "stats": {
+                  "C/ATT": "9/11",
+                  "YDS": "92",
+                  "AVG": "8.4",
+                  "TD": "2",
+                  "INT": "0"
+                }
+              }
+            ],
+            "team_totals": {
+              "C/ATT": "9/11",
+              "YDS": "92",
+              "AVG": "8.4",
+              "TD": "2",
+              "INT": "0"
+            }
+          },
+          "rushing": {
+            "players": [
+              {
+                "name": "Bryson Barnes",
+                "player_url": "https://www.espn.com/college-football/player/_/id/4695600/bryson-barnes",
+                "player_id": "4695600",
+                "jersey": "16",
+                "stats": {
+                  "CAR": "5",
+                  "YDS": "23",
+                  "AVG": "4.6",
+                  "TD": "0",
+                  "LONG": "14"
+                }
+              },
+              {
+                "name": "Miles Davis",
+                "player_url": "https://www.espn.com/college-football/player/_/id/4613105/miles-davis",
+                "player_id": "4613105",
+                "jersey": "2",
+                "stats": {
+                  "CAR": "4",
+                  "YDS": "12",
+                  "AVG": "3.0",
+                  "TD": "0",
+                  "LONG": "3"
+                }
+              },
+              {
+                "name": "Javen Jacobs",
+                "player_url": "https://www.espn.com/college-football/player/_/id/4816099/javen-jacobs",
+                "player_id": "4816099",
+                "jersey": "8",
+                "stats": {
+                  "CAR": "1",
+                  "YDS": "0",
+                  "AVG": "0.0",
+                  "TD": "0",
+                  "LONG": "0"
+                }
+              },
+              {
+                "name": "Noah White",
+                "player_url": "https://www.espn.com/college-football/player/_/id/5297079/noah-white",
+                "player_id": "5297079",
+                "jersey": "23",
+                "stats": {
+                  "CAR": "1",
+                  "YDS": "-5",
+                  "AVG": "-5.0",
+                  "TD": "0",
+                  "LONG": "0"
+                }
+              }
+            ],
+            "team_totals": {
+              "CAR": "10",
+              "YDS": "27",
+              "AVG": "2.7",
+              "TD": "0",
+              "LONG": "14"
+            }
+          },
+          "receiving": {
+            "players": [
+              {
+                "name": "Broc Lane",
+                "player_url": "https://www.espn.com/college-football/player/_/id/4612824/broc-lane",
+                "player_id": "4612824",
+                "jersey": "87",
+                "stats": {
+                  "REC": "2",
+                  "YDS": "38",
+                  "AVG": "19.0",
+                  "TD": "0",
+                  "LONG": "25"
+                }
+              },
+              {
+                "name": "Braden Pegan",
+                "player_url": "https://www.espn.com/college-football/player/_/id/4869422/braden-pegan",
+                "player_id": "4869422",
+                "jersey": "11",
+                "stats": {
+                  "REC": "2",
+                  "YDS": "22",
+                  "AVG": "11.0",
+                  "TD": "0",
+                  "LONG": "14"
+                }
+              },
+              {
+                "name": "Miles Davis",
+                "player_url": "https://www.espn.com/college-football/player/_/id/4613105/miles-davis",
+                "player_id": "4613105",
+                "jersey": "2",
+                "stats": {
+                  "REC": "2",
+                  "YDS": "19",
+                  "AVG": "9.5",
+                  "TD": "1",
+                  "LONG": "18"
+                }
+              },
+              {
+                "name": "Josh Sterzer",
+                "player_url": "https://www.espn.com/college-football/player/_/id/4613199/josh-sterzer",
+                "player_id": "4613199",
+                "jersey": "83",
+                "stats": {
+                  "REC": "1",
+                  "YDS": "10",
+                  "AVG": "10.0",
+                  "TD": "1",
+                  "LONG": "10"
+                }
+              },
+              {
+                "name": "Javen Jacobs",
+                "player_url": "https://www.espn.com/college-football/player/_/id/4816099/javen-jacobs",
+                "player_id": "4816099",
+                "jersey": "8",
+                "stats": {
+                  "REC": "2",
+                  "YDS": "3",
+                  "AVG": "1.5",
+                  "TD": "0",
+                  "LONG": "2"
+                }
+              }
+            ],
+            "team_totals": {
+              "REC": "9",
+              "YDS": "92",
+              "AVG": "10.2",
+              "TD": "2",
+              "LONG": "25"
+            }
+          },
+          "fumbles": {
+            "players": [],
+            "team_totals": {}
+          },
+          "defense": {
+            "players": [
+              {
+                "name": "Brevin Hamblin",
+                "player_url": "https://www.espn.com/college-football/player/_/id/5152415/brevin-hamblin",
+                "player_id": "5152415",
+                "jersey": "4",
+                "stats": {
+                  "TOT": "5",
+                  "SOLO": "2",
+                  "SACKS": "0",
+                  "TFL": "0",
+                  "PD": "0"
+                }
+              },
+              {
+                "name": "John Miller",
+                "player_url": "https://www.espn.com/college-football/player/_/id/4696036/john-miller",
+                "player_id": "4696036",
+                "jersey": "20",
+                "stats": {
+                  "TOT": "4",
+                  "SOLO": "2",
+                  "SACKS": "0",
+                  "TFL": "1",
+                  "PD": "0"
+                }
+              },
+              {
+                "name": "Noah Avinger",
+                "player_url": "https://www.espn.com/college-football/player/_/id/4432659/noah-avinger",
+                "player_id": "4432659",
+                "jersey": "1",
+                "stats": {
+                  "TOT": "4",
+                  "SOLO": "1",
+                  "SACKS": "0",
+                  "TFL": "0",
+                  "PD": "0"
+                }
+              },
+              {
+                "name": "Dylan Tucker",
+                "player_url": "https://www.espn.com/college-football/player/_/id/4695449/dylan-tucker",
+                "player_id": "4695449",
+                "jersey": "34",
+                "stats": {
+                  "TOT": "2",
+                  "SOLO": "1",
+                  "SACKS": "0",
+                  "TFL": "0",
+                  "PD": "0"
+                }
+              },
+              {
+                "name": "Bryson Taylor",
+                "player_url": "https://www.espn.com/college-football/player/_/id/4912271/bryson-taylor",
+                "player_id": "4912271",
+                "jersey": "11",
+                "stats": {
+                  "TOT": "2",
+                  "SOLO": "1",
+                  "SACKS": "0",
+                  "TFL": "0",
+                  "PD": "0"
+                }
+              },
+              {
+                "name": "William Holmes",
+                "player_url": "https://www.espn.com/college-football/player/_/id/5220661/william-holmes",
+                "player_id": "5220661",
+                "jersey": "24",
+                "stats": {
+                  "TOT": "2",
+                  "SOLO": "1",
+                  "SACKS": "0",
+                  "TFL": "0",
+                  "PD": "0"
+                }
+              },
+              {
+                "name": "Bobby Arnold",
+                "player_url": "https://www.espn.com/college-football/player/_/id/5228787/bobby-arnold",
+                "player_id": "5228787",
+                "jersey": "12",
+                "stats": {
+                  "TOT": "2",
+                  "SOLO": "1",
+                  "SACKS": "0",
+                  "TFL": "0",
+                  "PD": "0"
+                }
+              },
+              {
+                "name": "Gabriel Iniguez Jr.",
+                "player_url": "https://www.espn.com/college-football/player/_/id/4693810/gabriel-iniguez-jr",
+                "player_id": "4693810",
+                "jersey": "10",
+                "stats": {
+                  "TOT": "2",
+                  "SOLO": "0",
+                  "SACKS": "0",
+                  "TFL": "0",
+                  "PD": "0"
+                }
+              },
+              {
+                "name": "Carson Tujague",
+                "player_url": "https://www.espn.com/college-football/player/_/id/5219649/carson-tujague",
+                "player_id": "5219649",
+                "jersey": "28",
+                "stats": {
+                  "TOT": "1",
+                  "SOLO": "1",
+                  "SACKS": "0",
+                  "TFL": "0",
+                  "PD": "0"
+                }
+              },
+              {
+                "name": "Mataira Brown",
+                "player_url": "https://www.espn.com/college-football/player/_/id/5297059/mataira-brown",
+                "player_id": "5297059",
+                "jersey": "17",
+                "stats": {
+                  "TOT": "1",
+                  "SOLO": "0",
+                  "SACKS": "0",
+                  "TFL": "0",
+                  "PD": "0"
+                }
+              },
+              {
+                "name": "Zachary Robbins",
+                "player_url": "https://www.espn.com/college-football/player/_/id/5297073/zachary-robbins",
+                "player_id": "5297073",
+                "jersey": "90",
+                "stats": {
+                  "TOT": "1",
+                  "SOLO": "0",
+                  "SACKS": "0",
+                  "TFL": "0",
+                  "PD": "0"
+                }
+              }
+            ],
+            "team_totals": {
+              "TOT": "26",
+              "SOLO": "10",
+              "SACKS": "0",
+              "TFL": "1",
+              "PD": "0",
+              "TD": ""
+            }
+          },
+          "interceptions": {
+            "players": [],
+            "team_totals": {}
+          },
+          "kicking": {
+            "players": [
+              {
+                "name": "Tanner Rinker",
+                "player_url": "https://www.espn.com/college-football/player/_/id/5166203/tanner-rinker",
+                "player_id": "5166203",
+                "jersey": "14",
+                "stats": {
+                  "FG": "0/0",
+                  "PCT": "0.0",
+                  "LONG": "0",
+                  "XP": "2/2",
+                  "PTS": "2"
+                }
+              }
+            ],
+            "team_totals": {
+              "FG": "0/0",
+              "PCT": "0.0",
+              "LONG": "0",
+              "XP": "2/2",
+              "PTS": "2"
+            }
+          },
+          "punting": {
+            "players": [
+              {
+                "name": "Landon Rehkow",
+                "player_url": "https://www.espn.com/college-football/player/_/id/5150622/landon-rehkow",
+                "player_id": "5150622",
+                "jersey": "16",
+                "stats": {
+                  "NO": "2",
+                  "YDS": "92",
+                  "AVG": "46.0",
+                  "TB": "0",
+                  "In 20": "1",
+                  "LONG": "56"
+                }
+              }
+            ],
+            "team_totals": {
+              "NO": "2",
+              "YDS": "92",
+              "AVG": "46.0",
+              "TB": "0",
+              "In 20": "1",
+              "LONG": "56"
+            }
+          }
+        },
+        "Vanderbilt": {
+          "passing": {
+            "players": [
+              {
+                "name": "Diego Pavia",
+                "player_url": "https://www.espn.com/college-football/player/_/id/5084180/diego-pavia",
+                "player_id": "5084180",
+                "jersey": "2",
+                "stats": {
+                  "C/ATT": "9/10",
+                  "YDS": "88",
+                  "AVG": "8.8",
+                  "TD": "1",
+                  "INT": "0"
+                }
+              }
+            ],
+            "team_totals": {
+              "C/ATT": "9/10",
+              "YDS": "88",
+              "AVG": "8.8",
+              "TD": "1",
+              "INT": "0"
+            }
+          },
+          "rushing": {
+            "players": [
+              {
+                "name": "AJ Newberry",
+                "player_url": "https://www.espn.com/college-football/player/_/id/4917981/aj-newberry",
+                "player_id": "4917981",
+                "jersey": "23",
+                "stats": {
+                  "CAR": "2",
+                  "YDS": "22",
+                  "AVG": "11.0",
+                  "TD": "0",
+                  "LONG": "16"
+                }
+              },
+              {
+                "name": "Sedrick Alexander",
+                "player_url": "https://www.espn.com/college-football/player/_/id/5030333/sedrick-alexander",
+                "player_id": "5030333",
+                "jersey": "28",
+                "stats": {
+                  "CAR": "3",
+                  "YDS": "15",
+                  "AVG": "5.0",
+                  "TD": "0",
+                  "LONG": "8"
+                }
+              },
+              {
+                "name": "Diego Pavia",
+                "player_url": "https://www.espn.com/college-football/player/_/id/5084180/diego-pavia",
+                "player_id": "5084180",
+                "jersey": "2",
+                "stats": {
+                  "CAR": "3",
+                  "YDS": "13",
+                  "AVG": "4.3",
+                  "TD": "1",
+                  "LONG": "6"
+                }
+              },
+              {
+                "name": "Makhilyn Young",
+                "player_url": "https://www.espn.com/college-football/player/_/id/4912302/makhilyn-young",
+                "player_id": "4912302",
+                "jersey": "22",
+                "stats": {
+                  "CAR": "2",
+                  "YDS": "5",
+                  "AVG": "2.5",
+                  "TD": "0",
+                  "LONG": "4"
+                }
+              }
+            ],
+            "team_totals": {
+              "CAR": "10",
+              "YDS": "55",
+              "AVG": "5.5",
+              "TD": "1",
+              "LONG": "16"
+            }
+          },
+          "receiving": {
+            "players": [
+              {
+                "name": "Tre Richardson",
+                "player_url": "https://www.espn.com/college-football/player/_/id/5294063/tre-richardson",
+                "player_id": "5294063",
+                "jersey": "6",
+                "stats": {
+                  "REC": "4",
+                  "YDS": "53",
+                  "AVG": "13.3",
+                  "TD": "0",
+                  "LONG": "30"
+                }
+              },
+              {
+                "name": "Junior Sherrill",
+                "player_url": "https://www.espn.com/college-football/player/_/id/5078165/junior-sherrill",
+                "player_id": "5078165",
+                "jersey": "0",
+                "stats": {
+                  "REC": "2",
+                  "YDS": "28",
+                  "AVG": "14.0",
+                  "TD": "1",
+                  "LONG": "21"
+                }
+              },
+              {
+                "name": "Eli Stowers",
+                "player_url": "https://www.espn.com/college-football/player/_/id/4431574/eli-stowers",
+                "player_id": "4431574",
+                "jersey": "9",
+                "stats": {
+                  "REC": "1",
+                  "YDS": "5",
+                  "AVG": "5.0",
+                  "TD": "0",
+                  "LONG": "5"
+                }
+              },
+              {
+                "name": "Richie Hoskins",
+                "player_url": "https://www.espn.com/college-football/player/_/id/5089070/richie-hoskins",
+                "player_id": "5089070",
+                "jersey": "5",
+                "stats": {
+                  "REC": "1",
+                  "YDS": "3",
+                  "AVG": "3.0",
+                  "TD": "0",
+                  "LONG": "3"
+                }
+              },
+              {
+                "name": "Makhilyn Young",
+                "player_url": "https://www.espn.com/college-football/player/_/id/4912302/makhilyn-young",
+                "player_id": "4912302",
+                "jersey": "22",
+                "stats": {
+                  "REC": "1",
+                  "YDS": "-1",
+                  "AVG": "-1.0",
+                  "TD": "0",
+                  "LONG": "0"
+                }
+              }
+            ],
+            "team_totals": {
+              "REC": "9",
+              "YDS": "88",
+              "AVG": "9.8",
+              "TD": "1",
+              "LONG": "30"
+            }
+          },
+          "fumbles": {
+            "players": [],
+            "team_totals": {}
+          },
+          "defense": {
+            "players": [
+              {
+                "name": "Marlen Sewell",
+                "player_url": "https://www.espn.com/college-football/player/_/id/4682641/marlen-sewell",
+                "player_id": "4682641",
+                "jersey": "7",
+                "stats": {
+                  "TOT": "4",
+                  "SOLO": "2",
+                  "SACKS": "0",
+                  "TFL": "0",
+                  "PD": "0"
+                }
+              },
+              {
+                "name": "Randon Fontenette",
+                "player_url": "https://www.espn.com/college-football/player/_/id/4922985/randon-fontenette",
+                "player_id": "4922985",
+                "jersey": "2",
+                "stats": {
+                  "TOT": "3",
+                  "SOLO": "3",
+                  "SACKS": "0",
+                  "TFL": "1",
+                  "PD": "0"
+                }
+              },
+              {
+                "name": "Bryan Longwell",
+                "player_url": "https://www.espn.com/college-football/player/_/id/5089321/bryan-longwell",
+                "player_id": "5089321",
+                "jersey": "11",
+                "stats": {
+                  "TOT": "3",
+                  "SOLO": "1",
+                  "SACKS": "0",
+                  "TFL": "0",
+                  "PD": "0"
+                }
+              },
+              {
+                "name": "Langston Patterson",
+                "player_url": "https://www.espn.com/college-football/player/_/id/4557348/langston-patterson",
+                "player_id": "4557348",
+                "jersey": "10",
+                "stats": {
+                  "TOT": "2",
+                  "SOLO": "1",
+                  "SACKS": "0",
+                  "TFL": "0",
+                  "PD": "0"
+                }
+              },
+              {
+                "name": "Miles Capers",
+                "player_url": "https://www.espn.com/college-football/player/_/id/4594336/miles-capers",
+                "player_id": "4594336",
+                "jersey": "29",
+                "stats": {
+                  "TOT": "2",
+                  "SOLO": "1",
+                  "SACKS": "0",
+                  "TFL": "0",
+                  "PD": "0"
+                }
+              },
+              {
+                "name": "CJ Heard",
+                "player_url": "https://www.espn.com/college-football/player/_/id/5079471/cj-heard",
+                "player_id": "5079471",
+                "jersey": "8",
+                "stats": {
+                  "TOT": "2",
+                  "SOLO": "1",
+                  "SACKS": "0",
+                  "TFL": "0",
+                  "PD": "0"
+                }
+              },
+              {
+                "name": "Linus Zunk",
+                "player_url": "https://www.espn.com/college-football/player/_/id/4782663/linus-zunk",
+                "player_id": "4782663",
+                "jersey": "95",
+                "stats": {
+                  "TOT": "1",
+                  "SOLO": "1",
+                  "SACKS": "1",
+                  "TFL": "1",
+                  "PD": "0"
+                }
+              },
+              {
+                "name": "Glenn Seabrooks III",
+                "player_url": "https://www.espn.com/college-football/player/_/id/5139855/glenn-seabrooks-iii",
+                "player_id": "5139855",
+                "jersey": "53",
+                "stats": {
+                  "TOT": "1",
+                  "SOLO": "1",
+                  "SACKS": "0",
+                  "TFL": "0",
+                  "PD": "0"
+                }
+              },
+              {
+                "name": "Joseph McVay",
+                "player_url": "https://www.espn.com/college-football/player/_/id/5147367/joseph-mcvay",
+                "player_id": "5147367",
+                "jersey": "15",
+                "stats": {
+                  "TOT": "1",
+                  "SOLO": "1",
+                  "SACKS": "0",
+                  "TFL": "0",
+                  "PD": "0"
+                }
+              },
+              {
+                "name": "Zaylin Wood",
+                "player_url": "https://www.espn.com/college-football/player/_/id/4428925/zaylin-wood",
+                "player_id": "4428925",
+                "jersey": "15",
+                "stats": {
+                  "TOT": "1",
+                  "SOLO": "0",
+                  "SACKS": "0",
+                  "TFL": "0",
+                  "PD": "0"
+                }
+              },
+              {
+                "name": "Khordae Sydnor",
+                "player_url": "https://www.espn.com/college-football/player/_/id/4683129/khordae-sydnor",
+                "player_id": "4683129",
+                "jersey": "96",
+                "stats": {
+                  "TOT": "1",
+                  "SOLO": "0",
+                  "SACKS": "0",
+                  "TFL": "0",
+                  "PD": "0"
+                }
+              },
+              {
+                "name": "Jaylon Stone",
+                "player_url": "https://www.espn.com/college-football/player/_/id/5153504/jaylon-stone",
+                "player_id": "5153504",
+                "jersey": "92",
+                "stats": {
+                  "TOT": "1",
+                  "SOLO": "0",
+                  "SACKS": "0",
+                  "TFL": "0",
+                  "PD": "0"
+                }
+              }
+            ],
+            "team_totals": {
+              "TOT": "22",
+              "SOLO": "12",
+              "SACKS": "1",
+              "TFL": "2",
+              "PD": "0",
+              "TD": ""
+            }
+          },
+          "interceptions": {
+            "players": [],
+            "team_totals": {}
+          },
+          "kicking": {
+            "players": [
+              {
+                "name": "Brock Taylor",
+                "player_url": "https://www.espn.com/college-football/player/_/id/5087247/brock-taylor",
+                "player_id": "5087247",
+                "jersey": "88",
+                "stats": {
+                  "FG": "0/0",
+                  "PCT": "0.0",
+                  "LONG": "0",
+                  "XP": "2/2",
+                  "PTS": "2"
+                }
+              }
+            ],
+            "team_totals": {
+              "FG": "0/0",
+              "PCT": "0.0",
+              "LONG": "0",
+              "XP": "2/2",
+              "PTS": "2"
+            }
+          },
+          "punting": {
+            "players": [
+              {
+                "name": "Nick Haberer",
+                "player_url": "https://www.espn.com/college-football/player/_/id/4683849/nick-haberer",
+                "player_id": "4683849",
+                "jersey": "38",
+                "stats": {
+                  "NO": "1",
+                  "YDS": "56",
+                  "AVG": "56.0",
+                  "TB": "0",
+                  "In 20": "0",
+                  "LONG": "56"
+                }
+              }
+            ],
+            "team_totals": {
+              "NO": "1",
+              "YDS": "56",
+              "AVG": "56.0",
+              "TB": "0",
+              "In 20": "0",
+              "LONG": "56"
+            }
+          }
+        },
+        "Utah State Kick": {
+          "returns": {
+            "players": [],
+            "team_totals": {}
+          }
+        },
+        "Vanderbilt Kick": {
+          "returns": {
+            "players": [
+              {
+                "name": "Tre Richardson",
+                "player_url": "https://www.espn.com/college-football/player/_/id/5294063/tre-richardson",
+                "player_id": "5294063",
+                "jersey": "6",
+                "stats": {
+                  "NO": "1",
+                  "YDS": "41",
+                  "AVG": "41.0",
+                  "LONG": "41",
+                  "TD": "0"
+                }
+              }
+            ],
+            "team_totals": {
+              "NO": "1",
+              "YDS": "41",
+              "AVG": "41.0",
+              "LONG": "41",
+              "TD": "0"
+            }
+          }
+        },
+        "Utah State Punt": {
+          "returns": {
+            "players": [
+              {
+                "name": "Javen Jacobs",
+                "player_url": "https://www.espn.com/college-football/player/_/id/4816099/javen-jacobs",
+                "player_id": "4816099",
+                "jersey": "8",
+                "stats": {
+                  "NO": "1",
+                  "YDS": "0",
+                  "AVG": "0.0",
+                  "LONG": "0",
+                  "TD": "0"
+                }
+              }
+            ],
+            "team_totals": {
+              "NO": "1",
+              "YDS": "0",
+              "AVG": "0.0",
+              "LONG": "0",
+              "TD": "0"
+            }
+          }
+        },
+        "Vanderbilt Punt": {
+          "returns": {
+            "players": [],
+            "team_totals": {}
+          }
+        }
+      }
+    },
+    "401754543": {
+      "game_id": "401754543",
+      "game_info": {
+        "teams": [],
+        "game_status": {
+          "time_remaining": "Final/2OT",
+          "quarter": ""
+        },
+        "quarter_scores": {
+          "Florida St": {
+            "1": "0",
+            "2": "21",
+            "3": "7",
+            "4": "7",
+            "OT": "3",
+            "T": "38"
+          },
+          "Virginia": {
+            "1": "7",
+            "2": "14",
+            "3": "7",
+            "4": "7",
+            "OT": "11",
+            "T": "46"
+          }
+        }
+      },
+      "teams": {
+        "Florida State": {
+          "passing": {
+            "players": [
+              {
+                "name": "Tommy Castellanos",
+                "player_url": "https://www.espn.com/college-football/player/_/id/4773919/tommy-castellanos",
+                "player_id": "4773919",
+                "jersey": "1",
+                "stats": {
+                  "C/ATT": "18/32",
+                  "YDS": "254",
+                  "AVG": "7.9",
+                  "TD": "1",
+                  "INT": "2"
+                }
+              },
+              {
+                "name": "Randy Pittman Jr.",
+                "player_url": "https://www.espn.com/college-football/player/_/id/4870954/randy-pittman-jr",
+                "player_id": "4870954",
+                "jersey": "13",
+                "stats": {
+                  "C/ATT": "1/1",
+                  "YDS": "4",
+                  "AVG": "4.0",
+                  "TD": "1",
+                  "INT": "0"
+                }
+              }
+            ],
+            "team_totals": {
+              "C/ATT": "19/33",
+              "YDS": "258",
+              "AVG": "7.8",
+              "TD": "2",
+              "INT": "2",
+              "QBR": ""
+            }
+          },
+          "rushing": {
+            "players": [
+              {
+                "name": "Tommy Castellanos",
+                "player_url": "https://www.espn.com/college-football/player/_/id/4773919/tommy-castellanos",
+                "player_id": "4773919",
+                "jersey": "1",
+                "stats": {
+                  "CAR": "14",
+                  "YDS": "78",
+                  "AVG": "5.6",
+                  "TD": "1",
+                  "LONG": "22"
+                }
+              },
+              {
+                "name": "Gavin Sawchuk",
+                "player_url": "https://www.espn.com/college-football/player/_/id/4685545/gavin-sawchuk",
+                "player_id": "4685545",
+                "jersey": "27",
+                "stats": {
+                  "CAR": "17",
+                  "YDS": "74",
+                  "AVG": "4.4",
+                  "TD": "1",
+                  "LONG": "13"
+                }
+              },
+              {
+                "name": "Ousmane Kromah",
+                "player_url": "https://www.espn.com/college-football/player/_/id/5141560/ousmane-kromah",
+                "player_id": "5141560",
+                "jersey": "32",
+                "stats": {
+                  "CAR": "12",
+                  "YDS": "63",
+                  "AVG": "5.3",
+                  "TD": "0",
+                  "LONG": "23"
+                }
+              },
+              {
+                "name": "Caziah Holmes",
+                "player_url": "https://www.espn.com/college-football/player/_/id/4430894/caziah-holmes",
+                "player_id": "4430894",
+                "jersey": "26",
+                "stats": {
+                  "CAR": "2",
+                  "YDS": "32",
+                  "AVG": "16.0",
+                  "TD": "0",
+                  "LONG": "16"
+                }
+              },
+              {
+                "name": "Jaylin Lucas",
+                "player_url": "https://www.espn.com/college-football/player/_/id/4871148/jaylin-lucas",
+                "player_id": "4871148",
+                "jersey": "12",
+                "stats": {
+                  "CAR": "1",
+                  "YDS": "9",
+                  "AVG": "9.0",
+                  "TD": "0",
+                  "LONG": "9"
+                }
+              },
+              {
+                "name": "Randy Pittman Jr.",
+                "player_url": "https://www.espn.com/college-football/player/_/id/4870954/randy-pittman-jr",
+                "player_id": "4870954",
+                "jersey": "13",
+                "stats": {
+                  "CAR": "1",
+                  "YDS": "2",
+                  "AVG": "2.0",
+                  "TD": "1",
+                  "LONG": "2"
+                }
+              }
+            ],
+            "team_totals": {
+              "CAR": "47",
+              "YDS": "258",
+              "AVG": "5.5",
+              "TD": "3",
+              "LONG": "23"
+            }
+          },
+          "receiving": {
+            "players": [
+              {
+                "name": "Duce Robinson",
+                "player_url": "https://www.espn.com/college-football/player/_/id/4870922/duce-robinson",
+                "player_id": "4870922",
+                "jersey": "0",
+                "stats": {
+                  "REC": "9",
+                  "YDS": "147",
+                  "AVG": "16.3",
+                  "TD": "1",
+                  "LONG": "47"
+                }
+              },
+              {
+                "name": "Lawayne McCoy",
+                "player_url": "https://www.espn.com/college-football/player/_/id/5086096/lawayne-mccoy",
+                "player_id": "5086096",
+                "jersey": "7",
+                "stats": {
+                  "REC": "2",
+                  "YDS": "44",
+                  "AVG": "22.0",
+                  "TD": "0",
+                  "LONG": "34"
+                }
+              },
+              {
+                "name": "Micahi Danzy",
+                "player_url": "https://www.espn.com/college-football/player/_/id/5088153/micahi-danzy",
+                "player_id": "5088153",
+                "jersey": "19",
+                "stats": {
+                  "REC": "3",
+                  "YDS": "42",
+                  "AVG": "14.0",
+                  "TD": "0",
+                  "LONG": "30"
+                }
+              },
+              {
+                "name": "Randy Pittman Jr.",
+                "player_url": "https://www.espn.com/college-football/player/_/id/4870954/randy-pittman-jr",
+                "player_id": "4870954",
+                "jersey": "13",
+                "stats": {
+                  "REC": "2",
+                  "YDS": "16",
+                  "AVG": "8.0",
+                  "TD": "1",
+                  "LONG": "11"
+                }
+              },
+              {
+                "name": "Squirrel White",
+                "player_url": "https://www.espn.com/college-football/player/_/id/5081368/squirrel-white",
+                "player_id": "5081368",
+                "jersey": "4",
+                "stats": {
+                  "REC": "2",
+                  "YDS": "5",
+                  "AVG": "2.5",
+                  "TD": "0",
+                  "LONG": "8"
+                }
+              },
+              {
+                "name": "Gavin Sawchuk",
+                "player_url": "https://www.espn.com/college-football/player/_/id/4685545/gavin-sawchuk",
+                "player_id": "4685545",
+                "jersey": "27",
+                "stats": {
+                  "REC": "1",
+                  "YDS": "4",
+                  "AVG": "4.0",
+                  "TD": "0",
+                  "LONG": "4"
+                }
+              }
+            ],
+            "team_totals": {
+              "REC": "19",
+              "YDS": "258",
+              "AVG": "13.6",
+              "TD": "2",
+              "LONG": "47"
+            }
+          },
+          "fumbles": {
+            "players": [
+              {
+                "name": "Gavin Sawchuk",
+                "player_url": "https://www.espn.com/college-football/player/_/id/4685545/gavin-sawchuk",
+                "player_id": "4685545",
+                "jersey": "27",
+                "stats": {
+                  "FUM": "1",
+                  "LOST": "1",
+                  "REC": "0"
+                }
+              },
+              {
+                "name": "Tommy Castellanos",
+                "player_url": "https://www.espn.com/college-football/player/_/id/4773919/tommy-castellanos",
+                "player_id": "4773919",
+                "jersey": "1",
+                "stats": {
+                  "FUM": "1",
+                  "LOST": "0",
+                  "REC": "0"
+                }
+              }
+            ],
+            "team_totals": {
+              "FUM": "2",
+              "LOST": "1",
+              "REC": "0"
+            }
+          },
+          "defense": {
+            "players": [
+              {
+                "name": "Earl Little Jr.",
+                "player_url": "https://www.espn.com/college-football/player/_/id/4685437/earl-little-jr",
+                "player_id": "4685437",
+                "jersey": "0",
+                "stats": {
+                  "TOT": "13",
+                  "SOLO": "4",
+                  "SACKS": "0",
+                  "TFL": "0",
+                  "PD": "0"
+                }
+              },
+              {
+                "name": "Ja'Bril Rawls",
+                "player_url": "https://www.espn.com/college-football/player/_/id/5085388/jabril-rawls",
+                "player_id": "5085388",
+                "jersey": "11",
+                "stats": {
+                  "TOT": "11",
+                  "SOLO": "3",
+                  "SACKS": "0",
+                  "TFL": "1",
+                  "PD": "0"
+                }
+              },
+              {
+                "name": "Shyheim Brown",
+                "player_url": "https://www.espn.com/college-football/player/_/id/4707203/shyheim-brown",
+                "player_id": "4707203",
+                "jersey": "1",
+                "stats": {
+                  "TOT": "9",
+                  "SOLO": "3",
+                  "SACKS": "0",
+                  "TFL": "0",
+                  "PD": "0"
+                }
+              },
+              {
+                "name": "Elijah Herring",
+                "player_url": "https://www.espn.com/college-football/player/_/id/4701943/elijah-herring",
+                "player_id": "4701943",
+                "jersey": "31",
+                "stats": {
+                  "TOT": "8",
+                  "SOLO": "4",
+                  "SACKS": "0",
+                  "TFL": "0",
+                  "PD": "0"
+                }
+              },
+              {
+                "name": "Justin Cryer",
+                "player_url": "https://www.espn.com/college-football/player/_/id/4918434/justin-cryer",
+                "player_id": "4918434",
+                "jersey": "28",
+                "stats": {
+                  "TOT": "6",
+                  "SOLO": "3",
+                  "SACKS": "0",
+                  "TFL": "0",
+                  "PD": "0"
+                }
+              },
+              {
+                "name": "Deante McCray",
+                "player_url": "https://www.espn.com/college-football/player/_/id/4837247/deante-mccray",
+                "player_id": "4837247",
+                "jersey": "8",
+                "stats": {
+                  "TOT": "6",
+                  "SOLO": "1",
+                  "SACKS": "0",
+                  "TFL": "0",
+                  "PD": "0"
+                }
+              },
+              {
+                "name": "Ashlynd Barker",
+                "player_url": "https://www.espn.com/college-football/player/_/id/5150837/ashlynd-barker",
+                "player_id": "5150837",
+                "jersey": "27",
+                "stats": {
+                  "TOT": "5",
+                  "SOLO": "4",
+                  "SACKS": "2",
+                  "TFL": "2",
+                  "PD": "0"
+                }
+              },
+              {
+                "name": "Darrell Jackson Jr.",
+                "player_url": "https://www.espn.com/college-football/player/_/id/4612836/darrell-jackson-jr",
+                "player_id": "4612836",
+                "jersey": "6",
+                "stats": {
+                  "TOT": "5",
+                  "SOLO": "0",
+                  "SACKS": "0",
+                  "TFL": "0",
+                  "PD": "0"
+                }
+              },
+              {
+                "name": "Daniel Lyons",
+                "player_url": "https://www.espn.com/college-football/player/_/id/4685447/daniel-lyons",
+                "player_id": "4685447",
+                "jersey": "5",
+                "stats": {
+                  "TOT": "4",
+                  "SOLO": "0",
+                  "SACKS": "0",
+                  "TFL": "0",
+                  "PD": "0"
+                }
+              },
+              {
+                "name": "Mandrell Desir",
+                "player_url": "https://www.espn.com/college-football/player/_/id/5167703/mandrell-desir",
+                "player_id": "5167703",
+                "jersey": "93",
+                "stats": {
+                  "TOT": "4",
+                  "SOLO": "0",
+                  "SACKS": "0",
+                  "TFL": "0",
+                  "PD": "0"
+                }
+              },
+              {
+                "name": "Jerry Wilson",
+                "player_url": "https://www.espn.com/college-football/player/_/id/4837203/jerry-wilson",
+                "player_id": "4837203",
+                "jersey": "19",
+                "stats": {
+                  "TOT": "3",
+                  "SOLO": "2",
+                  "SACKS": "0",
+                  "TFL": "0",
+                  "PD": "0"
+                }
+              },
+              {
+                "name": "Edwin Joseph",
+                "player_url": "https://www.espn.com/college-football/player/_/id/4870765/edwin-joseph",
+                "player_id": "4870765",
+                "jersey": "3",
+                "stats": {
+                  "TOT": "3",
+                  "SOLO": "2",
+                  "SACKS": "0",
+                  "TFL": "1",
+                  "PD": "1"
+                }
+              },
+              {
+                "name": "Blake Nichelson",
+                "player_url": "https://www.espn.com/college-football/player/_/id/4899480/blake-nichelson",
+                "player_id": "4899480",
+                "jersey": "20",
+                "stats": {
+                  "TOT": "3",
+                  "SOLO": "2",
+                  "SACKS": "0",
+                  "TFL": "0",
+                  "PD": "0"
+                }
+              },
+              {
+                "name": "K.J. Kirkland",
+                "player_url": "https://www.espn.com/college-football/player/_/id/4899348/kj-kirkland",
+                "player_id": "4899348",
+                "jersey": "24",
+                "stats": {
+                  "TOT": "3",
+                  "SOLO": "1",
+                  "SACKS": "0",
+                  "TFL": "0",
+                  "PD": "0"
+                }
+              },
+              {
+                "name": "Quindarrius Jones",
+                "player_url": "https://www.espn.com/college-football/player/_/id/5075960/quindarrius-jones",
+                "player_id": "5075960",
+                "jersey": "16",
+                "stats": {
+                  "TOT": "3",
+                  "SOLO": "1",
+                  "SACKS": "0",
+                  "TFL": "0",
+                  "PD": "1"
+                }
+              },
+              {
+                "name": "James Williams",
+                "player_url": "https://www.espn.com/college-football/player/_/id/5159497/james-williams",
+                "player_id": "5159497",
+                "jersey": "10",
+                "stats": {
+                  "TOT": "3",
+                  "SOLO": "1",
+                  "SACKS": "0",
+                  "TFL": "0",
+                  "PD": "0"
+                }
+              },
+              {
+                "name": "Jayson Jenkins",
+                "player_url": "https://www.espn.com/college-football/player/_/id/5081391/jayson-jenkins",
+                "player_id": "5081391",
+                "jersey": "97",
+                "stats": {
+                  "TOT": "2",
+                  "SOLO": "1",
+                  "SACKS": "0",
+                  "TFL": "0",
+                  "PD": "0"
+                }
+              },
+              {
+                "name": "Omar Graham Jr.",
+                "player_url": "https://www.espn.com/college-football/player/_/id/4808743/omar-graham-jr",
+                "player_id": "4808743",
+                "jersey": "9",
+                "stats": {
+                  "TOT": "2",
+                  "SOLO": "0",
+                  "SACKS": "0",
+                  "TFL": "0",
+                  "PD": "0"
+                }
+              },
+              {
+                "name": "AJ Cottrill",
+                "player_url": "https://www.espn.com/college-football/player/_/id/4837206/aj-cottrill",
+                "player_id": "4837206",
+                "jersey": "41",
+                "stats": {
+                  "TOT": "2",
+                  "SOLO": "0",
+                  "SACKS": "0",
+                  "TFL": "0",
+                  "PD": "0"
+                }
+              },
+              {
+                "name": "Jaden Jones",
+                "player_url": "https://www.espn.com/college-football/player/_/id/5150836/jaden-jones",
+                "player_id": "5150836",
+                "jersey": "44",
+                "stats": {
+                  "TOT": "2",
+                  "SOLO": "0",
+                  "SACKS": "0",
+                  "TFL": "0",
+                  "PD": "0"
+                }
+              },
+              {
+                "name": "Tommy Castellanos",
+                "player_url": "https://www.espn.com/college-football/player/_/id/4773919/tommy-castellanos",
+                "player_id": "4773919",
+                "jersey": "1",
+                "stats": {
+                  "TOT": "1",
+                  "SOLO": "1",
+                  "SACKS": "0",
+                  "TFL": "0",
+                  "PD": "0"
+                }
+              },
+              {
+                "name": "Stefon Thompson",
+                "player_url": "https://www.espn.com/college-football/player/_/id/4684956/stefon-thompson",
+                "player_id": "4684956",
+                "jersey": "7",
+                "stats": {
+                  "TOT": "1",
+                  "SOLO": "0",
+                  "SACKS": "0",
+                  "TFL": "0",
+                  "PD": "0"
+                }
+              },
+              {
+                "name": "Shamar Arnoux",
+                "player_url": "https://www.espn.com/college-football/player/_/id/5141360/shamar-arnoux",
+                "player_id": "5141360",
+                "jersey": "15",
+                "stats": {
+                  "TOT": "1",
+                  "SOLO": "0",
+                  "SACKS": "0",
+                  "TFL": "0",
+                  "PD": "0"
+                }
+              },
+              {
+                "name": "Darryll Desir",
+                "player_url": "https://www.espn.com/college-football/player/_/id/5167701/darryll-desir",
+                "player_id": "5167701",
+                "jersey": "90",
+                "stats": {
+                  "TOT": "1",
+                  "SOLO": "0",
+                  "SACKS": "0",
+                  "TFL": "0",
+                  "PD": "0"
+                }
+              }
+            ],
+            "team_totals": {
+              "TOT": "101",
+              "SOLO": "33",
+              "SACKS": "2",
+              "TFL": "4",
+              "PD": "2",
+              "TD": ""
+            }
+          },
+          "interceptions": {
+            "players": [
+              {
+                "name": "Edwin Joseph",
+                "player_url": "https://www.espn.com/college-football/player/_/id/4870765/edwin-joseph",
+                "player_id": "4870765",
+                "jersey": "3",
+                "stats": {
+                  "INT": "1",
+                  "YDS": "16",
+                  "TD": "0"
+                }
+              },
+              {
+                "name": "Elijah Herring",
+                "player_url": "https://www.espn.com/college-football/player/_/id/4701943/elijah-herring",
+                "player_id": "4701943",
+                "jersey": "31",
+                "stats": {
+                  "INT": "1",
+                  "YDS": "15",
+                  "TD": "0"
+                }
+              },
+              {
+                "name": "Ja'Bril Rawls",
+                "player_url": "https://www.espn.com/college-football/player/_/id/5085388/jabril-rawls",
+                "player_id": "5085388",
+                "jersey": "11",
+                "stats": {
+                  "INT": "1",
+                  "YDS": "0",
+                  "TD": "0"
+                }
+              }
+            ],
+            "team_totals": {
+              "INT": "3",
+              "YDS": "31",
+              "TD": "0"
+            }
+          },
+          "kicking": {
+            "players": [
+              {
+                "name": "Jake Weinberg",
+                "player_url": "https://www.espn.com/college-football/player/_/id/5123219/jake-weinberg",
+                "player_id": "5123219",
+                "jersey": "22",
+                "stats": {
+                  "FG": "1/2",
+                  "PCT": "50.0",
+                  "LONG": "36",
+                  "XP": "5/5",
+                  "PTS": "8"
+                }
+              }
+            ],
+            "team_totals": {
+              "FG": "1/2",
+              "PCT": "50.0",
+              "LONG": "36",
+              "XP": "5/5",
+              "PTS": "8"
+            }
+          },
+          "punting": {
+            "players": [
+              {
+                "name": "Mac Chiumento",
+                "player_url": "https://www.espn.com/college-football/player/_/id/5081075/mac-chiumento",
+                "player_id": "5081075",
+                "jersey": "43",
+                "stats": {
+                  "NO": "1",
+                  "YDS": "41",
+                  "AVG": "41.0",
+                  "TB": "0",
+                  "In 20": "0",
+                  "LONG": "41"
+                }
+              }
+            ],
+            "team_totals": {
+              "NO": "1",
+              "YDS": "41",
+              "AVG": "41.0",
+              "TB": "0",
+              "In 20": "0",
+              "LONG": "41"
+            }
+          }
+        },
+        "Virginia": {
+          "passing": {
+            "players": [
+              {
+                "name": "Chandler Morris",
+                "player_url": "https://www.espn.com/college-football/player/_/id/4692530/chandler-morris",
+                "player_id": "4692530",
+                "jersey": "4",
+                "stats": {
+                  "C/ATT": "26/35",
+                  "YDS": "229",
+                  "AVG": "6.5",
+                  "TD": "2",
+                  "INT": "3"
+                }
+              },
+              {
+                "name": "Suderian Harrison",
+                "player_url": "https://www.espn.com/college-football/player/_/id/5114331/suderian-harrison",
+                "player_id": "5114331",
+                "jersey": "1",
+                "stats": {
+                  "C/ATT": "0/1",
+                  "YDS": "0",
+                  "AVG": "0.0",
+                  "TD": "0",
+                  "INT": "0"
+                }
+              }
+            ],
+            "team_totals": {
+              "C/ATT": "26/36",
+              "YDS": "229",
+              "AVG": "6.4",
+              "TD": "2",
+              "INT": "3",
+              "QBR": ""
+            }
+          },
+          "rushing": {
+            "players": [
+              {
+                "name": "J'Mari Taylor",
+                "player_url": "https://www.espn.com/college-football/player/_/id/4713118/jmari-taylor",
+                "player_id": "4713118",
+                "jersey": "3",
+                "stats": {
+                  "CAR": "27",
+                  "YDS": "99",
+                  "AVG": "3.7",
+                  "TD": "1",
+                  "LONG": "26"
+                }
+              },
+              {
+                "name": "Xavier Brown",
+                "player_url": "https://www.espn.com/college-football/player/_/id/4873442/xavier-brown",
+                "player_id": "4873442",
+                "jersey": "20",
+                "stats": {
+                  "CAR": "9",
+                  "YDS": "60",
+                  "AVG": "6.7",
+                  "TD": "0",
+                  "LONG": "13"
+                }
+              },
+              {
+                "name": "Chandler Morris",
+                "player_url": "https://www.espn.com/college-football/player/_/id/4692530/chandler-morris",
+                "player_id": "4692530",
+                "jersey": "4",
+                "stats": {
+                  "CAR": "8",
+                  "YDS": "37",
+                  "AVG": "4.6",
+                  "TD": "3",
+                  "LONG": "16"
+                }
+              },
+              {
+                "name": "Harrison Waylee",
+                "player_url": "https://www.espn.com/college-football/player/_/id/4576294/harrison-waylee",
+                "player_id": "4576294",
+                "jersey": "21",
+                "stats": {
+                  "CAR": "4",
+                  "YDS": "15",
+                  "AVG": "3.8",
+                  "TD": "0",
+                  "LONG": "4"
+                }
+              }
+            ],
+            "team_totals": {
+              "CAR": "48",
+              "YDS": "211",
+              "AVG": "4.4",
+              "TD": "4",
+              "LONG": "26"
+            }
+          },
+          "receiving": {
+            "players": [
+              {
+                "name": "Trell Harris",
+                "player_url": "https://www.espn.com/college-football/player/_/id/4912130/trell-harris",
+                "player_id": "4912130",
+                "jersey": "11",
+                "stats": {
+                  "REC": "3",
+                  "YDS": "45",
+                  "AVG": "15.0",
+                  "TD": "0",
+                  "LONG": "28"
+                }
+              },
+              {
+                "name": "Jahmal Edrine",
+                "player_url": "https://www.espn.com/college-football/player/_/id/4683886/jahmal-edrine",
+                "player_id": "4683886",
+                "jersey": "7",
+                "stats": {
+                  "REC": "5",
+                  "YDS": "45",
+                  "AVG": "9.0",
+                  "TD": "0",
+                  "LONG": "14"
+                }
+              },
+              {
+                "name": "Cam Ross",
+                "player_url": "https://www.espn.com/college-football/player/_/id/4569001/cam-ross",
+                "player_id": "4569001",
+                "jersey": "6",
+                "stats": {
+                  "REC": "5",
+                  "YDS": "34",
+                  "AVG": "6.8",
+                  "TD": "0",
+                  "LONG": "21"
+                }
+              },
+              {
+                "name": "Eli Wood",
+                "player_url": "https://www.espn.com/college-football/player/_/id/5081209/eli-wood",
+                "player_id": "5081209",
+                "jersey": "82",
+                "stats": {
+                  "REC": "2",
+                  "YDS": "29",
+                  "AVG": "14.5",
+                  "TD": "0",
+                  "LONG": "21"
+                }
+              },
+              {
+                "name": "Dakota Twitty",
+                "player_url": "https://www.espn.com/college-football/player/_/id/4685594/dakota-twitty",
+                "player_id": "4685594",
+                "jersey": "9",
+                "stats": {
+                  "REC": "5",
+                  "YDS": "29",
+                  "AVG": "5.8",
+                  "TD": "0",
+                  "LONG": "8"
+                }
+              },
+              {
+                "name": "J'Mari Taylor",
+                "player_url": "https://www.espn.com/college-football/player/_/id/4713118/jmari-taylor",
+                "player_id": "4713118",
+                "jersey": "3",
+                "stats": {
+                  "REC": "3",
+                  "YDS": "16",
+                  "AVG": "5.3",
+                  "TD": "0",
+                  "LONG": "7"
+                }
+              },
+              {
+                "name": "Xavier Brown",
+                "player_url": "https://www.espn.com/college-football/player/_/id/4873442/xavier-brown",
+                "player_id": "4873442",
+                "jersey": "20",
+                "stats": {
+                  "REC": "1",
+                  "YDS": "15",
+                  "AVG": "15.0",
+                  "TD": "1",
+                  "LONG": "15"
+                }
+              },
+              {
+                "name": "Kameron Courtney",
+                "player_url": "https://www.espn.com/college-football/player/_/id/5147376/kameron-courtney",
+                "player_id": "5147376",
+                "jersey": "5",
+                "stats": {
+                  "REC": "1",
+                  "YDS": "10",
+                  "AVG": "10.0",
+                  "TD": "0",
+                  "LONG": "10"
+                }
+              },
+              {
+                "name": "Sage Ennis",
+                "player_url": "https://www.espn.com/college-football/player/_/id/4431081/sage-ennis",
+                "player_id": "4431081",
+                "jersey": "0",
+                "stats": {
+                  "REC": "1",
+                  "YDS": "6",
+                  "AVG": "6.0",
+                  "TD": "1",
+                  "LONG": "6"
+                }
+              }
+            ],
+            "team_totals": {
+              "REC": "26",
+              "YDS": "229",
+              "AVG": "8.8",
+              "TD": "2",
+              "LONG": "28"
+            }
+          },
+          "fumbles": {
+            "players": [
+              {
+                "name": "Fisher Camac",
+                "player_url": "https://www.espn.com/college-football/player/_/id/4912224/fisher-camac",
+                "player_id": "4912224",
+                "jersey": "14",
+                "stats": {
+                  "FUM": "0",
+                  "LOST": "0",
+                  "REC": "1"
+                }
+              }
+            ],
+            "team_totals": {
+              "FUM": "0",
+              "LOST": "0",
+              "REC": "1"
+            }
+          },
+          "defense": {
+            "players": [
+              {
+                "name": "Devin Neal",
+                "player_url": "https://www.espn.com/college-football/player/_/id/4431292/devin-neal",
+                "player_id": "4431292",
+                "jersey": "27",
+                "stats": {
+                  "TOT": "12",
+                  "SOLO": "3",
+                  "SACKS": "0",
+                  "TFL": "0",
+                  "PD": "0"
+                }
+              },
+              {
+                "name": "Kam Robinson",
+                "player_url": "https://www.espn.com/college-football/player/_/id/5078423/kam-robinson",
+                "player_id": "5078423",
+                "jersey": "5",
+                "stats": {
+                  "TOT": "10",
+                  "SOLO": "2",
+                  "SACKS": "1",
+                  "TFL": "1",
+                  "PD": "0"
+                }
+              },
+              {
+                "name": "Mitchell Melton",
+                "player_url": "https://www.espn.com/college-football/player/_/id/4693205/mitchell-melton",
+                "player_id": "4693205",
+                "jersey": "17",
+                "stats": {
+                  "TOT": "7",
+                  "SOLO": "2",
+                  "SACKS": "0",
+                  "TFL": "1",
+                  "PD": "0"
+                }
+              },
+              {
+                "name": "Fisher Camac",
+                "player_url": "https://www.espn.com/college-football/player/_/id/4912224/fisher-camac",
+                "player_id": "4912224",
+                "jersey": "14",
+                "stats": {
+                  "TOT": "6",
+                  "SOLO": "3",
+                  "SACKS": "0",
+                  "TFL": "0.5",
+                  "PD": "1"
+                }
+              },
+              {
+                "name": "Ethan Minter",
+                "player_url": "https://www.espn.com/college-football/player/_/id/5139080/ethan-minter",
+                "player_id": "5139080",
+                "jersey": "30",
+                "stats": {
+                  "TOT": "6",
+                  "SOLO": "2",
+                  "SACKS": "0",
+                  "TFL": "0",
+                  "PD": "0"
+                }
+              },
+              {
+                "name": "Emmanuel Karnley",
+                "player_url": "https://www.espn.com/college-football/player/_/id/4923299/emmanuel-karnley",
+                "player_id": "4923299",
+                "jersey": "19",
+                "stats": {
+                  "TOT": "5",
+                  "SOLO": "3",
+                  "SACKS": "0",
+                  "TFL": "1",
+                  "PD": "0"
+                }
+              },
+              {
+                "name": "Jordan Robinson",
+                "player_url": "https://www.espn.com/college-football/player/_/id/5081082/jordan-robinson",
+                "player_id": "5081082",
+                "jersey": "9",
+                "stats": {
+                  "TOT": "5",
+                  "SOLO": "3",
+                  "SACKS": "0",
+                  "TFL": "0",
+                  "PD": "0"
+                }
+              },
+              {
+                "name": "Donavon Platt",
+                "player_url": "https://www.espn.com/college-football/player/_/id/5082121/donavon-platt",
+                "player_id": "5082121",
+                "jersey": "28",
+                "stats": {
+                  "TOT": "5",
+                  "SOLO": "3",
+                  "SACKS": "0",
+                  "TFL": "0",
+                  "PD": "0"
+                }
+              },
+              {
+                "name": "Christian Charles",
+                "player_url": "https://www.espn.com/college-football/player/_/id/4698882/christian-charles",
+                "player_id": "4698882",
+                "jersey": "4",
+                "stats": {
+                  "TOT": "5",
+                  "SOLO": "1",
+                  "SACKS": "0",
+                  "TFL": "0",
+                  "PD": "0"
+                }
+              },
+              {
+                "name": "Jahmeer Carter",
+                "player_url": "https://www.espn.com/college-football/player/_/id/4429371/jahmeer-carter",
+                "player_id": "4429371",
+                "jersey": "90",
+                "stats": {
+                  "TOT": "5",
+                  "SOLO": "0",
+                  "SACKS": "0",
+                  "TFL": "0.5",
+                  "PD": "0"
+                }
+              },
+              {
+                "name": "Maddox Marcellus",
+                "player_url": "https://www.espn.com/college-football/player/_/id/5153257/maddox-marcellus",
+                "player_id": "5153257",
+                "jersey": "11",
+                "stats": {
+                  "TOT": "4",
+                  "SOLO": "1",
+                  "SACKS": "0",
+                  "TFL": "0",
+                  "PD": "0"
+                }
+              },
+              {
+                "name": "James Jackson",
+                "player_url": "https://www.espn.com/college-football/player/_/id/4686028/james-jackson",
+                "player_id": "4686028",
+                "jersey": "1",
+                "stats": {
+                  "TOT": "4",
+                  "SOLO": "0",
+                  "SACKS": "0",
+                  "TFL": "0",
+                  "PD": "0"
+                }
+              },
+              {
+                "name": "Hunter Osborne",
+                "player_url": "https://www.espn.com/college-football/player/_/id/4870878/hunter-osborne",
+                "player_id": "4870878",
+                "jersey": "15",
+                "stats": {
+                  "TOT": "3",
+                  "SOLO": "0",
+                  "SACKS": "0",
+                  "TFL": "0",
+                  "PD": "0"
+                }
+              },
+              {
+                "name": "Daniel Rickert",
+                "player_url": "https://www.espn.com/college-football/player/_/id/4695022/daniel-rickert",
+                "player_id": "4695022",
+                "jersey": "52",
+                "stats": {
+                  "TOT": "2",
+                  "SOLO": "1",
+                  "SACKS": "1",
+                  "TFL": "1",
+                  "PD": "0"
+                }
+              },
+              {
+                "name": "Antonio Clary",
+                "player_url": "https://www.espn.com/college-football/player/_/id/4426931/antonio-clary",
+                "player_id": "4426931",
+                "jersey": "0",
+                "stats": {
+                  "TOT": "2",
+                  "SOLO": "1",
+                  "SACKS": "0",
+                  "TFL": "0",
+                  "PD": "0"
+                }
+              },
+              {
+                "name": "Jacob Holmes",
+                "player_url": "https://www.espn.com/college-football/player/_/id/4816096/jacob-holmes",
+                "player_id": "4816096",
+                "jersey": "23",
+                "stats": {
+                  "TOT": "2",
+                  "SOLO": "1",
+                  "SACKS": "0",
+                  "TFL": "0",
+                  "PD": "0"
+                }
+              },
+              {
+                "name": "Anthony Britton",
+                "player_url": "https://www.espn.com/college-football/player/_/id/5089413/anthony-britton",
+                "player_id": "5089413",
+                "jersey": "55",
+                "stats": {
+                  "TOT": "2",
+                  "SOLO": "1",
+                  "SACKS": "0",
+                  "TFL": "0",
+                  "PD": "0"
+                }
+              },
+              {
+                "name": "Ja'son Prevard",
+                "player_url": "https://www.espn.com/college-football/player/_/id/5154535/jason-prevard",
+                "player_id": "5154535",
+                "jersey": "10",
+                "stats": {
+                  "TOT": "2",
+                  "SOLO": "1",
+                  "SACKS": "0",
+                  "TFL": "0",
+                  "PD": "1"
+                }
+              },
+              {
+                "name": "Noah Josey",
+                "player_url": "https://www.espn.com/college-football/player/_/id/4589518/noah-josey",
+                "player_id": "4589518",
+                "jersey": "77",
+                "stats": {
+                  "TOT": "1",
+                  "SOLO": "1",
+                  "SACKS": "0",
+                  "TFL": "0",
+                  "PD": "0"
+                }
+              },
+              {
+                "name": "J'Mari Taylor",
+                "player_url": "https://www.espn.com/college-football/player/_/id/4713118/jmari-taylor",
+                "player_id": "4713118",
+                "jersey": "3",
+                "stats": {
+                  "TOT": "1",
+                  "SOLO": "1",
+                  "SACKS": "0",
+                  "TFL": "0",
+                  "PD": "0"
+                }
+              },
+              {
+                "name": "Jack Witmer",
+                "player_url": "https://www.espn.com/college-football/player/_/id/4687416/jack-witmer",
+                "player_id": "4687416",
+                "jersey": "68",
+                "stats": {
+                  "TOT": "1",
+                  "SOLO": "0",
+                  "SACKS": "0",
+                  "TFL": "0",
+                  "PD": "0"
+                }
+              },
+              {
+                "name": "Jason Hammond",
+                "player_url": "https://www.espn.com/college-football/player/_/id/4870783/jason-hammond",
+                "player_id": "4870783",
+                "jersey": "91",
+                "stats": {
+                  "TOT": "1",
+                  "SOLO": "0",
+                  "SACKS": "0",
+                  "TFL": "0",
+                  "PD": "0"
+                }
+              },
+              {
+                "name": "Cazeem Moore",
+                "player_url": "https://www.espn.com/college-football/player/_/id/5086542/cazeem-moore",
+                "player_id": "5086542",
+                "jersey": "6",
+                "stats": {
+                  "TOT": "1",
+                  "SOLO": "0",
+                  "SACKS": "0",
+                  "TFL": "0",
+                  "PD": "0"
+                }
+              }
+            ],
+            "team_totals": {
+              "TOT": "92",
+              "SOLO": "30",
+              "SACKS": "2",
+              "TFL": "5",
+              "PD": "2",
+              "TD": ""
+            }
+          },
+          "interceptions": {
+            "players": [
+              {
+                "name": "Ja'son Prevard",
+                "player_url": "https://www.espn.com/college-football/player/_/id/5154535/jason-prevard",
+                "player_id": "5154535",
+                "jersey": "10",
+                "stats": {
+                  "INT": "2",
+                  "YDS": "9",
+                  "TD": "0"
+                }
+              }
+            ],
+            "team_totals": {
+              "INT": "2",
+              "YDS": "9",
+              "TD": "0"
+            }
+          },
+          "kicking": {
+            "players": [
+              {
+                "name": "Will Bettridge",
+                "player_url": "https://www.espn.com/college-football/player/_/id/4871220/will-bettridge",
+                "player_id": "4871220",
+                "jersey": "41",
+                "stats": {
+                  "FG": "1/1",
+                  "PCT": "100.0",
+                  "LONG": "39",
+                  "XP": "5/5",
+                  "PTS": "8"
+                }
+              }
+            ],
+            "team_totals": {
+              "FG": "1/1",
+              "PCT": "100.0",
+              "LONG": "39",
+              "XP": "5/5",
+              "PTS": "8"
+            }
+          },
+          "punting": {
+            "players": [
+              {
+                "name": "Elijah Slibeck",
+                "player_url": "https://www.espn.com/college-football/player/_/id/5092258/elijah-slibeck",
+                "player_id": "5092258",
+                "jersey": "99",
+                "stats": {
+                  "NO": "3",
+                  "YDS": "110",
+                  "AVG": "36.7",
+                  "TB": "0",
+                  "In 20": "0",
+                  "LONG": "44"
+                }
+              }
+            ],
+            "team_totals": {
+              "NO": "3",
+              "YDS": "110",
+              "AVG": "36.7",
+              "TB": "0",
+              "In 20": "0",
+              "LONG": "44"
+            }
+          }
+        },
+        "Florida State Kick": {
+          "returns": {
+            "players": [],
+            "team_totals": {}
+          }
+        },
+        "Virginia Kick": {
+          "returns": {
+            "players": [],
+            "team_totals": {}
+          }
+        },
+        "Florida State Punt": {
+          "returns": {
+            "players": [
+              {
+                "name": "Squirrel White",
+                "player_url": "https://www.espn.com/college-football/player/_/id/5081368/squirrel-white",
+                "player_id": "5081368",
+                "jersey": "4",
+                "stats": {
+                  "NO": "1",
+                  "YDS": "23",
+                  "AVG": "23.0",
+                  "LONG": "23",
+                  "TD": "0"
+                }
+              }
+            ],
+            "team_totals": {
+              "NO": "1",
+              "YDS": "23",
+              "AVG": "23.0",
+              "LONG": "23",
+              "TD": "0"
+            }
+          }
+        },
+        "Virginia Punt": {
+          "returns": {
+            "players": [],
+            "team_totals": {}
+          }
+        }
+      }
+    },
+    "401756902": {
+      "game_id": "401756902",
+      "game_info": {
+        "teams": [],
+        "game_status": {
+          "time_remaining": "Final",
+          "quarter": ""
+        },
+        "quarter_scores": {
+          "TCU": {
+            "1": "7",
+            "2": "10",
+            "3": "7",
+            "4": "0",
+            "T": "24"
+          },
+          "Arizona St": {
+            "1": "0",
+            "2": "14",
+            "3": "3",
+            "4": "10",
+            "T": "27"
+          }
+        }
+      },
+      "teams": {
+        "TCU": {
+          "passing": {
+            "players": [
+              {
+                "name": "Josh Hoover",
+                "player_url": "https://www.espn.com/college-football/player/_/id/4685401/josh-hoover",
+                "player_id": "4685401",
+                "jersey": "10",
+                "stats": {
+                  "C/ATT": "20/32",
+                  "YDS": "242",
+                  "AVG": "7.6",
+                  "TD": "0",
+                  "INT": "2"
+                }
+              },
+              {
+                "name": "Joseph Manjack IV",
+                "player_url": "https://www.espn.com/college-football/player/_/id/4683227/joseph-manjack-iv",
+                "player_id": "4683227",
+                "jersey": "14",
+                "stats": {
+                  "C/ATT": "1/1",
+                  "YDS": "17",
+                  "AVG": "17.0",
+                  "TD": "0",
+                  "INT": "0"
+                }
+              }
+            ],
+            "team_totals": {
+              "C/ATT": "21/33",
+              "YDS": "259",
+              "AVG": "7.8",
+              "TD": "0",
+              "INT": "2",
+              "QBR": ""
+            }
+          },
+          "rushing": {
+            "players": [
+              {
+                "name": "Trent Battle",
+                "player_url": "https://www.espn.com/college-football/player/_/id/4602783/trent-battle",
+                "player_id": "4602783",
+                "jersey": "6",
+                "stats": {
+                  "CAR": "9",
+                  "YDS": "30",
+                  "AVG": "3.3",
+                  "TD": "1",
+                  "LONG": "13"
+                }
+              },
+              {
+                "name": "Jeremy Payne",
+                "player_url": "https://www.espn.com/college-football/player/_/id/5079663/jeremy-payne",
+                "player_id": "5079663",
+                "jersey": "26",
+                "stats": {
+                  "CAR": "6",
+                  "YDS": "20",
+                  "AVG": "3.3",
+                  "TD": "1",
+                  "LONG": "11"
+                }
+              },
+              {
+                "name": "Josh Hoover",
+                "player_url": "https://www.espn.com/college-football/player/_/id/4685401/josh-hoover",
+                "player_id": "4685401",
+                "jersey": "10",
+                "stats": {
+                  "CAR": "9",
+                  "YDS": "-38",
+                  "AVG": "-4.2",
+                  "TD": "1",
+                  "LONG": "11"
+                }
+              }
+            ],
+            "team_totals": {
+              "CAR": "24",
+              "YDS": "12",
+              "AVG": "0.5",
+              "TD": "3",
+              "LONG": "13"
+            }
+          },
+          "receiving": {
+            "players": [
+              {
+                "name": "Joseph Manjack IV",
+                "player_url": "https://www.espn.com/college-football/player/_/id/4683227/joseph-manjack-iv",
+                "player_id": "4683227",
+                "jersey": "14",
+                "stats": {
+                  "REC": "6",
+                  "YDS": "83",
+                  "AVG": "13.8",
+                  "TD": "0",
+                  "LONG": "32"
+                }
+              },
+              {
+                "name": "DJ Rogers",
+                "player_url": "https://www.espn.com/college-football/player/_/id/4710711/dj-rogers",
+                "player_id": "4710711",
+                "jersey": "0",
+                "stats": {
+                  "REC": "4",
+                  "YDS": "60",
+                  "AVG": "15.0",
+                  "TD": "0",
+                  "LONG": "39"
+                }
+              },
+              {
+                "name": "Jordan Dwyer",
+                "player_url": "https://www.espn.com/college-football/player/_/id/4832804/jordan-dwyer",
+                "player_id": "4832804",
+                "jersey": "7",
+                "stats": {
+                  "REC": "3",
+                  "YDS": "42",
+                  "AVG": "14.0",
+                  "TD": "0",
+                  "LONG": "19"
+                }
+              },
+              {
+                "name": "Chase Curtis",
+                "player_url": "https://www.espn.com/college-football/player/_/id/4695223/chase-curtis",
+                "player_id": "4695223",
+                "jersey": "81",
+                "stats": {
+                  "REC": "1",
+                  "YDS": "21",
+                  "AVG": "21.0",
+                  "TD": "0",
+                  "LONG": "21"
+                }
+              },
+              {
+                "name": "Dozie Ezukanma",
+                "player_url": "https://www.espn.com/college-football/player/_/id/5084893/dozie-ezukanma",
+                "player_id": "5084893",
+                "jersey": "82",
+                "stats": {
+                  "REC": "1",
+                  "YDS": "17",
+                  "AVG": "17.0",
+                  "TD": "0",
+                  "LONG": "17"
+                }
+              },
+              {
+                "name": "Jeremy Payne",
+                "player_url": "https://www.espn.com/college-football/player/_/id/5079663/jeremy-payne",
+                "player_id": "5079663",
+                "jersey": "26",
+                "stats": {
+                  "REC": "4",
+                  "YDS": "16",
+                  "AVG": "4.0",
+                  "TD": "0",
+                  "LONG": "14"
+                }
+              },
+              {
+                "name": "Ed Small",
+                "player_url": "https://www.espn.com/college-football/player/_/id/5200482/ed-small",
+                "player_id": "5200482",
+                "jersey": "18",
+                "stats": {
+                  "REC": "1",
+                  "YDS": "11",
+                  "AVG": "11.0",
+                  "TD": "0",
+                  "LONG": "11"
+                }
+              },
+              {
+                "name": "Major Everhart",
+                "player_url": "https://www.espn.com/college-football/player/_/id/4832792/major-everhart",
+                "player_id": "4832792",
+                "jersey": "3",
+                "stats": {
+                  "REC": "1",
+                  "YDS": "9",
+                  "AVG": "9.0",
+                  "TD": "0",
+                  "LONG": "9"
+                }
+              }
+            ],
+            "team_totals": {
+              "REC": "21",
+              "YDS": "259",
+              "AVG": "12.3",
+              "TD": "0",
+              "LONG": "39"
+            }
+          },
+          "fumbles": {
+            "players": [
+              {
+                "name": "Josh Hoover",
+                "player_url": "https://www.espn.com/college-football/player/_/id/4685401/josh-hoover",
+                "player_id": "4685401",
+                "jersey": "10",
+                "stats": {
+                  "FUM": "1",
+                  "LOST": "1",
+                  "REC": "0"
+                }
+              },
+              {
+                "name": "Jamel Johnson",
+                "player_url": "https://www.espn.com/college-football/player/_/id/4870854/jamel-johnson",
+                "player_id": "4870854",
+                "jersey": "2",
+                "stats": {
+                  "FUM": "0",
+                  "LOST": "0",
+                  "REC": "1"
+                }
+              }
+            ],
+            "team_totals": {
+              "FUM": "1",
+              "LOST": "1",
+              "REC": "1"
+            }
+          },
+          "defense": {
+            "players": [
+              {
+                "name": "Kaleb Elarms-Orr",
+                "player_url": "https://www.espn.com/college-football/player/_/id/4594321/kaleb-elarms-orr",
+                "player_id": "4594321",
+                "jersey": "3",
+                "stats": {
+                  "TOT": "13",
+                  "SOLO": "8",
+                  "SACKS": "2",
+                  "TFL": "2",
+                  "PD": "1"
+                }
+              },
+              {
+                "name": "Bud Clark",
+                "player_url": "https://www.espn.com/college-football/player/_/id/4430262/bud-clark",
+                "player_id": "4430262",
+                "jersey": "21",
+                "stats": {
+                  "TOT": "9",
+                  "SOLO": "6",
+                  "SACKS": "0",
+                  "TFL": "0",
+                  "PD": "1"
+                }
+              },
+              {
+                "name": "Jamel Johnson",
+                "player_url": "https://www.espn.com/college-football/player/_/id/4870854/jamel-johnson",
+                "player_id": "4870854",
+                "jersey": "2",
+                "stats": {
+                  "TOT": "8",
+                  "SOLO": "7",
+                  "SACKS": "0",
+                  "TFL": "0",
+                  "PD": "0"
+                }
+              },
+              {
+                "name": "Devean Deal",
+                "player_url": "https://www.espn.com/college-football/player/_/id/4689265/devean-deal",
+                "player_id": "4689265",
+                "jersey": "11",
+                "stats": {
+                  "TOT": "8",
+                  "SOLO": "5",
+                  "SACKS": "1",
+                  "TFL": "1",
+                  "PD": "1"
+                }
+              },
+              {
+                "name": "Namdi Obiazor",
+                "player_url": "https://www.espn.com/college-football/player/_/id/5085407/namdi-obiazor",
+                "player_id": "5085407",
+                "jersey": "4",
+                "stats": {
+                  "TOT": "7",
+                  "SOLO": "2",
+                  "SACKS": "0",
+                  "TFL": "0",
+                  "PD": "0"
+                }
+              },
+              {
+                "name": "Austin Jordan",
+                "player_url": "https://www.espn.com/college-football/player/_/id/4685410/austin-jordan",
+                "player_id": "4685410",
+                "jersey": "1",
+                "stats": {
+                  "TOT": "6",
+                  "SOLO": "5",
+                  "SACKS": "0",
+                  "TFL": "0",
+                  "PD": "0"
+                }
+              },
+              {
+                "name": "Vernon Glover",
+                "player_url": "https://www.espn.com/college-football/player/_/id/4870705/vernon-glover",
+                "player_id": "4870705",
+                "jersey": "26",
+                "stats": {
+                  "TOT": "4",
+                  "SOLO": "4",
+                  "SACKS": "0",
+                  "TFL": "1",
+                  "PD": "1"
+                }
+              },
+              {
+                "name": "Max Carroll",
+                "player_url": "https://www.espn.com/college-football/player/_/id/4918123/max-carroll",
+                "player_id": "4918123",
+                "jersey": "33",
+                "stats": {
+                  "TOT": "3",
+                  "SOLO": "2",
+                  "SACKS": "0",
+                  "TFL": "1.5",
+                  "PD": "0"
+                }
+              },
+              {
+                "name": "Tristan Johnson",
+                "player_url": "https://www.espn.com/college-football/player/_/id/5150137/tristan-johnson",
+                "player_id": "5150137",
+                "jersey": "35",
+                "stats": {
+                  "TOT": "3",
+                  "SOLO": "0",
+                  "SACKS": "0.5",
+                  "TFL": "0.5",
+                  "PD": "0"
+                }
+              },
+              {
+                "name": "Jordan Dwyer",
+                "player_url": "https://www.espn.com/college-football/player/_/id/4832804/jordan-dwyer",
+                "player_id": "4832804",
+                "jersey": "7",
+                "stats": {
+                  "TOT": "2",
+                  "SOLO": "2",
+                  "SACKS": "0",
+                  "TFL": "0",
+                  "PD": "0"
+                }
+              },
+              {
+                "name": "Jonathan Bax",
+                "player_url": "https://www.espn.com/college-football/player/_/id/4921426/jonathan-bax",
+                "player_id": "4921426",
+                "jersey": "10",
+                "stats": {
+                  "TOT": "2",
+                  "SOLO": "2",
+                  "SACKS": "0",
+                  "TFL": "1",
+                  "PD": "0"
+                }
+              },
+              {
+                "name": "Kylin Jackson",
+                "player_url": "https://www.espn.com/college-football/player/_/id/4870804/kylin-jackson",
+                "player_id": "4870804",
+                "jersey": "19",
+                "stats": {
+                  "TOT": "2",
+                  "SOLO": "1",
+                  "SACKS": "0.5",
+                  "TFL": "0.5",
+                  "PD": "0"
+                }
+              },
+              {
+                "name": "Jevon McIver Jr.",
+                "player_url": "https://www.espn.com/college-football/player/_/id/5153732/jevon-mciver-jr",
+                "player_id": "5153732",
+                "jersey": "20",
+                "stats": {
+                  "TOT": "2",
+                  "SOLO": "1",
+                  "SACKS": "0",
+                  "TFL": "0",
+                  "PD": "0"
+                }
+              },
+              {
+                "name": "Channing Canada",
+                "player_url": "https://www.espn.com/college-football/player/_/id/4688779/channing-canada",
+                "player_id": "4688779",
+                "jersey": "7",
+                "stats": {
+                  "TOT": "2",
+                  "SOLO": "0",
+                  "SACKS": "0",
+                  "TFL": "0",
+                  "PD": "1"
+                }
+              },
+              {
+                "name": "Ansel Din-Mbuh",
+                "player_url": "https://www.espn.com/college-football/player/_/id/5101112/ansel-din-mbuh",
+                "player_id": "5101112",
+                "jersey": "92",
+                "stats": {
+                  "TOT": "2",
+                  "SOLO": "0",
+                  "SACKS": "0",
+                  "TFL": "0.5",
+                  "PD": "0"
+                }
+              },
+              {
+                "name": "Markis Deal",
+                "player_url": "https://www.espn.com/college-football/player/_/id/4870670/markis-deal",
+                "player_id": "4870670",
+                "jersey": "95",
+                "stats": {
+                  "TOT": "1",
+                  "SOLO": "1",
+                  "SACKS": "0",
+                  "TFL": "0",
+                  "PD": "0"
+                }
+              },
+              {
+                "name": "Connor Lingren",
+                "player_url": "https://www.espn.com/college-football/player/_/id/4917132/connor-lingren",
+                "player_id": "4917132",
+                "jersey": "99",
+                "stats": {
+                  "TOT": "1",
+                  "SOLO": "1",
+                  "SACKS": "0",
+                  "TFL": "0",
+                  "PD": "0"
+                }
+              },
+              {
+                "name": "Zach Chapman",
+                "player_url": "https://www.espn.com/college-football/player/_/id/4918413/zach-chapman",
+                "player_id": "4918413",
+                "jersey": "0",
+                "stats": {
+                  "TOT": "1",
+                  "SOLO": "1",
+                  "SACKS": "0",
+                  "TFL": "0",
+                  "PD": "0"
+                }
+              },
+              {
+                "name": "Nate Palmer",
+                "player_url": "https://www.espn.com/college-football/player/_/id/5079552/nate-palmer",
+                "player_id": "5079552",
+                "jersey": "21",
+                "stats": {
+                  "TOT": "1",
+                  "SOLO": "1",
+                  "SACKS": "0",
+                  "TFL": "0",
+                  "PD": "0"
+                }
+              },
+              {
+                "name": "Jeremy Payne",
+                "player_url": "https://www.espn.com/college-football/player/_/id/5079663/jeremy-payne",
+                "player_id": "5079663",
+                "jersey": "26",
+                "stats": {
+                  "TOT": "1",
+                  "SOLO": "1",
+                  "SACKS": "0",
+                  "TFL": "0",
+                  "PD": "0"
+                }
+              },
+              {
+                "name": "Paul Oyewale",
+                "player_url": "https://www.espn.com/college-football/player/_/id/4832593/paul-oyewale",
+                "player_id": "4832593",
+                "jersey": "97",
+                "stats": {
+                  "TOT": "1",
+                  "SOLO": "0",
+                  "SACKS": "0",
+                  "TFL": "0",
+                  "PD": "0"
+                }
+              },
+              {
+                "name": "Ryan Yaites",
+                "player_url": "https://www.espn.com/college-football/player/_/id/4871066/ryan-yaites",
+                "player_id": "4871066",
+                "jersey": "13",
+                "stats": {
+                  "TOT": "1",
+                  "SOLO": "0",
+                  "SACKS": "0",
+                  "TFL": "0",
+                  "PD": "0"
+                }
+              },
+              {
+                "name": "Hudson Hooper",
+                "player_url": "https://www.espn.com/college-football/player/_/id/5151166/hudson-hooper",
+                "player_id": "5151166",
+                "jersey": "37",
+                "stats": {
+                  "TOT": "1",
+                  "SOLO": "0",
+                  "SACKS": "0",
+                  "TFL": "0",
+                  "PD": "0"
+                }
+              },
+              {
+                "name": "Perry Cole Jr.",
+                "player_url": "https://www.espn.com/college-football/player/_/id/5296127/perry-cole-jr",
+                "player_id": "5296127",
+                "jersey": "34",
+                "stats": {
+                  "TOT": "1",
+                  "SOLO": "0",
+                  "SACKS": "0",
+                  "TFL": "0",
+                  "PD": "0"
+                }
+              }
+            ],
+            "team_totals": {
+              "TOT": "82",
+              "SOLO": "50",
+              "SACKS": "4",
+              "TFL": "8",
+              "PD": "5",
+              "TD": ""
+            }
+          },
+          "interceptions": {
+            "players": [],
+            "team_totals": {}
+          },
+          "kicking": {
+            "players": [
+              {
+                "name": "Nate McCashland",
+                "player_url": "https://www.espn.com/college-football/player/_/id/5151170/nate-mccashland",
+                "player_id": "5151170",
+                "jersey": "99",
+                "stats": {
+                  "FG": "1/1",
+                  "PCT": "100.0",
+                  "LONG": "27",
+                  "XP": "3/3",
+                  "PTS": "6"
+                }
+              }
+            ],
+            "team_totals": {
+              "FG": "1/1",
+              "PCT": "100.0",
+              "LONG": "27",
+              "XP": "3/3",
+              "PTS": "6"
+            }
+          },
+          "punting": {
+            "players": [
+              {
+                "name": "Ethan Craw",
+                "player_url": "https://www.espn.com/college-football/player/_/id/5219564/ethan-craw",
+                "player_id": "5219564",
+                "jersey": "31",
+                "stats": {
+                  "NO": "5",
+                  "YDS": "219",
+                  "AVG": "43.8",
+                  "TB": "0",
+                  "In 20": "1",
+                  "LONG": "69"
+                }
+              }
+            ],
+            "team_totals": {
+              "NO": "5",
+              "YDS": "219",
+              "AVG": "43.8",
+              "TB": "0",
+              "In 20": "1",
+              "LONG": "69"
+            }
+          }
+        },
+        "Arizona State": {
+          "passing": {
+            "players": [
+              {
+                "name": "Sam Leavitt",
+                "player_url": "https://www.espn.com/college-football/player/_/id/5078810/sam-leavitt",
+                "player_id": "5078810",
+                "jersey": "10",
+                "stats": {
+                  "C/ATT": "27/39",
+                  "YDS": "291",
+                  "AVG": "7.5",
+                  "TD": "2",
+                  "INT": "0"
+                }
+              }
+            ],
+            "team_totals": {
+              "C/ATT": "27/39",
+              "YDS": "291",
+              "AVG": "7.5",
+              "TD": "2",
+              "INT": "0",
+              "QBR": ""
+            }
+          },
+          "rushing": {
+            "players": [
+              {
+                "name": "Raleek Brown",
+                "player_url": "https://www.espn.com/college-football/player/_/id/4685268/raleek-brown",
+                "player_id": "4685268",
+                "jersey": "3",
+                "stats": {
+                  "CAR": "21",
+                  "YDS": "134",
+                  "AVG": "6.4",
+                  "TD": "0",
+                  "LONG": "35"
+                }
+              },
+              {
+                "name": "Sam Leavitt",
+                "player_url": "https://www.espn.com/college-football/player/_/id/5078810/sam-leavitt",
+                "player_id": "5078810",
+                "jersey": "10",
+                "stats": {
+                  "CAR": "13",
+                  "YDS": "62",
+                  "AVG": "4.8",
+                  "TD": "1",
+                  "LONG": "24"
+                }
+              },
+              {
+                "name": "Kyson Brown",
+                "player_url": "https://www.espn.com/college-football/player/_/id/5110535/kyson-brown",
+                "player_id": "5110535",
+                "jersey": "1",
+                "stats": {
+                  "CAR": "7",
+                  "YDS": "13",
+                  "AVG": "1.9",
+                  "TD": "0",
+                  "LONG": "6"
+                }
+              },
+              {
+                "name": "Derek Eusebio",
+                "player_url": "https://www.espn.com/college-football/player/_/id/5159831/derek-eusebio",
+                "player_id": "5159831",
+                "jersey": "83",
+                "stats": {
+                  "CAR": "1",
+                  "YDS": "0",
+                  "AVG": "0.0",
+                  "TD": "0",
+                  "LONG": "0"
+                }
+              }
+            ],
+            "team_totals": {
+              "CAR": "42",
+              "YDS": "209",
+              "AVG": "5.0",
+              "TD": "1",
+              "LONG": "35"
+            }
+          },
+          "receiving": {
+            "players": [
+              {
+                "name": "Jordyn Tyson",
+                "player_url": "https://www.espn.com/college-football/player/_/id/4880281/jordyn-tyson",
+                "player_id": "4880281",
+                "jersey": "0",
+                "stats": {
+                  "REC": "8",
+                  "YDS": "126",
+                  "AVG": "15.8",
+                  "TD": "2",
+                  "LONG": "57"
+                }
+              },
+              {
+                "name": "Raleek Brown",
+                "player_url": "https://www.espn.com/college-football/player/_/id/4685268/raleek-brown",
+                "player_id": "4685268",
+                "jersey": "3",
+                "stats": {
+                  "REC": "9",
+                  "YDS": "50",
+                  "AVG": "5.6",
+                  "TD": "0",
+                  "LONG": "7"
+                }
+              },
+              {
+                "name": "Jaren Hamilton",
+                "player_url": "https://www.espn.com/college-football/player/_/id/5104212/jaren-hamilton",
+                "player_id": "5104212",
+                "jersey": "16",
+                "stats": {
+                  "REC": "1",
+                  "YDS": "44",
+                  "AVG": "44.0",
+                  "TD": "0",
+                  "LONG": "44"
+                }
+              },
+              {
+                "name": "Chamon Metayer",
+                "player_url": "https://www.espn.com/college-football/player/_/id/4431461/chamon-metayer",
+                "player_id": "4431461",
+                "jersey": "7",
+                "stats": {
+                  "REC": "4",
+                  "YDS": "25",
+                  "AVG": "6.3",
+                  "TD": "0",
+                  "LONG": "12"
+                }
+              },
+              {
+                "name": "Cameron Harpole",
+                "player_url": "https://www.espn.com/college-football/player/_/id/4684068/cameron-harpole",
+                "player_id": "4684068",
+                "jersey": "9",
+                "stats": {
+                  "REC": "2",
+                  "YDS": "17",
+                  "AVG": "8.5",
+                  "TD": "0",
+                  "LONG": "11"
+                }
+              },
+              {
+                "name": "Malik McClain",
+                "player_url": "https://www.espn.com/college-football/player/_/id/4682509/malik-mcclain",
+                "player_id": "4682509",
+                "jersey": "12",
+                "stats": {
+                  "REC": "1",
+                  "YDS": "15",
+                  "AVG": "15.0",
+                  "TD": "0",
+                  "LONG": "15"
+                }
+              },
+              {
+                "name": "Derek Eusebio",
+                "player_url": "https://www.espn.com/college-football/player/_/id/5159831/derek-eusebio",
+                "player_id": "5159831",
+                "jersey": "83",
+                "stats": {
+                  "REC": "1",
+                  "YDS": "15",
+                  "AVG": "15.0",
+                  "TD": "0",
+                  "LONG": "15"
+                }
+              },
+              {
+                "name": "Khamari Anderson",
+                "player_url": "https://www.espn.com/college-football/player/_/id/4917619/khamari-anderson",
+                "player_id": "4917619",
+                "jersey": "15",
+                "stats": {
+                  "REC": "1",
+                  "YDS": "-1",
+                  "AVG": "-1.0",
+                  "TD": "0",
+                  "LONG": "0"
+                }
+              }
+            ],
+            "team_totals": {
+              "REC": "27",
+              "YDS": "291",
+              "AVG": "10.8",
+              "TD": "2",
+              "LONG": "57"
+            }
+          },
+          "fumbles": {
+            "players": [
+              {
+                "name": "Sam Leavitt",
+                "player_url": "https://www.espn.com/college-football/player/_/id/5078810/sam-leavitt",
+                "player_id": "5078810",
+                "jersey": "10",
+                "stats": {
+                  "FUM": "1",
+                  "LOST": "1",
+                  "REC": "0"
+                }
+              },
+              {
+                "name": "Prince Dorbah",
+                "player_url": "https://www.espn.com/college-football/player/_/id/4429140/prince-dorbah",
+                "player_id": "4429140",
+                "jersey": "32",
+                "stats": {
+                  "FUM": "0",
+                  "LOST": "0",
+                  "REC": "1"
+                }
+              }
+            ],
+            "team_totals": {
+              "FUM": "1",
+              "LOST": "1",
+              "REC": "1"
+            }
+          },
+          "defense": {
+            "players": [
+              {
+                "name": "Myles Rowser",
+                "player_url": "https://www.espn.com/college-football/player/_/id/4685534/myles-rowser",
+                "player_id": "4685534",
+                "jersey": "4",
+                "stats": {
+                  "TOT": "10",
+                  "SOLO": "6",
+                  "SACKS": "0",
+                  "TFL": "1",
+                  "PD": "1"
+                }
+              },
+              {
+                "name": "Jordan Crook",
+                "player_url": "https://www.espn.com/college-football/player/_/id/4702747/jordan-crook",
+                "player_id": "4702747",
+                "jersey": "8",
+                "stats": {
+                  "TOT": "7",
+                  "SOLO": "4",
+                  "SACKS": "0",
+                  "TFL": "1",
+                  "PD": "1"
+                }
+              },
+              {
+                "name": "Keyshaun Elliott",
+                "player_url": "https://www.espn.com/college-football/player/_/id/4911952/keyshaun-elliott",
+                "player_id": "4911952",
+                "jersey": "44",
+                "stats": {
+                  "TOT": "7",
+                  "SOLO": "3",
+                  "SACKS": "1",
+                  "TFL": "2.5",
+                  "PD": "0"
+                }
+              },
+              {
+                "name": "Adrian Wilson",
+                "player_url": "https://www.espn.com/college-football/player/_/id/5027539/adrian-wilson",
+                "player_id": "5027539",
+                "jersey": "6",
+                "stats": {
+                  "TOT": "6",
+                  "SOLO": "2",
+                  "SACKS": "0",
+                  "TFL": "0",
+                  "PD": "0"
+                }
+              },
+              {
+                "name": "Martell Hughes",
+                "player_url": "https://www.espn.com/college-football/player/_/id/5147229/martell-hughes",
+                "player_id": "5147229",
+                "jersey": "18",
+                "stats": {
+                  "TOT": "5",
+                  "SOLO": "3",
+                  "SACKS": "0",
+                  "TFL": "1",
+                  "PD": "1"
+                }
+              },
+              {
+                "name": "Prince Dorbah",
+                "player_url": "https://www.espn.com/college-football/player/_/id/4429140/prince-dorbah",
+                "player_id": "4429140",
+                "jersey": "32",
+                "stats": {
+                  "TOT": "4",
+                  "SOLO": "4",
+                  "SACKS": "3",
+                  "TFL": "4",
+                  "PD": "0"
+                }
+              },
+              {
+                "name": "Rodney Bimage Jr.",
+                "player_url": "https://www.espn.com/college-football/player/_/id/5079305/rodney-bimage-jr",
+                "player_id": "5079305",
+                "jersey": "0",
+                "stats": {
+                  "TOT": "3",
+                  "SOLO": "3",
+                  "SACKS": "0",
+                  "TFL": "0",
+                  "PD": "1"
+                }
+              },
+              {
+                "name": "Zac Swanson",
+                "player_url": "https://www.espn.com/college-football/player/_/id/4686332/zac-swanson",
+                "player_id": "4686332",
+                "jersey": "92",
+                "stats": {
+                  "TOT": "2",
+                  "SOLO": "1",
+                  "SACKS": "0",
+                  "TFL": "0",
+                  "PD": "0"
+                }
+              },
+              {
+                "name": "Javan Robinson",
+                "player_url": "https://www.espn.com/college-football/player/_/id/4896318/javan-robinson",
+                "player_id": "4896318",
+                "jersey": "12",
+                "stats": {
+                  "TOT": "2",
+                  "SOLO": "1",
+                  "SACKS": "0",
+                  "TFL": "0",
+                  "PD": "0"
+                }
+              },
+              {
+                "name": "C.J. Fite",
+                "player_url": "https://www.espn.com/college-football/player/_/id/4923268/cj-fite",
+                "player_id": "4923268",
+                "jersey": "99",
+                "stats": {
+                  "TOT": "2",
+                  "SOLO": "1",
+                  "SACKS": "0",
+                  "TFL": "1.5",
+                  "PD": "0"
+                }
+              },
+              {
+                "name": "Clayton Smith",
+                "player_url": "https://www.espn.com/college-football/player/_/id/4432765/clayton-smith",
+                "player_id": "4432765",
+                "jersey": "10",
+                "stats": {
+                  "TOT": "1",
+                  "SOLO": "1",
+                  "SACKS": "1",
+                  "TFL": "1",
+                  "PD": "0"
+                }
+              },
+              {
+                "name": "Elijah O'Neal",
+                "player_url": "https://www.espn.com/college-football/player/_/id/5150134/elijah-oneal",
+                "player_id": "5150134",
+                "jersey": "9",
+                "stats": {
+                  "TOT": "1",
+                  "SOLO": "1",
+                  "SACKS": "1",
+                  "TFL": "1",
+                  "PD": "0"
+                }
+              },
+              {
+                "name": "Justin Wodtly",
+                "player_url": "https://www.espn.com/college-football/player/_/id/4431495/justin-wodtly",
+                "player_id": "4431495",
+                "jersey": "95",
+                "stats": {
+                  "TOT": "1",
+                  "SOLO": "1",
+                  "SACKS": "0",
+                  "TFL": "0",
+                  "PD": "0"
+                }
+              },
+              {
+                "name": "Kyndrich Breedlove",
+                "player_url": "https://www.espn.com/college-football/player/_/id/4612200/kyndrich-breedlove",
+                "player_id": "4612200",
+                "jersey": "5",
+                "stats": {
+                  "TOT": "1",
+                  "SOLO": "1",
+                  "SACKS": "0",
+                  "TFL": "0",
+                  "PD": "0"
+                }
+              },
+              {
+                "name": "Keith Abney II",
+                "player_url": "https://www.espn.com/college-football/player/_/id/5093004/keith-abney-ii",
+                "player_id": "5093004",
+                "jersey": "1",
+                "stats": {
+                  "TOT": "1",
+                  "SOLO": "1",
+                  "SACKS": "0",
+                  "TFL": "0",
+                  "PD": "1"
+                }
+              }
+            ],
+            "team_totals": {
+              "TOT": "53",
+              "SOLO": "33",
+              "SACKS": "6",
+              "TFL": "13",
+              "PD": "5",
+              "TD": ""
+            }
+          },
+          "interceptions": {
+            "players": [
+              {
+                "name": "Martell Hughes",
+                "player_url": "https://www.espn.com/college-football/player/_/id/5147229/martell-hughes",
+                "player_id": "5147229",
+                "jersey": "18",
+                "stats": {
+                  "INT": "1",
+                  "YDS": "6",
+                  "TD": "0"
+                }
+              },
+              {
+                "name": "Adrian Wilson",
+                "player_url": "https://www.espn.com/college-football/player/_/id/5027539/adrian-wilson",
+                "player_id": "5027539",
+                "jersey": "6",
+                "stats": {
+                  "INT": "1",
+                  "YDS": "5",
+                  "TD": "0"
+                }
+              }
+            ],
+            "team_totals": {
+              "INT": "2",
+              "YDS": "11",
+              "TD": "0"
+            }
+          },
+          "kicking": {
+            "players": [
+              {
+                "name": "Jesus Gomez",
+                "player_url": "https://www.espn.com/college-football/player/_/id/4886806/jesus-gomez",
+                "player_id": "4886806",
+                "jersey": "35",
+                "stats": {
+                  "FG": "2/4",
+                  "PCT": "50.0",
+                  "LONG": "26",
+                  "XP": "3/3",
+                  "PTS": "9"
+                }
+              }
+            ],
+            "team_totals": {
+              "FG": "2/4",
+              "PCT": "50.0",
+              "LONG": "26",
+              "XP": "3/3",
+              "PTS": "9"
+            }
+          },
+          "punting": {
+            "players": [
+              {
+                "name": "Matt McKenzie",
+                "player_url": "https://www.espn.com/college-football/player/_/id/5296141/matt-mckenzie",
+                "player_id": "5296141",
+                "jersey": "34",
+                "stats": {
+                  "NO": "2",
+                  "YDS": "55",
+                  "AVG": "27.5",
+                  "TB": "0",
+                  "In 20": "0",
+                  "LONG": "29"
+                }
+              }
+            ],
+            "team_totals": {
+              "NO": "2",
+              "YDS": "55",
+              "AVG": "27.5",
+              "TB": "0",
+              "In 20": "0",
+              "LONG": "29"
+            }
+          }
+        },
+        "TCU Kick": {
+          "returns": {
+            "players": [
+              {
+                "name": "Jon Denman",
+                "player_url": "https://www.espn.com/college-football/player/_/id/5214401/jon-denman",
+                "player_id": "5214401",
+                "jersey": "13",
+                "stats": {
+                  "NO": "1",
+                  "YDS": "12",
+                  "AVG": "12.0",
+                  "LONG": "12",
+                  "TD": "0"
+                }
+              }
+            ],
+            "team_totals": {
+              "NO": "1",
+              "YDS": "12",
+              "AVG": "12.0",
+              "LONG": "12",
+              "TD": "0"
+            }
+          }
+        },
+        "Arizona State Kick": {
+          "returns": {
+            "players": [
+              {
+                "name": "Khamari Anderson",
+                "player_url": "https://www.espn.com/college-football/player/_/id/4917619/khamari-anderson",
+                "player_id": "4917619",
+                "jersey": "15",
+                "stats": {
+                  "NO": "1",
+                  "YDS": "8",
+                  "AVG": "8.0",
+                  "LONG": "8",
+                  "TD": "0"
+                }
+              },
+              {
+                "name": "Cameron Harpole",
+                "player_url": "https://www.espn.com/college-football/player/_/id/4684068/cameron-harpole",
+                "player_id": "4684068",
+                "jersey": "9",
+                "stats": {
+                  "NO": "1",
+                  "YDS": "5",
+                  "AVG": "5.0",
+                  "LONG": "5",
+                  "TD": "0"
+                }
+              }
+            ],
+            "team_totals": {
+              "NO": "2",
+              "YDS": "13",
+              "AVG": "6.5",
+              "LONG": "8",
+              "TD": "0"
+            }
+          }
+        },
+        "TCU Punt": {
+          "returns": {
+            "players": [],
+            "team_totals": {}
+          }
+        },
+        "Arizona State Punt": {
+          "returns": {
+            "players": [],
+            "team_totals": {}
+          }
+        }
+      }
+    }
+  }
+}

@@ -1,5 +1,6 @@
-import { useState, useCallback, useMemo } from 'react';
+import { useState, useCallback, useMemo, useEffect } from 'react';
 import CoordinateMapperService from '../services/CoordinateMapperService';
+import CoordinateMapperApiClient from '../services/CoordinateMapperApiClient';
 
 const useDetectionData = () => {
     const [detections, setDetections] = useState([]);
@@ -9,11 +10,54 @@ const useDetectionData = () => {
     const [imageDimensions, setImageDimensions] = useState({ width: 1280, height: 600 });
     const [isProcessing, setIsProcessing] = useState(false);
     const [highlightedIndex, setHighlightedIndex] = useState(null);
+    const [backendStatus, setBackendStatus] = useState('unknown'); // 'online', 'offline', 'unknown'
+    const [processingMode, setProcessingMode] = useState('auto'); // 'backend', 'local', 'auto'
 
-    // Initialize coordinate mapper service
+    // Initialize coordinate mapper services
     const coordinateMapper = useMemo(() => new CoordinateMapperService(), []);
+    const apiClient = useMemo(() => new CoordinateMapperApiClient(), []);
 
-    // Process new detections and map coordinates
+    // Check backend connectivity on mount
+    useEffect(() => {
+        const checkBackendHealth = async () => {
+            try {
+                const healthResult = await apiClient.healthCheck();
+                setBackendStatus('online');
+                console.log('🟢 Backend API is available:', healthResult);
+            } catch (error) {
+                setBackendStatus('offline');
+                console.log('🔴 Backend API is offline, will use local processing:', error.message);
+            }
+        };
+
+        checkBackendHealth();
+    }, [apiClient]);
+
+    // Process detections using backend API or local processing
+    const processDetectionsWithBackend = useCallback(async (detectionData) => {
+        try {
+            console.log('🌐 Processing with backend API...');
+            const result = await apiClient.processDetections(detectionData);
+            
+            // Backend returns the full result structure
+            return {
+                mappedData: result.mappedData,
+                lineOfScrimmageX: result.lineOfScrimmageX,
+                fieldDims: result.fieldDimensions
+            };
+        } catch (error) {
+            console.error('Backend processing failed:', error);
+            throw error;
+        }
+    }, [apiClient]);
+
+    // Process detections using local service
+    const processDetectionsLocally = useCallback((detectionData) => {
+        console.log('🏠 Processing locally...');
+        return coordinateMapper.processDetections(detectionData);
+    }, [coordinateMapper]);
+
+    // Main processing function that chooses backend vs local
     const processDetections = useCallback(async (newDetections, imgDimensions = null) => {
         setIsProcessing(true);
         
@@ -26,7 +70,26 @@ const useDetectionData = () => {
             // Map coordinates if we have detections
             if (newDetections && newDetections.length > 0) {
                 const detectionData = { predictions: newDetections };
-                const coordinateResults = coordinateMapper.processDetections(detectionData);
+                let coordinateResults;
+
+                // Choose processing method based on mode and backend status
+                if (processingMode === 'local') {
+                    coordinateResults = processDetectionsLocally(detectionData);
+                } else if (processingMode === 'backend') {
+                    coordinateResults = await processDetectionsWithBackend(detectionData);
+                } else { // auto mode
+                    if (backendStatus === 'online') {
+                        try {
+                            coordinateResults = await processDetectionsWithBackend(detectionData);
+                        } catch (error) {
+                            console.log('🔄 Backend failed, falling back to local processing');
+                            setBackendStatus('offline');
+                            coordinateResults = processDetectionsLocally(detectionData);
+                        }
+                    } else {
+                        coordinateResults = processDetectionsLocally(detectionData);
+                    }
+                }
                 
                 setMappedData(coordinateResults.mappedData);
                 setLineOfScrimmage(coordinateResults.lineOfScrimmageX);
@@ -41,7 +104,7 @@ const useDetectionData = () => {
         } finally {
             setIsProcessing(false);
         }
-    }, [coordinateMapper]);
+    }, [coordinateMapper, apiClient, backendStatus, processingMode, processDetectionsWithBackend, processDetectionsLocally]);
 
     // Clear all data
     const clearAll = useCallback(() => {
@@ -63,16 +126,58 @@ const useDetectionData = () => {
         setHighlightedIndex(null);
     }, []);
 
-    // Export mapped data
-    const exportMappedData = useCallback(() => {
+    // Export mapped data (with backend integration)
+    const exportMappedData = useCallback(async () => {
         if (!mappedData) {
             throw new Error('No mapped data available');
         }
         
-        const timestamp = new Date().toISOString().replace(/[:.]/g, '-');
-        const filename = `football_coordinates_${timestamp}.json`;
-        coordinateMapper.exportToJSON(mappedData, filename);
-    }, [mappedData, coordinateMapper]);
+        try {
+            // Try backend export first if available
+            if (backendStatus === 'online' && processingMode !== 'local') {
+                const timestamp = new Date().toISOString().replace(/[:.]/g, '-');
+                const filename = `football_coordinates_${timestamp}.json`;
+                
+                try {
+                    const exportResult = await apiClient.exportToJSON(mappedData, filename);
+                    console.log('✅ Data exported to backend:', exportResult);
+                    
+                    // Optionally download the file
+                    const downloadUrl = apiClient.getDownloadUrl(filename);
+                    window.open(downloadUrl, '_blank');
+                    return;
+                } catch (error) {
+                    console.log('🔄 Backend export failed, falling back to local export');
+                }
+            }
+            
+            // Fallback to local export
+            const timestamp = new Date().toISOString().replace(/[:.]/g, '-');
+            const filename = `football_coordinates_${timestamp}.json`;
+            coordinateMapper.exportToJSON(mappedData, filename);
+        } catch (error) {
+            console.error('Export failed:', error);
+            throw error;
+        }
+    }, [mappedData, coordinateMapper, apiClient, backendStatus, processingMode]);
+
+    // Set processing mode
+    const setProcessingModeCallback = useCallback((mode) => {
+        setProcessingMode(mode);
+        console.log(`🔧 Processing mode set to: ${mode}`);
+    }, []);
+
+    // Test backend connection
+    const testBackendConnection = useCallback(async () => {
+        try {
+            const result = await apiClient.testConnection();
+            setBackendStatus(result.connected ? 'online' : 'offline');
+            return result;
+        } catch (error) {
+            setBackendStatus('offline');
+            throw error;
+        }
+    }, [apiClient]);
 
     // Calculate statistics
     const statistics = useMemo(() => {
@@ -133,6 +238,8 @@ const useDetectionData = () => {
         isProcessing,
         highlightedIndex,
         statistics,
+        backendStatus,
+        processingMode,
 
         // Actions
         processDetections,
@@ -140,6 +247,8 @@ const useDetectionData = () => {
         highlightDetection,
         clearHighlights,
         exportMappedData,
+        setProcessingModeCallback,
+        testBackendConnection,
 
         // Getters
         getOffensivePlayers,
@@ -148,7 +257,8 @@ const useDetectionData = () => {
         getMappedPlayerById,
 
         // Utils
-        coordinateMapper
+        coordinateMapper,
+        apiClient
     };
 };
 

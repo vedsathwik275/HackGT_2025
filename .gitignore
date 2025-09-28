@@ -14,7 +14,19 @@ uv.lock
 // ignore .env.development.local
 .env.development.local
 
+
 // ignore outputs
 nfl-field-mapper-mobile/backend/generated_content
 nfl-field-mapper-mobile/backend/input_content
 *__pycache__/
+
+//hackgt
+hackgt
+
+//hackgt/bin
+hackgt/bin
+
+//hackgt/lib/python3.12/site-packages
+hackgt/lib/python3.12/site-packages
+
+//hackgt/lib/python3.12/site-packages/col_full_test.py

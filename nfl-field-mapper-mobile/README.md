@@ -1,3 +1,30 @@
+# NFL Field Mapper Mobile
+
+## 🆕 Streamlined Camera Workflow
+
+The app has been completely redesigned for a simple, camera-focused user experience:
+
+### User Flow:
+1. **Home Screen**: Shows capture button and previous play history
+2. **Camera Screen**: Take photo of NFL field with guided frame
+3. **Photo Review**: Choose to Analyze or Retake the photo  
+4. **Analysis Screen**: View player positions with field visualization and save plays
+
+### Key Features:
+- **Floating Capture Button**: Always accessible from any screen (except camera/review)
+- **AI Integration**: Automatic player detection using Roboflow API
+- **Backend Mapping**: Real-time coordinate mapping via backend service
+- **Play Saving**: Save and log play analysis data (JSON format)
+- **Clean Navigation**: Simple state-based screen navigation
+
+### Technical Implementation:
+- **Screens**: Home, Camera, PhotoReview, Analyze
+- **Components**: FloatingCaptureButton, existing visualization components
+- **Hooks**: useDetectionData, useImageProcessor (integrated with new workflow)
+- **Camera**: Expo Camera with permissions handling
+
+---
+
 # 🏈 NFL Field Detection Mapper (React Native)
 
 A React Native mobile application for detecting NFL players and referees in football images, with automatic coordinate mapping to field positions and team classification.
@@ -22,6 +49,27 @@ A React Native mobile application for detecting NFL players and referees in foot
 - npm or yarn
 - Expo CLI (`npm install -g @expo/cli`)
 - iOS Simulator (for iOS development) or Android Studio (for Android development)
+- **Backend Server**: The app now requires a backend server for coordinate processing
+
+### Backend Setup (Required)
+
+⚠️ **Important**: The mobile app now requires the backend server to be running for coordinate mapping functionality.
+
+1. **Start the backend server**:
+   ```bash
+   cd ../backend
+   npm install
+   npm run dev
+   ```
+
+2. **Verify backend is running**:
+   - Open browser to `http://localhost:3000/health`
+   - Should show: `{"status":"OK","service":"NFL Field Mapper Backend"}`
+
+3. **Backend features**:
+   - Processes coordinate mapping on server
+   - Handles file exports and downloads
+   - Provides real-time connection status in app
 
 ### Installation
 
@@ -90,6 +138,8 @@ npx eas build --platform all
 - **🔄 Pull-to-Refresh**: Refresh data with pull gesture
 - **📳 Haptic Feedback**: Touch feedback for better user experience
 - **🔔 Push Notifications**: Status updates and completion alerts
+- **🔌 Backend Integration**: Real-time server connection monitoring
+- **☁️ Cloud Processing**: Coordinate calculations handled on backend server
 
 ## 🏗️ Architecture
 
@@ -110,7 +160,8 @@ hooks/
 └── useImageProcessor.js    # Image processing and API calls
 
 services/
-└── CoordinateMapperService.js  # Coordinate mapping logic
+├── CoordinateMapperService.js      # DEPRECATED - moved to backend
+└── CoordinateMapperApiClient.js    # API client for backend communication
 ```
 
 ### Key Technologies

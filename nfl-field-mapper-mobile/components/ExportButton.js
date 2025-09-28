@@ -1,13 +1,29 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { View, Text, TouchableOpacity, StyleSheet, Alert } from 'react-native';
 
 const ExportButton = ({ onExportData, disabled = false }) => {
-  const handleExport = () => {
+  const [isExporting, setIsExporting] = useState(false);
+
+  const handleExport = async () => {
+    if (isExporting) return;
+    
+    setIsExporting(true);
     try {
-      onExportData();
-      Alert.alert('Success', 'Data exported successfully!');
+      const result = await onExportData();
+      
+      if (result && result.success) {
+        Alert.alert(
+          '✅ Export Successful!', 
+          `File: ${result.filename}\nSize: ${result.size} bytes`,
+          [{ text: 'OK' }]
+        );
+      } else if (result && !result.success) {
+        Alert.alert('❌ Export Failed', result.error || 'Unknown error occurred');
+      }
     } catch (error) {
-      Alert.alert('Error', `Failed to export data: ${error.message}`);
+      Alert.alert('❌ Export Error', `Failed to export data: ${error.message}`);
+    } finally {
+      setIsExporting(false);
     }
   };
 
@@ -18,11 +34,16 @@ const ExportButton = ({ onExportData, disabled = false }) => {
   return (
     <View style={styles.container}>
       <TouchableOpacity 
-        style={[styles.exportButton, disabled && styles.disabledButton]} 
+        style={[
+          styles.exportButton, 
+          (disabled || isExporting) && styles.disabledButton
+        ]} 
         onPress={handleExport}
-        disabled={disabled}
+        disabled={disabled || isExporting}
       >
-        <Text style={styles.exportButtonText}>📤 Export Data</Text>
+        <Text style={styles.exportButtonText}>
+          {isExporting ? '⏳ Exporting...' : '📤 Export Data'}
+        </Text>
       </TouchableOpacity>
     </View>
   );

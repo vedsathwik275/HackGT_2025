@@ -2,7 +2,17 @@ import * as FileSystem from 'expo-file-system/legacy';
 import * as Sharing from 'expo-sharing';
 
 /**
- * CoordinateMapperService.js
+ * @deprecated This service has been moved to the backend.
+ * Use CoordinateMapperApiClient instead for all coordinate mapping operations.
+ * 
+ * This file is kept for reference only and should not be used in production.
+ * The functionality has been migrated to an Express.js backend service.
+ * 
+ * Migration date: $(date)
+ * Replacement: ../services/CoordinateMapperApiClient.js
+ * Backend location: ../../backend/services/CoordinateMapperService.js
+ * 
+ * CoordinateMapperService.js (DEPRECATED)
  * React Native service for football player coordinate mapping
  * Converts pixel coordinates to field-relative coordinates in yards
  */
