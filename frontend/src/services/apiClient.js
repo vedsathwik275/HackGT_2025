@@ -10,7 +10,7 @@ class LiveDataApiClient {
       timeout: 120000,
       headers: {
         'Content-Type': 'application/json',
-      },
+      }, 
     });
 
     // Request interceptor for logging
